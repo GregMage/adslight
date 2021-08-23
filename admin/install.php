@@ -43,7 +43,7 @@ if (!empty($action)) {
 }
 /*
 $action = '';
-if (\Xmf\Request::hasVar('action', 'POST')) {
+if (Request::hasVar('action', 'POST')) {
     $action = $_POST['action'];
     $file   = $_POST['file'];
 }

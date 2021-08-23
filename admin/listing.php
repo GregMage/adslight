@@ -34,10 +34,9 @@ $op    = Request::getString('op', 'list');
 $order = Request::getString('order', 'desc');
 $sort  = Request::getString('sort', '');
 
-//$xoTheme->addStylesheet('browse.php?Frameworks/jquery/plugins/css/tablesorter/theme.blue.min.css');
-$xoTheme->addStylesheet($helper->url( 'assets/css/tablesorter/theme.blue.min.css'));
-
 $moduleDirName = \basename(\dirname(__DIR__));
+$GLOBALS['xoopsTpl']->assign('mod_url', XOOPS_URL . '/modules/' . $moduleDirName);
+$xoTheme->addStylesheet($helper->url( 'assets/js/tablesorter/css/theme.blue.css'));
 
 $adminObject->displayNavigation(basename(__FILE__));
 $permHelper = new \Xmf\Module\Helper\Permission();

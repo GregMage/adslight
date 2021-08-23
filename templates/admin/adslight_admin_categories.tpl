@@ -14,8 +14,26 @@
                 <div id="pagenav"><{$pagenav|default:''}></div>
             </div>
 
+            <!-- pager -->
+            <div id="pager" class="pager">
+                <form>
+                    <img src="<{$mod_url}>../assets/js/tablesorter/css/images/first.png" class="first"/>
+                    <img src="<{$mod_url}>../assets/js/tablesorter/css/images/prev.png" class="prev"/>
+                    <!-- the "pagedisplay" can be any element, including an input -->
+                    <span class="pagedisplay" data-pager-output-filtered="{startRow:input} &ndash; {endRow} / {filteredRows} of {totalRows} total rows"></span>
+                    <img src="<{$mod_url}>../assets/js/tablesorter/css/images/next.png" class="next"/>
+                    <img src="<{$mod_url}>../assets/js/tablesorter/css/images/last.png" class="last"/>
+                    <select class="pagesize">
+                        <option value="10">10</option>
+                        <option value="20">20</option>
+                        <option value="30">30</option>
+                        <option value="40">40</option>
+                        <option value="all">All Rows</option>
+                    </select>
+                </form>
+            </div>
 
-            <table id="sortTable" cellspacing="1" class="tablesorter-blue " cellpadding="0" cellspacing="0" width="100%">
+            <table id="sortTable" class="tablesorter-blue" cellspacing="1" cellpadding="0" width="100%">
                 <thead>
                 <tr>
                     <th align="center" width="5%"><input name="allbox" title="allbox" id="allbox" onclick="xoopsCheckAll('select', 'allbox');" type="checkbox" title="Check All" value="Check All"></th>
@@ -49,17 +67,39 @@
                         <td class='left'><{$categoriesArray.affprice}></td>
                         <td class='left'><{$categoriesArray.cat_moderate}></td>
                         <td class='left'><{$categoriesArray.moderate_subcat}></td>
-
-
                         <td class="center width5"><{$categoriesArray.edit_delete}></td>
                     </tr>
                 <{/foreach}>
+
+
                 </tbody>
             </table>
+
+
+            <!-- pager -->
+            <div id="pager" class="pager">
+                <form>
+                    <img src="<{$mod_url}>../assets/js/tablesorter/css/images/first.png" class="first"/>
+                    <img src="<{$mod_url}>../assets/js/tablesorter/css/images/prev.png" class="prev"/>
+                    <!-- the "pagedisplay" can be any element, including an input -->
+                    <span class="pagedisplay" data-pager-output-filtered="{startRow:input} &ndash; {endRow} / {filteredRows} of {totalRows} total rows"></span>
+                    <img src="<{$mod_url}>../assets/js/tablesorter/css/images/next.png" class="next"/>
+                    <img src="<{$mod_url}>../assets/js/tablesorter/css/images/last.png" class="last"/>
+                    <select class="pagesize">
+                        <option value="10">10</option>
+                        <option value="20">20</option>
+                        <option value="30">30</option>
+                        <option value="40">40</option>
+                        <option value="all">All Rows</option>
+                    </select>
+                </form>
+            </div>
+
+
             <br>
             <br>
             <{else}>
-            <table class="tablesorter-blue" cellspacing="1" width="100%" cellspacing="1" class="outer">
+            <table id="sortTable" class="tablesorter-blue" cellspacing="1" width="100%" cellspacing="1" class="outer">
                 <tr>
 
                     <th align="center" width="5%"><input name="allbox" title="allbox" id="allbox" onclick="xoopsCheckAll('select', 'allbox');" type="checkbox" title="Check All" value="Check All"></th>

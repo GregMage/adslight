@@ -26,9 +26,9 @@ use Xmf\Request;
 require __DIR__ . '/admin_header.php';
 xoops_cp_header();
 //It recovered the value of argument op in URL$
-$op    = \Xmf\Request::getString('op', 'list');
-$order = \Xmf\Request::getString('order', 'desc');
-$sort  = \Xmf\Request::getString('sort', '');
+$op    = Request::getString('op', 'list');
+$order = Request::getString('order', 'desc');
+$sort  = Request::getString('sort', '');
 
 $moduleDirName = \basename(\dirname(__DIR__));
 
@@ -52,7 +52,7 @@ switch ($op) {
         if (!$GLOBALS['xoopsSecurity']->check()) {
             redirect_header('iplog.php', 3, implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
         }
-        if (0 !== \Xmf\Request::getInt('ip_id', 0)) {
+        if (0 !== Request::getInt('ip_id', 0)) {
             $iplogObject = $iplogHandler->get(Request::getInt('ip_id', 0));
         } else {
             $iplogObject = $iplogHandler->create();
@@ -86,7 +86,7 @@ switch ($op) {
 
     case 'delete':
         $iplogObject = $iplogHandler->get(Request::getString('ip_id', ''));
-        if (1 == \Xmf\Request::getInt('ok', 0)) {
+        if (1 == Request::getInt('ok', 0)) {
             if (!$GLOBALS['xoopsSecurity']->check()) {
                 redirect_header('iplog.php', 3, implode(', ', $GLOBALS['xoopsSecurity']->getErrors()));
             }
@@ -102,7 +102,7 @@ switch ($op) {
 
     case 'clone':
 
-        $id_field = \Xmf\Request::getString('ip_id', '');
+        $id_field = Request::getString('ip_id', '');
 
         if ($utility::cloneRecord('adslight_iplog', 'ip_id', $id_field)) {
             redirect_header('iplog.php', 3, AM_ADSLIGHT_CLONED_OK);
@@ -115,7 +115,7 @@ switch ($op) {
     default:
         $adminObject->addItemButton(AM_ADSLIGHT_ADD_IPLOG, 'iplog.php?op=new', 'add');
         $adminObject->displayButton('left');
-        $start                = \Xmf\Request::getInt('start', 0);
+        $start                = Request::getInt('start', 0);
         $iplogPaginationLimit = $helper->getConfig('userpager');
 
         $criteria = new \CriteriaCompo();

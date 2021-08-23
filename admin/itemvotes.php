@@ -26,14 +26,13 @@ use Xmf\Request;
 require __DIR__ . '/admin_header.php';
 xoops_cp_header();
 //It recovered the value of argument op in URL$
-$op    = \Xmf\Request::getString('op', 'list');
-$order = \Xmf\Request::getString('order', 'desc');
-$sort  = \Xmf\Request::getString('sort', '');
-
-//$xoTheme->addStylesheet('browse.php?Frameworks/jquery/plugins/css/tablesorter/theme.blue.min.css');
-$xoTheme->addStylesheet($helper->url( 'assets/css/tablesorter/theme.blue.min.css'));
+$op    = Request::getString('op', 'list');
+$order = Request::getString('order', 'desc');
+$sort  = Request::getString('sort', '');
 
 $moduleDirName = \basename(\dirname(__DIR__));
+$GLOBALS['xoopsTpl']->assign('mod_url', XOOPS_URL . '/modules/' . $moduleDirName);
+$xoTheme->addStylesheet($helper->url( 'assets/js/tablesorter/css/theme.blue.css'));
 
 $adminObject->displayNavigation(basename(__FILE__));
 /** @var \Xmf\Module\Helper\Permission $permHelper */
@@ -55,7 +54,7 @@ switch ($op) {
         if (!$GLOBALS['xoopsSecurity']->check()) {
             redirect_header('itemvotes.php', 3, implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
         }
-        if (0 !== \Xmf\Request::getInt('ratingid', 0)) {
+        if (0 !== Request::getInt('ratingid', 0)) {
             $itemvotesObject = $itemvotesHandler->get(Request::getInt('ratingid', 0));
         } else {
             $itemvotesObject = $itemvotesHandler->create();
@@ -89,7 +88,7 @@ switch ($op) {
 
     case 'delete':
         $itemvotesObject = $itemvotesHandler->get(Request::getString('ratingid', ''));
-        if (1 == \Xmf\Request::getInt('ok', 0)) {
+        if (1 == Request::getInt('ok', 0)) {
             if (!$GLOBALS['xoopsSecurity']->check()) {
                 redirect_header('itemvotes.php', 3, implode(', ', $GLOBALS['xoopsSecurity']->getErrors()));
             }
@@ -105,7 +104,7 @@ switch ($op) {
 
     case 'clone':
 
-        $id_field = \Xmf\Request::getString('ratingid', '');
+        $id_field = Request::getString('ratingid', '');
 
         if ($utility::cloneRecord('adslight_itemvotes', 'ratingid', $id_field)) {
             redirect_header('itemvotes.php', 3, AM_ADSLIGHT_CLONED_OK);
@@ -118,7 +117,7 @@ switch ($op) {
     default:
         $adminObject->addItemButton(AM_ADSLIGHT_ADD_ITEMVOTES, 'itemvotes.php?op=new', 'add');
         $adminObject->displayButton('left');
-        $start                    = \Xmf\Request::getInt('start', 0);
+        $start                    = Request::getInt('start', 0);
         $itemvotesPaginationLimit = $helper->getConfig('userpager');
 
         $criteria = new \CriteriaCompo();

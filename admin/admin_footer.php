@@ -33,10 +33,21 @@ echo "<div class='adminfooter'>\n" . "  <div style='text-align: center;'>\n" . "
 //}
 
 
+global  $xoTheme;
+
+if (!isset($xoTheme)) {
+    include_once $GLOBALS['xoops']->path('/class/theme.php');
+    $GLOBALS['xoTheme'] = new \xos_opal_Theme();
+    $xoTheme = $GLOBALS['xoTheme'];
+}
+
 $xoTheme->addScript('browse.php?Frameworks/jquery/jquery.js');
 //$xoTheme->addScript('browse.php?Frameworks/jquery/plugins/jquery.tablesorter.js');
-$xoTheme->addScript($helper->url( 'assets/js/tablesorter/jquery.tablesorter.js'));
-$xoTheme->addScript($helper->url( 'assets/js/tablesorter/jquery.tablesorter.widgets.js'));
+$xoTheme->addScript($helper->url( 'assets/js/tablesorter/js/jquery.tablesorter.js'));
+$xoTheme->addScript($helper->url( 'assets/js/tablesorter/js/jquery.tablesorter.widgets.js'));
+$xoTheme->addScript($helper->url( 'assets/js/tablesorter/js/extras/jquery.tablesorter.pager.min.js'));
+$xoTheme->addScript($helper->url( 'assets/js/tablesorter/js/widgets/widget-pager.min.js'));
+
 $xoTheme->addScript($helper->url( 'assets/js/functions.js'));
 
 xoops_cp_footer();
