@@ -75,8 +75,9 @@ class CategoriesHandler extends \XoopsPersistableObjectHandler
             return $this->getCount();
         }
         $helper   = Helper::getInstance();
+        /** @var \Xmf\Module\Helper\Permission $permHelper */
         $permHelper = $this->helper->getHandler('Permission');
-        $criteria = new \CriteriaCompo();
+        $criteria   = new \CriteriaCompo();
         if (isset($pid) && (-1 != $pid)) {
             $criteria->add(new \Criteria('pid', $pid));
             if (!$helper->isUserAdmin()) {
