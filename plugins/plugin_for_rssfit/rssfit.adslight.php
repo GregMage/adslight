@@ -69,7 +69,7 @@ class RssfitAdslight
 
     /**
      * @param $obj
-     * @return bool
+     * @return bool|array
      */
     public function &grabEntries($obj)
     {

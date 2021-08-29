@@ -34,7 +34,8 @@ xoops_cp_header();
 $adminObject->displayNavigation(basename(__FILE__));
 echo '<br><br>';
 global $xoopsDB;
-$countresult = $xoopsDB->query('SELECT COUNT(*) FROM ' . $xoopsDB->prefix('adslight_categories'));
+$sql         = 'SELECT COUNT(*) FROM ' . $xoopsDB->prefix('adslight_categories');
+$countresult = $xoopsDB->query($sql);
 [$cat_row] = $xoopsDB->fetchRow($countresult);
 $cat_rows = $cat_row;
 
@@ -62,7 +63,7 @@ if ('0' === $cat_rows) {
          . '>'
          . _MI_ADSLIGHT_PREMIUM
          . '</option></select></td><td></tr></table></form>';
-    $module_id = $xoopsModule->getVar('mid');
+    $moduleId = $xoopsModule->getVar('mid');
 
     switch ($permtoset) {
         case 1:
@@ -82,7 +83,7 @@ if ('0' === $cat_rows) {
             break;
     }
 
-    $permform = new \XoopsGroupPermForm($title_of_form, $module_id, $perm_name, $perm_desc, 'admin/groupperms.php');
+    $permform = new \XoopsGroupPermForm($title_of_form, $moduleId, $perm_name, $perm_desc, 'admin/groupperms.php');
     $cattree  = new Tree($xoopsDB->prefix('adslight_categories'), 'cid', 'pid');
     $allcats  = $cattree->getCategoryList();
     foreach ($allcats as $cid => $category) {

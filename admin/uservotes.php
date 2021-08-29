@@ -22,9 +22,16 @@ declare(strict_types=1);
  */
 
 use Xmf\Request;
+/** @var Admin $adminObject */
+/** @var Helper $helper */
 
 require __DIR__ . '/admin_header.php';
 xoops_cp_header();
+
+global $xoopsModule, $xoopsDB, $xoopsConfig, $xoTheme;
+
+$uservotesHandler = $helper->getHandler('Uservotes');
+
 //It recovered the value of argument op in URL$
 $op    = Request::getString('op', 'list');
 $order = Request::getString('order', 'desc');
@@ -32,10 +39,9 @@ $sort  = Request::getString('sort', '');
 
 $moduleDirName = \basename(\dirname(__DIR__));
 $GLOBALS['xoopsTpl']->assign('mod_url', XOOPS_URL . '/modules/' . $moduleDirName);
-$xoTheme->addStylesheet($helper->url( 'assets/js/tablesorter/css/theme.blue.css'));
+$xoTheme->addStylesheet($helper->url('assets/js/tablesorter/css/theme.blue.css'));
 
 $adminObject->displayNavigation(basename(__FILE__));
-/** @var \Xmf\Module\Helper\Permission $permHelper */
 $permHelper = new \Xmf\Module\Helper\Permission();
 $uploadDir  = XOOPS_UPLOAD_PATH . "/$moduleDirName/uservotes/";
 $uploadUrl  = XOOPS_UPLOAD_URL . "/$moduleDirName/uservotes/";
@@ -103,7 +109,6 @@ switch ($op) {
         break;
 
     case 'clone':
-
         $id_field = Request::getString('ratingid', '');
 
         if ($utility::cloneRecord('adslight_uservotes', 'ratingid', $id_field)) {

@@ -13,6 +13,7 @@ namespace XoopsModules\Adslight;
  but WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
+
 /**
  * Module: Adslight
  *
@@ -24,46 +25,41 @@ namespace XoopsModules\Adslight;
 
 use XoopsModules\Adslight;
 
-
-    $moduleDirName = basename(dirname(__DIR__));
+$moduleDirName = \basename(\dirname(__DIR__));
 
 $permHelper = new \Xmf\Module\Helper\Permission();
 
-
-
-
-        /**
-         * Class UservotesHandler
-         */
+/**
+ * Class UservotesHandler
+ */
 class UservotesHandler extends \XoopsPersistableObjectHandler
 {
-
     /**
      * @var Helper
      */
     public $helper;
-    
+
     /**
      * Constructor
-     * @param null|\XoopsDatabase $db
-     * @param null|\XoopsModules\Adslight\Helper $helper     
+     * @param \XoopsDatabase|null                $db
+     * @param \XoopsModules\Adslight\Helper|null $helper
      */
 
     public function __construct(\XoopsDatabase $db = null, $helper = null)
     {
-        /** @var \XoopsModules\Adslight\Helper $this->helper */
+        /** @var \XoopsModules\Adslight\Helper $this- >helper */
         $this->helper = $helper;
         parent::__construct($db, 'adslight_uservotes', Uservotes::class, 'ratingid', 'ratingid');
     }
-    
-     /**
+
+    /**
      * @param bool $isNew
      *
      * @return \XoopsObject
      */
     public function create($isNew = true)
     {
-        $obj = parent::create($isNew);
+        $obj         = parent::create($isNew);
         $obj->helper = $this->helper;
 
         return $obj;

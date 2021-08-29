@@ -30,6 +30,8 @@ use XoopsModules\Adslight\{
 require_once __DIR__ . '/admin_header.php';
 xoops_cp_header();
 
+global $xoopsModule, $xoopsDB, $xoopsConfig, $xoTheme;
+
 //if ( !is_readable(XOOPS_ROOT_PATH . "/Frameworks/art/functions.admin.php")) {
 //    adslight_adminmenu(6, "");
 //} else {

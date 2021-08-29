@@ -13,6 +13,7 @@ namespace XoopsModules\Adslight;
  but WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
+
 /**
  * Module: Adslight
  *
@@ -27,13 +28,14 @@ use XoopsModules\Adslight\Form;
 
 //$permHelper = new \Xmf\Module\Helper\Permission();
 
-
 /**
  * Class Iplog
  */
 class Iplog extends \XoopsObject
 {
-    public $helper, $permHelper;
+        public $helper;
+    public $permHelper;
+
     /**
      * Constructor
      *
@@ -42,17 +44,17 @@ class Iplog extends \XoopsObject
     public function __construct()
     {
         parent::__construct();
-//        /** @var  Adslight\Helper $helper */
-//        $this->helper = Adslight\Helper::getInstance();
-         $this->permHelper = new \Xmf\Module\Helper\Permission();
+        //        /** @var  Adslight\Helper $helper */
+        //        $this->helper = Adslight\Helper::getInstance();
+        $this->permHelper = new \Xmf\Module\Helper\Permission();
 
-        $this->initVar('ip_id', XOBJ_DTYPE_INT);
-        $this->initVar('lid', XOBJ_DTYPE_INT);
-        $this->initVar('date_created', XOBJ_DTYPE_INT);
-        $this->initVar('submitter', XOBJ_DTYPE_TXTBOX);
-        $this->initVar('ipnumber', XOBJ_DTYPE_TXTBOX);
-        $this->initVar('email', XOBJ_DTYPE_TXTBOX);
-     }
+        $this->initVar('ip_id', \XOBJ_DTYPE_INT);
+        $this->initVar('lid', \XOBJ_DTYPE_INT);
+        $this->initVar('date_created', \XOBJ_DTYPE_INT);
+        $this->initVar('submitter', \XOBJ_DTYPE_TXTBOX);
+        $this->initVar('ipnumber', \XOBJ_DTYPE_TXTBOX);
+        $this->initVar('email', \XOBJ_DTYPE_TXTBOX);
+    }
 
     /**
      * Get form
@@ -60,16 +62,16 @@ class Iplog extends \XoopsObject
      * @param null
      * @return Adslight\Form\IplogForm
      */
-    public function getForm()
+    public function getForm(): Form\IplogForm
     {
         $form = new Form\IplogForm($this);
         return $form;
     }
 
-        /**
+    /**
      * @return array|null
      */
-    public function getGroupsRead()
+    public function getGroupsRead(): ?array
     {
         //$permHelper = new \Xmf\Module\Helper\Permission();
         return $this->permHelper->getGroupsForItem('sbcolumns_read', $this->getVar('ip_id'));
@@ -78,16 +80,16 @@ class Iplog extends \XoopsObject
     /**
      * @return array|null
      */
-    public function getGroupsSubmit()
+    public function getGroupsSubmit(): ?array
     {
-          //$permHelper = new \Xmf\Module\Helper\Permission();
-          return $this->permHelper->getGroupsForItem('sbcolumns_submit', $this->getVar('ip_id'));
+        //$permHelper = new \Xmf\Module\Helper\Permission();
+        return $this->permHelper->getGroupsForItem('sbcolumns_submit', $this->getVar('ip_id'));
     }
 
     /**
      * @return array|null
      */
-    public function getGroupsModeration()
+    public function getGroupsModeration(): ?array
     {
         //$permHelper = new \Xmf\Module\Helper\Permission();
         return $this->permHelper->getGroupsForItem('sbcolumns_moderation', $this->getVar('ip_id'));

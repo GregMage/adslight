@@ -157,7 +157,6 @@ function xoops_module_update_adslight(\XoopsModule $module, $previousVersion = n
         $sql = 'DELETE FROM ' . $GLOBALS['xoopsDB']->prefix('tplsource') . " WHERE `tpl_source` LIKE '%" . $module->getVar('dirname', 'n') . "%'";
         $GLOBALS['xoopsDB']->queryF($sql);
 
-
         //delete block entries from the newblocks table
         $sql = 'DELETE FROM ' . $GLOBALS['xoopsDB']->prefix('newblocks') . " WHERE `dirname` = '" . $module->getVar('dirname', 'n') . "'";
         $GLOBALS['xoopsDB']->queryF($sql);

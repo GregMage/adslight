@@ -18,11 +18,14 @@ declare(strict_types=1);
  */
 
 use Xmf\Module\Admin;
+use XoopsModules\Adslight\Helper;
 
-$pathIcon32 = Admin::iconUrl('', 32);
+/** @var Helper $helper */
+
+$helper = Helper::getInstance();
+$pathIcon32 = Admin::iconUrl('', '32');
 
 echo "<div class='adminfooter'>\n" . "  <div style='text-align: center;'>\n" . "    <a href='https://xoops.org' rel='external'><img src='{$pathIcon32}/xoopsmicrobutton.gif' alt='XOOPS' title='XOOPS'></a>\n" . "  </div>\n" . '  ' . _AM_MODULEADMIN_ADMIN_FOOTER . "\n" . '</div>';
-
 
 //if (isset($GLOBALS['xoTheme'])) {
 //    $GLOBALS['xoTheme']->addScript("browse.php?Frameworks/jquery/jquery.js");
@@ -32,22 +35,21 @@ echo "<div class='adminfooter'>\n" . "  <div style='text-align: center;'>\n" . "
 //    echo '<link rel="stylesheet" type="text/css" href="' . XOOPS_URL . '/include/spectrum.css">';
 //}
 
-
-global  $xoTheme;
+global $xoTheme;
 
 if (!isset($xoTheme)) {
     include_once $GLOBALS['xoops']->path('/class/theme.php');
     $GLOBALS['xoTheme'] = new \xos_opal_Theme();
-    $xoTheme = $GLOBALS['xoTheme'];
+    $xoTheme            = $GLOBALS['xoTheme'];
 }
 
 $xoTheme->addScript('browse.php?Frameworks/jquery/jquery.js');
 //$xoTheme->addScript('browse.php?Frameworks/jquery/plugins/jquery.tablesorter.js');
-$xoTheme->addScript($helper->url( 'assets/js/tablesorter/js/jquery.tablesorter.js'));
-$xoTheme->addScript($helper->url( 'assets/js/tablesorter/js/jquery.tablesorter.widgets.js'));
-$xoTheme->addScript($helper->url( 'assets/js/tablesorter/js/extras/jquery.tablesorter.pager.min.js'));
-$xoTheme->addScript($helper->url( 'assets/js/tablesorter/js/widgets/widget-pager.min.js'));
+$xoTheme->addScript($helper->url('assets/js/tablesorter/js/jquery.tablesorter.js'));
+$xoTheme->addScript($helper->url('assets/js/tablesorter/js/jquery.tablesorter.widgets.js'));
+$xoTheme->addScript($helper->url('assets/js/tablesorter/js/extras/jquery.tablesorter.pager.min.js'));
+$xoTheme->addScript($helper->url('assets/js/tablesorter/js/widgets/widget-pager.min.js'));
 
-$xoTheme->addScript($helper->url( 'assets/js/functions.js'));
+$xoTheme->addScript($helper->url('assets/js/functions.js'));
 
 xoops_cp_footer();

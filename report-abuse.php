@@ -45,7 +45,8 @@ function ReportAbuse($lid): void
 
     $lid    = (int)$lid;
     $idd    = $idde = $iddee = '';
-    $result = $xoopsDB->query('SELECT lid, title, type FROM ' . $xoopsDB->prefix('adslight_listing') . ' WHERE lid=' . $xoopsDB->escape($lid));
+    $sql    = 'SELECT lid, title, type FROM ' . $xoopsDB->prefix('adslight_listing') . ' WHERE lid=' . $xoopsDB->escape($lid);
+    $result = $xoopsDB->query($sql);
     [$lid, $title, $type] = $xoopsDB->fetchRow($result);
 
     $GLOBALS['xoTheme']->addMeta('meta', 'robots', 'noindex, nofollow');
@@ -111,7 +112,8 @@ function MailAd($lid, $yname, $ymail, $fname, $fmail): void
     }
 
     $lid    = (int)$lid;
-    $result = $xoopsDB->query('SELECT lid, title, expire, type, desctext, tel, price, typeprice, date_created, email, submitter, town, country, photo FROM ' . $xoopsDB->prefix('adslight_listing') . ' WHERE lid=' . $xoopsDB->escape($lid));
+    $sql    = 'SELECT lid, title, expire, type, desctext, tel, price, typeprice, date_created, email, submitter, town, country, photo FROM ' . $xoopsDB->prefix('adslight_listing') . ' WHERE lid=' . $xoopsDB->escape($lid);
+    $result = $xoopsDB->query($sql);
     [$lid, $title, $expire, $type, $desctext, $tel, $price, $typeprice, $date_created, $email, $submitter, $town, $country, $photo] = $xoopsDB->fetchRow($result);
 
     $title     = $myts->addSlashes($title);

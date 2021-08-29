@@ -89,7 +89,6 @@ class Listing extends \XoopsObject
         return new Form\ListingForm($this);
     }
 
-
     public function getGroupsRead(): ?array
     {
         //$permHelper = new \Xmf\Module\Helper\Permission();
@@ -99,7 +98,6 @@ class Listing extends \XoopsObject
         );
     }
 
-
     public function getGroupsSubmit(): ?array
     {
         //$permHelper = new \Xmf\Module\Helper\Permission();
@@ -108,7 +106,6 @@ class Listing extends \XoopsObject
             $this->getVar('lid')
         );
     }
-
 
     public function getGroupsModeration(): ?array
     {

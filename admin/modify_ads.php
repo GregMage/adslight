@@ -28,6 +28,8 @@ use XoopsModules\Adslight\{
     Tree,
     Utility
 };
+/** @var Admin $adminObject */
+/** @var Helper $helper */
 
 require_once __DIR__ . '/admin_header.php';
 $op = Request::getString('op', 'list');
@@ -92,7 +94,8 @@ function index(): void
     }
 
     // Modify Annonces
-    [$numrows] = $xoopsDB->fetchRow($xoopsDB->query('SELECT COUNT(*) FROM ' . $xoopsDB->prefix('adslight_listing')));
+    $sql = 'SELECT COUNT(*) FROM ' . $xoopsDB->prefix('adslight_listing');
+    [$numrows] = $xoopsDB->fetchRow($xoopsDB->query($sql));
     if ($numrows > 0) {
         echo "<table width='100%' border='0' class='outer'><tr class='bg4'><td valign='top'>";
         echo '<form method="post" action="modify_ads.php">'
@@ -153,7 +156,7 @@ function modifyAds($lid): void
 
         xoops_load('XoopsLocal');
         $tempXoopsLocal = new \XoopsLocal();
-        //  For US currency with 2 numbers after the decimal comment out if you dont want 2 numbers after decimal
+        //  For US currency with 2 numbers after the decimal comment out if you don't want 2 numbers after decimal
         $priceFormatted = $tempXoopsLocal->number_format($price, 2, ',', ' ');
         //  For other countries uncomment the below line and comment out the above line
         //      $priceFormatted = $tempXoopsLocal->number_format($price);
@@ -208,15 +211,15 @@ function modifyAds($lid): void
              . '</tr>';
 
         echo "<tr><td class='head'>" . _AM_ADSLIGHT_STATUS . "</td><td class='head'><input type=\"radio\" name=\"status\" value=\"0\"";
-        if ('0' === $status) {
+        if (0 === (int)$status) {
             echo 'checked';
         }
         echo '>' . _AM_ADSLIGHT_ACTIVE . '&nbsp;&nbsp; <input type="radio" name="status" value="1"';
-        if ('1' === $status) {
+        if (1 === (int)$status) {
             echo 'checked';
         }
         echo '>' . _AM_ADSLIGHT_INACTIVE . '&nbsp;&nbsp; <input type="radio" name="status" value="2"';
-        if ('2' === $status) {
+        if (2 === (int)$status) {
             echo 'checked';
         }
         echo '>' . _AM_ADSLIGHT_SOLD . '</td></tr>';
@@ -231,8 +234,8 @@ function modifyAds($lid): void
         ////// Type d'annonce
         echo "<tr class='head' border='1'>
             <td>" . _AM_ADSLIGHT_TYPE . ' </td><td><select name="type">';
-
-        $result5 = $xoopsDB->query('SELECT nom_type, id_type FROM ' . $xoopsDB->prefix('adslight_type') . ' ORDER BY nom_type');
+        $sql     = 'SELECT nom_type, id_type FROM ' . $xoopsDB->prefix('adslight_type') . ' ORDER BY nom_type';
+        $result5 = $xoopsDB->query($sql);
         while ([$nom_type, $id_type] = $xoopsDB->fetchRow($result5)) {
             $sel = '';
             if ($id_type === $type) {
@@ -245,8 +248,8 @@ function modifyAds($lid): void
         ////// Condition
         echo "<tr class='head' border='1'>
             <td>" . _AM_ADSLIGHT_TYPE_CONDITION . ' </td><td><select name="typecondition">';
-
-        $result6 = $xoopsDB->query('SELECT nom_condition, id_condition FROM ' . $xoopsDB->prefix('adslight_condition') . ' ORDER BY nom_condition');
+        $sql     = 'SELECT nom_condition, id_condition FROM ' . $xoopsDB->prefix('adslight_condition') . ' ORDER BY nom_condition';
+        $result6 = $xoopsDB->query($sql);
         while ([$nom_condition, $id_condition] = $xoopsDB->fetchRow($result6)) {
             $sel = '';
             if ($id_condition === $typecondition) {
@@ -260,8 +263,8 @@ function modifyAds($lid): void
         echo "<tr class='head' border='1'><td>" . _AM_ADSLIGHT_PRICE2 . " </td><td><input type=\"text\" name=\"price\" size=\"20\" value=\"${price}\"> " . $GLOBALS['xoopsModuleConfig']['adslight_currency_symbol'] . '';
 
         //////// Price type
-
-        $resultx = $xoopsDB->query('SELECT nom_price, id_price FROM ' . $xoopsDB->prefix('adslight_price') . ' ORDER BY nom_price');
+        $sql     = 'SELECT nom_price, id_price FROM ' . $xoopsDB->prefix('adslight_price') . ' ORDER BY nom_price';
+        $resultx = $xoopsDB->query($sql);
 
         echo " <select name=\"typeprice\"><option value=\"{$id_price}\">{$nom_price}</option>";
         while ([$nom_price, $id_price] = $xoopsDB->fetchRow($resultx)) {
@@ -406,7 +409,8 @@ function listingDel($lid, $photo): void
     global $xoopsDB;
     $helper  = Helper::getInstance();
     $lid     = (int)$lid;
-    $result2 = $xoopsDB->query('SELECT p.url FROM ' . $xoopsDB->prefix('adslight_listing') . ' l LEFT JOIN ' . $xoopsDB->prefix('adslight_pictures') . " p  ON l.lid=p.lid WHERE l.lid={$lid}");
+    $sql     = 'SELECT p.url FROM ' . $xoopsDB->prefix('adslight_listing') . ' l LEFT JOIN ' . $xoopsDB->prefix('adslight_pictures') . " p  ON l.lid=p.lid WHERE l.lid={$lid}";
+    $result2 = $xoopsDB->query($sql);
     while ([$purl] = $xoopsDB->fetchRow($result2)) {
         if ($purl) {
             $destination = XOOPS_ROOT_PATH . '/uploads/adslight';
@@ -421,11 +425,13 @@ function listingDel($lid, $photo): void
             if (is_file("{$destination3}/resized_{$purl}")) {
                 unlink("{$destination3}/resized_{$purl}");
             }
-            $xoopsDB->query('DELETE FROM ' . $xoopsDB->prefix('adslight_pictures') . " WHERE lid={$lid}");
+            $sql = 'DELETE FROM ' . $xoopsDB->prefix('adslight_pictures') . " WHERE lid={$lid}";
+            $xoopsDB->query($sql);
         }
     }
 
-    $xoopsDB->query('DELETE FROM ' . $xoopsDB->prefix('adslight_listing') . " WHERE lid={$lid}");
+    $sql = 'DELETE FROM ' . $xoopsDB->prefix('adslight_listing') . " WHERE lid={$lid}";
+    $xoopsDB->query($sql);
     $helper->redirect('admin/modify_ads.php', 1, _AM_ADSLIGHT_ANNDEL);
 }
 

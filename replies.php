@@ -30,15 +30,18 @@ use XoopsModules\Adslight\{
 /** @var Helper $helper */
 
 require_once __DIR__ . '/header.php';
+
+global $xoopsModule, $xoopsDB, $xoopsConfig, $xoTheme;
+
 $myts      = \MyTextSanitizer::getInstance(); // MyTextSanitizer object
-$module_id = $xoopsModule->getVar('mid');
+$moduleId = $xoopsModule->getVar('mid');
 $groups    = $GLOBALS['xoopsUser'] instanceof \XoopsUser ? $GLOBALS['xoopsUser']->getGroups() : XOOPS_GROUP_ANONYMOUS;
 /** @var \XoopsGroupPermHandler $grouppermHandler */
 $grouppermHandler = xoops_getHandler('groupperm');
 $perm_itemid      = Request::getInt('item_id', 0, 'POST');
 
 //If no access
-if (!$grouppermHandler->checkRight('adslight_premium', $perm_itemid, $groups, $module_id)) {
+if (!$grouppermHandler->checkRight('adslight_premium', $perm_itemid, $groups, $moduleId)) {
     $helper->redirect('index.php', 3, _NOPERM);
 }
 $mytree = new Tree($xoopsDB->prefix('adslight_categories'), 'cid', 'pid');
@@ -56,7 +59,8 @@ if (!isset($max)) {
 $orderby = 'date_created Desc';
 
 $GLOBALS['xoopsTpl']->assign('lid', $lid);
-$countresult = $xoopsDB->query('SELECT COUNT(*) FROM ' . $xoopsDB->prefix('adslight_replies') . ' WHERE lid=' . $xoopsDB->escape($lid));
+$sql         = 'SELECT COUNT(*) FROM ' . $xoopsDB->prefix('adslight_replies') . ' WHERE lid=' . $xoopsDB->escape($lid);
+$countresult = $xoopsDB->query($sql);
 [$trow] = $xoopsDB->fetchRow($countresult);
 $trows   = $trow;
 $pagenav = '';
@@ -98,7 +102,7 @@ if ($trows > '0') {
     while ([$r_lid, $lid, $title, $date_created, $submitter, $message, $tele, $email, $r_usid] = $xoopsDB->fetchRow($result)) {
         $useroffset = '';
         if ($GLOBALS['xoopsUser']) {
-            $timezone = $GLOBALS['xoopsUser']->timezone();
+            $timezone   = $GLOBALS['xoopsUser']->timezone();
             $useroffset = isset($timezone) ? $GLOBALS['xoopsUser']->timezone() : $xoopsConfig['default_TZ'];
         }
         $GLOBALS['xoopsTpl']->assign('submitter', " <a href='" . XOOPS_URL . "/userinfo.php?uid=${r_usid}'>${submitter}</a>");

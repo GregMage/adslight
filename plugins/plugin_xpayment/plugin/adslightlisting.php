@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 /**
  * @param $invoice
+ * @return bool
  */
 function PaidAdslightlistingHook($invoice): bool
 {
@@ -15,6 +16,7 @@ function PaidAdslightlistingHook($invoice): bool
 
 /**
  * @param $invoice
+ * @return bool
  */
 function UnpaidAdslightlistingHook($invoice): bool
 {
@@ -24,6 +26,7 @@ function UnpaidAdslightlistingHook($invoice): bool
 
 /**
  * @param $invoice
+ * @return bool
  */
 function CancelAdslightlistingHook($invoice): bool
 {

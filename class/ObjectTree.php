@@ -15,12 +15,14 @@ class ObjectTree extends \XoopsObjectTree
     /**
      * @param        $sel_id
      * @param string $path
+     * @return string
      */
     public function getIdPathFromId($sel_id, $path = ''): string
     {
         global $xoopsDB;
         $sel_id = (int)$sel_id;
-        $result = $xoopsDB->query('SELECT ' . $this->parentId . ' FROM ' . $this->table . ' WHERE ' . $this->myId . "=${sel_id}");
+        $sql    = 'SELECT ' . $this->parentId . ' FROM ' . $this->table . ' WHERE ' . $this->myId . "=${sel_id}";
+        $result = $xoopsDB->query($sql);
         if (0 === $xoopsDB->getRowsNum($result)) {
             return $path;
         }
@@ -41,13 +43,14 @@ class ObjectTree extends \XoopsObjectTree
      * @param        $title
      * @param        $funcURL
      * @param string $path
+     * @return string
      */
     public function getNicePathFromId($sel_id, $title, $funcURL, $path = ''): string
     {
         global $xoopsDB;
         $path   = !empty($path) ? '&nbsp;:&nbsp;' . $path : $path;
         $sel_id = (int)$sel_id;
-        $sql = 'SELECT ' . $this->parentId . ', ' . $title . ' FROM ' . $this->table . ' WHERE ' . $this->myId . "=${sel_id}";
+        $sql    = 'SELECT ' . $this->parentId . ', ' . $title . ' FROM ' . $this->table . ' WHERE ' . $this->myId . "=${sel_id}";
         $result = $xoopsDB->query($sql);
         if (0 === $xoopsDB->getRowsNum($result)) {
             return $path;

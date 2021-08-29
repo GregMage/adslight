@@ -48,7 +48,7 @@ function adslight_show($options): array
 
     $block['title'] = constant("{$block_lang}_TITLE");
 
-    $sql = 'SELECT lid, cid, title, type, date_created, hits FROM ' . $xoopsDB->prefix("{$moduleDirName}_listing") . " WHERE valid='Yes' ORDER BY {$options[0]} DESC";
+    $sql    = 'SELECT lid, cid, title, type, date_created, hits FROM ' . $xoopsDB->prefix("{$moduleDirName}_listing") . " WHERE valid='Yes' ORDER BY {$options[0]} DESC";
     $result = $xoopsDB->query($sql, $options[1], 0);
 
     while (false !== ($myrow = $xoopsDB->fetchArray($result))) {
@@ -83,6 +83,7 @@ function adslight_show($options): array
 
 /**
  * @param $options
+ * @return string
  */
 function adslight_edit($options): string
 {

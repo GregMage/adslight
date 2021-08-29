@@ -1182,7 +1182,7 @@
 				$el.parents( selector ).filter( ':first' );
 		},
 
-		// nextSort (optional), lets you disable next sort text
+		// nextSort (optional), let'syou disable next sort text
 		setColumnAriaLabel : function( c, $header, nextSort ) {
 			if ( $header.length ) {
 				var column = parseInt( $header.attr( 'data-column' ), 10 ),

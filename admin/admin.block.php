@@ -22,4 +22,5 @@ declare(strict_types=1);
  */
 
 require_once __DIR__ . '/admin_header.php';
+global $xoopsModule;
 header('Location: ' . XOOPS_URL . '/modules/system/admin.php?fct=blocksadmin&selmod=' . $xoopsModule->getVar('mid'));

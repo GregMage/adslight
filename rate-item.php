@@ -30,6 +30,9 @@ use XoopsModules\Adslight\{
 /** @var Helper $helper */
 
 require_once __DIR__ . '/header.php';
+
+global $xoopsModule, $xoopsDB, $xoopsConfig, $xoTheme;
+
 //require_once XOOPS_ROOT_PATH . '/class/module.errorhandler.php';
 $myts          = \MyTextSanitizer::getInstance(); // MyTextSanitizer object
 $moduleDirName = \basename(__DIR__);
@@ -49,7 +52,8 @@ if (!empty($_POST['submit'])) {
 
     // Check if Link POSTER is voting (UNLESS Anonymous users allowed to post)
     if (0 !== (int)$ratinguser) {
-        $result = $xoopsDB->query('SELECT submitter FROM ' . $xoopsDB->prefix('adslight_listing') . ' WHERE lid=' . $xoopsDB->escape($lid));
+        $sql    = 'SELECT submitter FROM ' . $xoopsDB->prefix('adslight_listing') . ' WHERE lid=' . $xoopsDB->escape($lid);
+        $result = $xoopsDB->query($sql);
         while ([$ratinguserDB] = $xoopsDB->fetchRow($result)) {
             if ($ratinguserDB === $ratinguser) {
                 $helper->redirect('viewads.php?lid=' . $lid . '', 4, constant('_ADSLIGHT_CANTVOTEOWN'));
@@ -57,7 +61,8 @@ if (!empty($_POST['submit'])) {
         }
 
         // Check if REG user is trying to vote twice.
-        $result = $xoopsDB->query('SELECT ratinguser FROM ' . $xoopsDB->prefix('adslight_item_votedata') . ' WHERE lid=' . $xoopsDB->escape($lid));
+        $sql    = 'SELECT ratinguser FROM ' . $xoopsDB->prefix('adslight_item_votedata') . ' WHERE lid=' . $xoopsDB->escape($lid);
+        $result = $xoopsDB->query($sql);
         while ([$ratinguserDB] = $xoopsDB->fetchRow($result)) {
             if ($ratinguserDB === $ratinguser) {
                 $helper->redirect('viewads.php?lid=' . $lid . '', 4, constant('_ADSLIGHT_VOTEONCE2'));
@@ -66,7 +71,8 @@ if (!empty($_POST['submit'])) {
     } else {
         // Check if ANONYMOUS user is trying to vote more than once per day.
         $yesterday = time() - (86400 * $anonwaitdays);
-        $result    = $xoopsDB->query('SELECT count(*) FROM ' . $xoopsDB->prefix('adslight_item_votedata') . ' WHERE lid=' . $xoopsDB->escape($lid) . " AND ratinguser=0 AND ratinghostname = '${ip}' AND date_created > ${yesterday}");
+        $sql       = 'SELECT count(*) FROM ' . $xoopsDB->prefix('adslight_item_votedata') . ' WHERE lid=' . $xoopsDB->escape($lid) . " AND ratinguser=0 AND ratinghostname = '${ip}' AND date_created > ${yesterday}";
+        $result    = $xoopsDB->query($sql);
         [$anonvotecount] = $xoopsDB->fetchRow($result);
         if ($anonvotecount > 0) {
             $helper->redirect('viewads.php?lid=' . $lid . '', 4, constant('_ADSLIGHT_VOTEONCE2'));
@@ -96,7 +102,8 @@ if (!empty($_POST['submit'])) {
     $GLOBALS['xoopsOption']['template_main'] = 'adslight_rate_item.tpl';
     require_once XOOPS_ROOT_PATH . '/header.php';
     $lid    = Request::getInt('lid', 0, 'GET');
-    $result = $xoopsDB->query('SELECT lid, title FROM ' . $xoopsDB->prefix('adslight_listing') . ' WHERE lid=' . $xoopsDB->escape($lid));
+    $sql    = 'SELECT lid, title FROM ' . $xoopsDB->prefix('adslight_listing') . ' WHERE lid=' . $xoopsDB->escape($lid);
+    $result = $xoopsDB->query($sql);
     [$lid, $title] = $xoopsDB->fetchRow($result);
     $GLOBALS['xoopsTpl']->assign('link', [
         'lid'   => $lid,

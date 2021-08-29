@@ -21,12 +21,13 @@ declare(strict_types=1);
  * @author       jlm69 (www.jlmzone.com)
  * @author       mamba (www.xoops.org)
  */
-$RSS_Content = [];
+$rssContent = [];
 /**
  * @param $item
  * @param $type
+ * @return array
  */
-function RSS_Tags($item, $type): array
+function rssTags($item, $type): array
 {
     $y                 = [];
     $tnl               = $item->getElementsByTagName('title');
@@ -52,50 +53,50 @@ function RSS_Tags($item, $type): array
 /**
  * @param $channel
  */
-function RSS_Channel($channel): void
+function rssChannel($channel): void
 {
-    global $RSS_Content;
+    global $rssContent;
     $items = $channel->getElementsByTagName('item');
     // Processing channel
-    $y             = RSS_Tags($channel, 0);        // get description of channel, type 0
-    $RSS_Content[] = $y;
+    $y             = rssTags($channel, 0);        // get description of channel, type 0
+    $rssContent[] = $y;
     // Processing articles
     foreach ($items as $item) {
-        $y             = RSS_Tags($item, 1);    // get description of article, type 1
-        $RSS_Content[] = $y;
+        $y             = rssTags($item, 1);    // get description of article, type 1
+        $rssContent[] = $y;
     }
 }
 
 /**
- * @param $url
+ * @param string $url
  */
-function RSS_Retrieve($url): void
+function rssRetrieve($url): void
 {
-    global $RSS_Content;
+    global $rssContent;
     $doc = new DOMDocument();
     $doc->load($url);
     $channels    = $doc->getElementsByTagName('channel');
-    $RSS_Content = [];
+    $rssContent = [];
     foreach ($channels as $channel) {
-        RSS_Channel($channel);
+        rssChannel($channel);
     }
 }
 
 /**
- * @param $url
+ * @param string $url
  */
-function RSS_RetrieveLinks($url): void
+function rssRetrieveLinks($url): void
 {
-    global $RSS_Content;
+    global $rssContent;
     $doc = new DOMDocument();
     $doc->load($url);
     $channels    = $doc->getElementsByTagName('channel');
-    $RSS_Content = [];
+    $rssContent = [];
     foreach ($channels as $channel) {
         $items = $channel->getElementsByTagName('item');
         foreach ($items as $item) {
-            $y             = RSS_Tags($item, 1);    // get description of article, type 1
-            $RSS_Content[] = $y;
+            $y             = rssTags($item, 1);    // get description of article, type 1
+            $rssContent[] = $y;
         }
     }
 }
@@ -103,15 +104,16 @@ function RSS_RetrieveLinks($url): void
 /**
  * @param     $url
  * @param int $size
+ * @return string
  */
-function RSS_Links($url, $size = 15): string
+function rssLinks($url, $size = 15): string
 {
-    global $RSS_Content;
+    global $rssContent;
     $recents = [];
     $page    = '<ul>';
-    RSS_RetrieveLinks($url);
+    rssRetrieveLinks($url);
     if ($size > 0) {
-        $recents = array_slice($RSS_Content, 0, $size + 1);
+        $recents = array_slice($rssContent, 0, $size + 1);
     }
     foreach ($recents as $article) {
         $type = $article['type'];
@@ -130,20 +132,21 @@ function RSS_Links($url, $size = 15): string
  * @param     $url
  * @param int $size
  * @param int $site
+ * @return string
  */
-function RSS_Display(
+function rssDisplay(
     $url,
     $size = 15,
     $site = 0
 ): string {
-    global $RSS_Content;
+    global $rssContent;
     $recents = [];
     $opened  = false;
     $page    = '';
     $site    = 0 === (int)$site ? 1 : 0;
-    RSS_Retrieve($url);
+    rssRetrieve($url);
     if ($size > 0) {
-        $recents = array_slice($RSS_Content, $site, $size + 1 - $site);
+        $recents = array_slice($rssContent, $site, $size + 1 - $site);
     }
     foreach ($recents as $article) {
         $type = $article['type'];
@@ -181,21 +184,22 @@ function RSS_Display(
  * @param int $size
  * @param int $site
  * @param int $withdate
+ * @return string
  */
-function RSS_DisplayForum(
+function rssDisplayForum(
     $url,
     $size = 15,
     $site = 0,
     $withdate = 0
 ): string {
-    global $RSS_Content;
+    global $rssContent;
     $recents = [];
     $opened  = false;
     $page    = '';
     $site    = 0 === (int)$site ? 1 : 0;
-    RSS_Retrieve($url);
+    rssRetrieve($url);
     if ($size > 0) {
-        $recents = array_slice($RSS_Content, $site, $size + 1 - $site);
+        $recents = array_slice($rssContent, $site, $size + 1 - $site);
     }
     foreach ($recents as $article) {
         $type = $article['type'];

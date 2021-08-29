@@ -51,11 +51,13 @@ function index(): void
     echo '<br>';
 
     // Modifier un type
-    [$numrows] = $xoopsDB->fetchRow($xoopsDB->query('SELECT COUNT(*) FROM ' . $xoopsDB->prefix('adslight_type')));
+    $sql = 'SELECT COUNT(*) FROM ' . $xoopsDB->prefix('adslight_type');
+    [$numrows] = $xoopsDB->fetchRow($xoopsDB->query($sql));
     if ($numrows > 0) {
         echo '<form method="post" action="options.php">
              <b>' . _AM_ADSLIGHT_MODTYPE . '</b></font><br><br>';
-        $result2 = $xoopsDB->query('SELECT id_type, nom_type FROM ' . $xoopsDB->prefix('adslight_type') . ' ORDER BY nom_type');
+        $sql     = 'SELECT id_type, nom_type FROM ' . $xoopsDB->prefix('adslight_type') . ' ORDER BY nom_type';
+        $result2 = $xoopsDB->query($sql);
         echo '' . _AM_ADSLIGHT_TYPE . ' <select name="id_type">';
 
         while ([$id_type, $nom_type] = $xoopsDB->fetchRow($result2)) {
@@ -81,11 +83,13 @@ function index(): void
     echo '<br>';
 
     // modify a price type
-    [$numrows] = $xoopsDB->fetchRow($xoopsDB->query('SELECT COUNT(*) FROM ' . $xoopsDB->prefix('adslight_price')));
+    $sql = 'SELECT COUNT(*) FROM ' . $xoopsDB->prefix('adslight_price');
+    [$numrows] = $xoopsDB->fetchRow($xoopsDB->query($sql));
     if ($numrows > 0) {
         echo '<form method="post" action="options.php">
             <b>' . _AM_ADSLIGHT_MODPRICE . '</b></font><br><br>';
-        $result3 = $xoopsDB->query('SELECT id_price, nom_price FROM ' . $xoopsDB->prefix('adslight_price') . ' ORDER BY nom_price');
+        $sql     = 'SELECT id_price, nom_price FROM ' . $xoopsDB->prefix('adslight_price') . ' ORDER BY nom_price';
+        $result3 = $xoopsDB->query($sql);
         echo '' . _AM_ADSLIGHT_TYPE . ' <select name="id_price">';
         while ([$id_price, $nom_price] = $xoopsDB->fetchRow($result3)) {
             $nom_price = \htmlspecialchars($nom_price, ENT_QUOTES | ENT_HTML5);
@@ -110,11 +114,13 @@ function index(): void
     echo '<br>';
 
     // Modify a condition type
-    [$numrows] = $xoopsDB->fetchRow($xoopsDB->query('SELECT COUNT(*) FROM ' . $xoopsDB->prefix('adslight_condition')));
+    $sql = 'SELECT COUNT(*) FROM ' . $xoopsDB->prefix('adslight_condition');
+    [$numrows] = $xoopsDB->fetchRow($xoopsDB->query($sql));
     if ($numrows > 0) {
         echo '<form method="post" action="options.php">
             <b>' . _AM_ADSLIGHT_MODCONDITION . '</b></font><br><br>';
-        $result8 = $xoopsDB->query('SELECT id_condition, nom_condition FROM ' . $xoopsDB->prefix('adslight_condition') . ' ORDER BY nom_condition');
+        $sql     = 'SELECT id_condition, nom_condition FROM ' . $xoopsDB->prefix('adslight_condition') . ' ORDER BY nom_condition';
+        $result8 = $xoopsDB->query($sql);
         echo _AM_ADSLIGHT_TYPE . ' <select name="id_condition">';
 
         while ([$id_condition, $nom_condition] = $xoopsDB->fetchRow($result8)) {
@@ -142,7 +148,8 @@ function listingAddType($type): void
     global $xoopsDB, $xoopsConfig, $myts, $admin_lang;
     $helper = Helper::getInstance();
 
-    [$numrows] = $xoopsDB->fetchRow($xoopsDB->query('SELECT COUNT(*) FROM ' . $xoopsDB->prefix('adslight_type') . " WHERE nom_type='{$type}'"));
+    $sql = 'SELECT COUNT(*) FROM ' . $xoopsDB->prefix('adslight_type') . " WHERE nom_type='{$type}'";
+    [$numrows] = $xoopsDB->fetchRow($xoopsDB->query($sql));
     if ($numrows > 0) {
         $nom_type = \htmlspecialchars($numrows, ENT_QUOTES | ENT_HTML5); //mb
         //        require_once __DIR__ . '/admin_header.php';
@@ -164,7 +171,8 @@ function listingAddType($type): void
         if ('' === $type) {
             $type = '! ! ? ! !';
         }
-        $xoopsDB->query('INSERT INTO ' . $xoopsDB->prefix('adslight_type') . " values (NULL, '{$type}')");
+        $sql = 'INSERT INTO ' . $xoopsDB->prefix('adslight_type') . " values (NULL, '{$type}')";
+        $xoopsDB->query($sql);
         $helper->redirect('admin/options.php', 1, _AM_ADSLIGHT_ADDTYPE2);
     }
 }
@@ -182,7 +190,8 @@ function listingModType($id_type): void
     $id_type = (int)$id_type;
     //    loadModuleAdminMenu(2, "");
     echo "<fieldset><legend style='font-weight: bold; color: #900;'>" . _AM_ADSLIGHT_MODTYPE . '</legend>';
-    $result = $xoopsDB->query('SELECT id_type, nom_type FROM ' . $xoopsDB->prefix('adslight_type') . " WHERE id_type={$id_type}");
+    $sql    = 'SELECT id_type, nom_type FROM ' . $xoopsDB->prefix('adslight_type') . " WHERE id_type={$id_type}";
+    $result = $xoopsDB->query($sql);
     [$id_type, $nom_type] = $xoopsDB->fetchRow($result);
 
     $nom_type = \htmlspecialchars($nom_type, ENT_QUOTES | ENT_HTML5);
@@ -221,7 +230,8 @@ function listingModTypeS($id_type, $nom_type): void
     $helper   = Helper::getInstance();
     $id_type  = (int)$id_type;
     $nom_type = \htmlspecialchars($nom_type, ENT_QUOTES | ENT_HTML5);
-    $xoopsDB->query('UPDATE ' . $xoopsDB->prefix('adslight_type') . " SET nom_type='{$nom_type}' WHERE id_type='{$id_type}'");
+    $sql      = 'UPDATE ' . $xoopsDB->prefix('adslight_type') . " SET nom_type='{$nom_type}' WHERE id_type='{$id_type}'";
+    $xoopsDB->query($sql);
     $helper->redirect('admin/options.php', 1, _AM_ADSLIGHT_TYPEMOD);
 }
 
@@ -235,7 +245,8 @@ function listingDelType($id_type): void
     global $xoopsDB;
     $helper  = Helper::getInstance();
     $id_type = (int)$id_type;
-    $xoopsDB->query('DELETE FROM ' . $xoopsDB->prefix('adslight_type') . " WHERE id_type='{$id_type}'");
+    $sql     = 'DELETE FROM ' . $xoopsDB->prefix('adslight_type') . " WHERE id_type='{$id_type}'";
+    $xoopsDB->query($sql);
     $helper->redirect('admin/options.php', 1, _AM_ADSLIGHT_TYPEDEL);
 }
 
@@ -248,7 +259,8 @@ function listingAddPrice($type): void
 {
     global $xoopsDB, $xoopsConfig, $myts, $admin_lang;
     $helper = Helper::getInstance();
-    [$numrows] = $xoopsDB->fetchRow($xoopsDB->query('SELECT  COUNT(*)  FROM ' . $xoopsDB->prefix('adslight_price') . " WHERE nom_price='{$nom_price}'"));
+    $sql    = 'SELECT  COUNT(*)  FROM ' . $xoopsDB->prefix('adslight_price') . " WHERE nom_price='{$nom_price}'";
+    [$numrows] = $xoopsDB->fetchRow($xoopsDB->query($sql));
     if ($numrows > 0) {
         $nom_price = \htmlspecialchars($numrows, ENT_QUOTES | ENT_HTML5); //mb
         //        require_once __DIR__ . '/admin_header.php';
@@ -270,7 +282,8 @@ function listingAddPrice($type): void
         if ('' === $nom_price) {
             $nom_price = '! ! ? ! !';
         }
-        $xoopsDB->query('INSERT INTO ' . $xoopsDB->prefix('adslight_price') . " values (NULL, '{$nom_price}')");
+        $sql = 'INSERT INTO ' . $xoopsDB->prefix('adslight_price') . " values (NULL, '{$nom_price}')";
+        $xoopsDB->query($sql);
         $helper->redirect('admin/options.php', 1, _AM_ADSLIGHT_ADDPRICE2);
     }
 }
@@ -290,7 +303,8 @@ function listingModPrice($id_price): void
     echo "<fieldset><legend style='font-weight: bold; color: #900;'>" . _AM_ADSLIGHT_MODPRICE . '</legend>';
     echo '<b>' . _AM_ADSLIGHT_MODPRICE . '</b><br><br>';
     $id_price = (int)$id_price;
-    $result   = $xoopsDB->query('SELECT nom_price FROM ' . $xoopsDB->prefix('adslight_price') . " WHERE id_price={$id_price}");
+    $sql      = 'SELECT nom_price FROM ' . $xoopsDB->prefix('adslight_price') . " WHERE id_price={$id_price}";
+    $result   = $xoopsDB->query($sql);
     [$nom_price] = $xoopsDB->fetchRow($result);
 
     $nom_price = \htmlspecialchars($nom_price, ENT_QUOTES | ENT_HTML5);
@@ -328,7 +342,8 @@ function listingModPriceS($id_price, $nom_price): void
     $helper    = Helper::getInstance();
     $id_price  = (int)$id_price;
     $nom_price = \htmlspecialchars($nom_price, ENT_QUOTES | ENT_HTML5);
-    $xoopsDB->query('UPDATE ' . $xoopsDB->prefix('adslight_price') . " SET nom_price='{$nom_price}' WHERE id_price='{$id_price}'");
+    $sql       = 'UPDATE ' . $xoopsDB->prefix('adslight_price') . " SET nom_price='{$nom_price}' WHERE id_price='{$id_price}'";
+    $xoopsDB->query($sql);
     $helper->redirect('admin/options.php', 1, _AM_ADSLIGHT_PRICEMOD);
 }
 
@@ -341,7 +356,8 @@ function listingDelPrice($id_price): void
 {
     global $xoopsDB, $admin_lang;
     $helper = Helper::getInstance();
-    $xoopsDB->query('DELETE FROM ' . $xoopsDB->prefix('adslight_price') . " WHERE id_price='{$id_price}'");
+    $sql    = 'DELETE FROM ' . $xoopsDB->prefix('adslight_price') . " WHERE id_price='{$id_price}'";
+    $xoopsDB->query($sql);
     $helper->redirect('admin/options.php', 1, _AM_ADSLIGHT_PRICEDEL);
 }
 
@@ -356,7 +372,8 @@ function listingAddcondition($type): void
     $helper = Helper::getInstance();
     $type   = \htmlspecialchars($type, ENT_QUOTES | ENT_HTML5);
 
-    [$numrows] = $xoopsDB->fetchRow($xoopsDB->query('SELECT COUNT(*) FROM ' . $xoopsDB->prefix('adslight_condition') . " WHERE nom_condition='{$type}'"));
+    $sql = 'SELECT COUNT(*) FROM ' . $xoopsDB->prefix('adslight_condition') . " WHERE nom_condition='{$type}'";
+    [$numrows] = $xoopsDB->fetchRow($xoopsDB->query($sql));
     if ($numrows > 0) {
         $nom_condition = \htmlspecialchars($numrows, ENT_QUOTES | ENT_HTML5); //mb
 
@@ -379,7 +396,8 @@ function listingAddcondition($type): void
         if ('' === $type) {
             $type = '! ! ? ! !';
         }
-        $xoopsDB->query('INSERT INTO ' . $xoopsDB->prefix('adslight_condition') . " VALUES (NULL, '{$type}')");
+        $sql = 'INSERT INTO ' . $xoopsDB->prefix('adslight_condition') . " VALUES (NULL, '{$type}')";
+        $xoopsDB->query($sql);
         $helper->redirect('options.php', 1, _AM_ADSLIGHT_ADDCONDITION2);
     }
 }
@@ -398,7 +416,8 @@ function listingModcondition($id_condition): void
     //    loadModuleAdminMenu(2, "");
     echo "<fieldset><legend style='font-weight: bold; color: #900;'>" . _AM_ADSLIGHT_MODCONDITION . '</legend>';
     echo '<b>' . _AM_ADSLIGHT_MODCONDITION . '</b><br><br>';
-    $result9 = $xoopsDB->query('SELECT nom_condition FROM ' . $xoopsDB->prefix('adslight_condition') . " WHERE id_condition={$id_condition}");
+    $sql     = 'SELECT nom_condition FROM ' . $xoopsDB->prefix('adslight_condition') . " WHERE id_condition={$id_condition}";
+    $result9 = $xoopsDB->query($sql);
     [$nom_condition] = $xoopsDB->fetchRow($result9);
 
     $nom_condition = \htmlspecialchars($nom_condition, ENT_QUOTES | ENT_HTML5);
@@ -436,7 +455,8 @@ function listingModconditionS($id_condition, $nom_condition): void
     $helper        = Helper::getInstance();
     $nom_condition = \htmlspecialchars($nom_condition, ENT_QUOTES | ENT_HTML5);
 
-    $xoopsDB->query('UPDATE ' . $xoopsDB->prefix('adslight_condition') . " SET nom_condition='{$nom_condition}' WHERE id_condition='{$id_condition}'");
+    $sql = 'UPDATE ' . $xoopsDB->prefix('adslight_condition') . " SET nom_condition='{$nom_condition}' WHERE id_condition='{$id_condition}'";
+    $xoopsDB->query($sql);
     $helper->redirect('admin/options.php', 1, _AM_ADSLIGHT_CONDITIONMOD);
 }
 
@@ -450,7 +470,8 @@ function listingDelcondition($id_condition): void
     global $xoopsDB, $admin_lang;
     $helper       = Helper::getInstance();
     $id_condition = (int)$id_condition;
-    $xoopsDB->query('DELETE FROM ' . $xoopsDB->prefix('adslight_condition') . " WHERE id_condition='{$id_condition}'");
+    $sql          = 'DELETE FROM ' . $xoopsDB->prefix('adslight_condition') . " WHERE id_condition='{$id_condition}'";
+    $xoopsDB->query($sql);
 
     $helper->redirect('admin/options.php', 1, _AM_ADSLIGHT_CONDITIONDEL);
 }

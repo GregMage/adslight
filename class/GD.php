@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+namespace XoopsModules\Adslight;
+
 /*
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
@@ -83,11 +85,12 @@ class GD
 
     /**
      * @param $color
+     * @return array
      */
     public function make_color($color): array
     {
         $rgb = [];
-        if (is_iterable($color) && '3' === count($color)) {
+        if (is_array($color) && '3' === count($color)) {
             $rgb['r'] = $color['0'];
             $rgb['g'] = $color['1'];
             $rgb['b'] = $color['2'];

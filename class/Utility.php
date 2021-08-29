@@ -31,7 +31,6 @@ use XoopsModules\Adslight\{
     CategoriesHandler
 };
 
-
 /**
  * Class Utility
  */
@@ -46,7 +45,8 @@ class Utility extends Common\SysUtility
         $datenow = \time();
         $message = '';
 
-        $result5 = $xoopsDB->query('SELECT lid, title, expire, type, desctext, date_created, email, submitter, photo, valid, hits, comments, remind FROM ' . $xoopsDB->prefix('adslight_listing') . " WHERE valid='Yes'");
+        $sql     = 'SELECT lid, title, expire, type, desctext, date_created, email, submitter, photo, valid, hits, comments, remind FROM ' . $xoopsDB->prefix('adslight_listing') . " WHERE valid='Yes'";
+        $result5 = $xoopsDB->query($sql);
 
         while (false !== [$lids, $title, $expire, $type, $desctext, $dateann, $email, $submitter, $photo, $valid, $hits, $comments, $remind] = $xoopsDB->fetchRow($result5)) {
             $title     = \htmlspecialchars($title, \ENT_QUOTES | \ENT_HTML5);
@@ -104,7 +104,8 @@ class Utility extends Common\SysUtility
 
             if ($supprdate < $datenow) {
                 if (0 !== $photo) {
-                    $result2 = $xoopsDB->query('SELECT url FROM ' . $xoopsDB->prefix('adslight_pictures') . ' WHERE lid=' . $xoopsDB->escape($lids));
+                    $sql     = 'SELECT url FROM ' . $xoopsDB->prefix('adslight_pictures') . ' WHERE lid=' . $xoopsDB->escape($lids);
+                    $result2 = $xoopsDB->query($sql);
 
                     while (false !== [$url] = $xoopsDB->fetchRow($result2)) {
                         $destination  = XOOPS_ROOT_PATH . '/uploads/adslight';
@@ -185,7 +186,7 @@ class Utility extends Common\SysUtility
         }
         $finalrating = $totalrating / $votesDB;
         $finalrating = \number_format($finalrating, 4);
-        $query = 'UPDATE ' . $xoopsDB->prefix('adslight_listing') . " SET user_rating=${finalrating}, user_votes=${votesDB} WHERE usid=" . $xoopsDB->escape($sel_id) . '';
+        $query       = 'UPDATE ' . $xoopsDB->prefix('adslight_listing') . " SET user_rating=${finalrating}, user_votes=${votesDB} WHERE usid=" . $xoopsDB->escape($sel_id) . '';
         //echo $query;
         $xoopsDB->query($query) || exit();
     }
@@ -211,7 +212,7 @@ class Utility extends Common\SysUtility
         }
         $finalrating = $totalrating / $votesDB;
         $finalrating = \number_format($finalrating, 4);
-        $query = 'UPDATE ' . $xoopsDB->prefix('adslight_listing') . " SET item_rating=${finalrating}, item_votes=${votesDB} WHERE lid=" . $xoopsDB->escape($sel_id) . '';
+        $query       = 'UPDATE ' . $xoopsDB->prefix('adslight_listing') . " SET item_rating=${finalrating}, item_votes=${votesDB} WHERE lid=" . $xoopsDB->escape($sel_id) . '';
         //echo $query;
         $xoopsDB->query($query) || exit();
     }
@@ -219,6 +220,7 @@ class Utility extends Common\SysUtility
     /**
      * @param        $sel_id
      * @param string $status
+     * @return int
      */
     public static function getTotalItems($sel_id, $status = ''): int
     {
@@ -249,6 +251,7 @@ class Utility extends Common\SysUtility
 
     /**
      * @param $permtype
+     * @return array|mixed
      */
     public static function getMyItemIds($permtype)
     {
@@ -330,6 +333,7 @@ class Utility extends Common\SysUtility
 
     /**
      * @param $orderby
+     * @return string
      */
     public static function convertOrderByIn($orderby): string
     {
@@ -366,6 +370,7 @@ class Utility extends Common\SysUtility
 
     /**
      * @param $orderby
+     * @return string
      */
     public static function convertOrderByTrans($orderby): string
     {
@@ -400,6 +405,7 @@ class Utility extends Common\SysUtility
 
     /**
      * @param $orderby
+     * @return string
      */
     public static function convertOrderByOut($orderby): string
     {
@@ -433,6 +439,7 @@ class Utility extends Common\SysUtility
 
     /**
      * @param $tablename
+     * @return bool
      */
     public static function checkTableExists($tablename): bool
     {
@@ -445,6 +452,7 @@ class Utility extends Common\SysUtility
     /**
      * @param $fieldname
      * @param $table
+     * @return bool
      */
     public static function checkFieldExists($fieldname, $table): bool
     {
@@ -456,6 +464,7 @@ class Utility extends Common\SysUtility
 
     /**
      * @param $cid
+     * @return bool
      */
     public static function getCatNameFromId($cid): bool
     {
@@ -474,7 +483,6 @@ class Utility extends Common\SysUtility
         return $arr['title'];
     }
 
-
     public static function goCategory(): array
     {
         global $xoopsDB;
@@ -490,7 +498,6 @@ class Utility extends Common\SysUtility
 
     // ADSLIGHT Version 2 //
     // Fonction rss.php RSS par categories
-
 
     public static function returnAllAdsRss(): array
     {
@@ -512,7 +519,6 @@ class Utility extends Common\SysUtility
 
     // Fonction fluxrss.php RSS Global
 
-
     public static function returnAllAdsFluxRss(): array
     {
         global $xoopsDB;
@@ -531,12 +537,14 @@ class Utility extends Common\SysUtility
 
     /**
      * @param $type
+     * @return mixed
      */
     public static function getNameType($type)
     {
         global $xoopsDB;
-        $sql = $xoopsDB->query('SELECT nom_type FROM ' . $xoopsDB->prefix('adslight_type') . " WHERE id_type='" . $xoopsDB->escape($type) . "'");
-        [$nom_type] = $xoopsDB->fetchRow($sql);
+        $sql    = 'SELECT nom_type FROM ' . $xoopsDB->prefix('adslight_type') . " WHERE id_type='" . $xoopsDB->escape($type) . "'";
+        $result = $xoopsDB->query($sql);
+        [$nom_type] = $xoopsDB->fetchRow($result);
 
         return $nom_type;
     }
@@ -544,6 +552,7 @@ class Utility extends Common\SysUtility
     /**
      * @param $format
      * @param $number
+     * @return array|mixed|string|string[]
      */
     public static function getMoneyFormat(
         $format,
@@ -637,10 +646,10 @@ class Utility extends Common\SysUtility
      *
      *   saveCategory_Permissions()
      *
-     * @param array  $groups : group with granted permission
+     * @param array  $groups group with granted permission
      * @param        $categoryId
      * @param        $permName
-     * @return bool : TRUE if the no errors occured
+     * @return bool TRUE if the no errors occured
      */
     public static function saveCategoryPermissions($groups, $categoryId, $permName): bool
     {
@@ -680,10 +689,9 @@ class Utility extends Common\SysUtility
             // $xoTheme->addStyleSheet(XOOPS_URL . '/browse.php?Frameworks/jquery/plugins/jquery.lightbox.js');
 
             $xoTheme->addScript($fld . '/js/lightbox/js/lightbox.js');
-            $xoTheme->addStyleSheet($fld . '/js/lightbox/css/lightbox.css');
+            $xoTheme->addStylesheet($fld . '/js/lightbox/css/lightbox.css');
         }
-            //$xoTheme->addStyleSheet($fld . "/css/galery.css" type="text/css" media="screen");
-
+        //$xoTheme->addStyleSheet($fld . "/css/galery.css" type="text/css" media="screen");
 
         /*
                     if (1 == $GLOBALS['xoopsModuleConfig']['adslight_lightbox']) {
@@ -766,16 +774,15 @@ class Utility extends Common\SysUtility
         return 1 === $currencyPosition ? $currencySymbol . $formattedNumber : $formattedNumber . ' ' . $currencySymbol;
     }
 
-
     /**
      * @param Categories $categoryObj
-     * @param int      $level
+     * @param int        $level
      */
-    public static function displayCategory(Categories $categoryObj, $level = 0)
+    public static function displayCategory(Categories $categoryObj, $level = 0): void
     {
-        $helper = Helper::getInstance();
+        $helper       = Helper::getInstance();
         $configurator = new Common\Configurator();
-        $icons = $configurator->icons;
+        $icons        = $configurator->icons;
 
         $description = $categoryObj->cat_desc;
         if (!XOOPS_USE_MULTIBYTES && !empty($description)) {
@@ -798,8 +805,13 @@ class Utility extends Common\SysUtility
              . "</td>\n"
              . "<td class='even left'>"
              . $spaces
-             . "<a href='" . $helper->url() . 'category.php?cid=' . $categoryObj->cid()
-             . "'><img src='" . $helper->url() . "assets/images/links/subcat.gif' alt=''>&nbsp;"
+             . "<a href='"
+             . $helper->url()
+             . 'category.php?cid='
+             . $categoryObj->cid()
+             . "'><img src='"
+             . $helper->url()
+             . "assets/images/links/subcat.gif' alt=''>&nbsp;"
              . $categoryObj->name()
              . "</a></td>\n"
              . "<td class='even center'>"

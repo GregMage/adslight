@@ -26,6 +26,8 @@ use XoopsModules\Adslight\{
 
 require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
 
+//global $block;
+
 $moduleDirName      = \basename(\dirname(__DIR__));
 $moduleDirNameUpper = \mb_strtoupper($moduleDirName);
 
@@ -50,8 +52,8 @@ $form->addElement(new \XoopsFormRadioYN(constant('CO_' . $moduleDirNameUpper . '
 $moduleSelect = new \XoopsFormSelect(constant('CO_' . $moduleDirNameUpper . '_' . 'VISIBLEIN'), 'bmodule', $block['modules'], 5, true);
 /** @var \XoopsModuleHandler $moduleHandler */
 $moduleHandler = xoops_getHandler('module');
-$criteria      = new \CriteriaCompo(new \Criteria('hasmain', 1));
-$criteria->add(new \Criteria('isactive', 1));
+$criteria      = new \CriteriaCompo(new \Criteria('hasmain', '1'));
+$criteria->add(new \Criteria('isactive', '1'));
 $moduleList     = $moduleHandler->getList($criteria);
 $moduleList[-1] = _AM_SYSTEM_BLOCKS_TOPPAGE;
 $moduleList[0]  = _AM_SYSTEM_BLOCKS_ALLPAGES;

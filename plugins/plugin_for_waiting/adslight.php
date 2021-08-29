@@ -6,7 +6,8 @@ function b_waiting_adslight(): array
 {
     $xoopsDB = \XoopsDatabaseFactory::getDatabaseConnection();
     $block   = [];
-    $result  = $xoopsDB->query('SELECT COUNT(*) FROM ' . $xoopsDB->prefix('adslight_listing') . " WHERE valid='No'");
+    $sql     = 'SELECT COUNT(*) FROM ' . $xoopsDB->prefix('adslight_listing') . " WHERE valid='No'";
+    $result  = $xoopsDB->query($sql);
     if ($result) {
         $block['adminlink'] = XOOPS_URL . '/modules/adslight/admin/index.php';
         [$block['pendingnum']] = $xoopsDB->fetchRow($result);

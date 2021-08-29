@@ -43,7 +43,7 @@ if (Request::hasVar('submit', 'POST')) {
     // end define vars
 
     //    require_once __DIR__ . '/header.php';
-    $module_id = $xoopsModule->getVar('mid');
+    $moduleId = $xoopsModule->getVar('mid');
     $groups    = $xoopsUser instanceof \XoopsUser ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
     /** @var \XoopsGroupPermHandler $grouppermHandler */
     $grouppermHandler = xoops_getHandler('groupperm');
@@ -51,7 +51,7 @@ if (Request::hasVar('submit', 'POST')) {
     $perm_itemid = Request::getInt('item_id', 0, 'POST');
 
     //If no access
-    if (!$grouppermHandler->checkRight('adslight_view', $perm_itemid, $groups, $module_id)) {
+    if (!$grouppermHandler->checkRight('adslight_view', $perm_itemid, $groups, $moduleId)) {
         $helper->redirect('index.php', 3, _NOPERM);
     }
     global $xoopsConfig, $xoopsDB, $myts, $meta;
@@ -67,7 +67,8 @@ if (Request::hasVar('submit', 'POST')) {
         }
     }
     $lid    = Request::getInt('id', 0, 'POST');
-    $result = $xoopsDB->query('SELECT email, submitter, title, type, desctext, price, typeprice FROM  ' . $xoopsDB->prefix('adslight_listing') . ' WHERE lid = ' . $xoopsDB->escape($id));
+    $sql    = 'SELECT email, submitter, title, type, desctext, price, typeprice FROM  ' . $xoopsDB->prefix('adslight_listing') . ' WHERE lid = ' . $xoopsDB->escape($id);
+    $result = $xoopsDB->query($sql);
 
     while (false !== [$email, $submitter, $title, $type, $desctext, $price, $typeprice] = $xoopsDB->fetchRow($result)) {
         $teles = Request::getString('tele', '', 'POST');
@@ -129,9 +130,11 @@ if (Request::hasVar('submit', 'POST')) {
         $mail->send();
         echo $mail->getErrors();
 
-        $xoopsDB->query('INSERT INTO ' . $xoopsDB->prefix('adslight_ip_log') . " values ( '', '${lid}', '${date_created}', '${namep}', '${ipnumber}', '" . Request::getString('post', '', 'POST') . "')");
+        $sql = 'INSERT INTO ' . $xoopsDB->prefix('adslight_ip_log') . " values ( '', '${lid}', '${date_created}', '${namep}', '${ipnumber}', '" . Request::getString('post', '', 'POST') . "')";
+        $xoopsDB->query($sql);
 
-        $xoopsDB->query('INSERT INTO ' . $xoopsDB->prefix('adslight_replies') . " values ('','${id}', '${title}', '${date_created}', '${namep}', '${messtext}', '${tele}', '" . Request::getString('post', '', 'POST') . "', '${r_usid}')");
+        $sql = 'INSERT INTO ' . $xoopsDB->prefix('adslight_replies') . " values ('','${id}', '${title}', '${date_created}', '${namep}', '${messtext}', '${tele}', '" . Request::getString('post', '', 'POST') . "', '${r_usid}')";
+        $xoopsDB->query($sql);
 
         redirect_header('index.php', 3, _ADSLIGHT_MESSEND);
     }
@@ -142,13 +145,13 @@ if (Request::hasVar('submit', 'POST')) {
 
     global $xoopsConfig, $xoopsDB, $myts, $meta;
 
-    $module_id = $xoopsModule->getVar('mid');
+    $moduleId = $xoopsModule->getVar('mid');
     $groups    = is_object($GLOBALS['xoopsUser']) ? $GLOBALS['xoopsUser']->getGroups() : XOOPS_GROUP_ANONYMOUS;
     /** @var \XoopsGroupPermHandler $grouppermHandler */
     $grouppermHandler = xoops_getHandler('groupperm');
     $perm_itemid      = Request::getInt('item_id', 0, 'POST');
     //If no access
-    if (!$grouppermHandler->checkRight('adslight_view', $perm_itemid, $groups, $module_id)) {
+    if (!$grouppermHandler->checkRight('adslight_view', $perm_itemid, $groups, $moduleId)) {
         redirect_header(XOOPS_URL . '/index.php', 3, _NOPERM);
     }
 

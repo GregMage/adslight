@@ -30,6 +30,7 @@ use XoopsModules\Adslight\{
 
 /**
  * @param $options
+ * @return array|false
  */
 function adslight_b2_show($options)
 {
@@ -49,11 +50,11 @@ function adslight_b2_show($options)
     $updir      = $helper->getConfig($moduleDirName . '_link_upload', '');
     $cat_perms  = '';
     $categories = Utility::getMyItemIds('adslight_view');
-    if (is_iterable($categories) && count($categories) > 0) {
+    if (is_array($categories) && count($categories) > 0) {
         $cat_perms .= ' AND cid IN (' . implode(',', $categories) . ') ';
     }
 
-    $sql =  'SELECT lid, cid, title, status, type, price, typeprice, date_created, town, country, contactby, usid, premium, valid, photo, hits FROM ' . $xoopsDB->prefix("{$moduleDirName}_listing") . " WHERE valid='Yes' AND status!='1' {$cat_perms} ORDER BY {$options[0]} DESC";
+    $sql    = 'SELECT lid, cid, title, status, type, price, typeprice, date_created, town, country, contactby, usid, premium, valid, photo, hits FROM ' . $xoopsDB->prefix("{$moduleDirName}_listing") . " WHERE valid='Yes' AND status!='1' {$cat_perms} ORDER BY {$options[0]} DESC";
     $result = $xoopsDB->query($sql, $options[1], 0);
 
     while (false !== ($myrow = $xoopsDB->fetchArray($result))) {
@@ -69,18 +70,18 @@ function adslight_b2_show($options)
         $usid      = \htmlspecialchars($myrow['usid'], ENT_QUOTES | ENT_HTML5);
         $hits      = \htmlspecialchars($myrow['hits'], ENT_QUOTES | ENT_HTML5);
 
-
-
         if (!XOOPS_USE_MULTIBYTES) {
             if (mb_strlen($myrow['title']) >= $options[2]) {
                 $title = \htmlspecialchars(mb_substr($myrow['title'], 0, $options[2] - 1), ENT_QUOTES | ENT_HTML5) . '...';
             }
         }
 
-        $result7 = $xoopsDB->query('SELECT nom_type FROM ' . $xoopsDB->prefix('adslight_type') . ' WHERE id_type=' . (int)$type);
+        $sql     = 'SELECT nom_type FROM ' . $xoopsDB->prefix('adslight_type') . ' WHERE id_type=' . (int)$type;
+        $result7 = $xoopsDB->query($sql);
         [$nom_type] = $xoopsDB->fetchRow($result7);
 
-        $result8 = $xoopsDB->query('SELECT nom_price FROM ' . $xoopsDB->prefix('adslight_price') . ' WHERE id_price=' . (int)$typeprice);
+        $sql     = 'SELECT nom_price FROM ' . $xoopsDB->prefix('adslight_price') . ' WHERE id_price=' . (int)$typeprice;
+        $result8 = $xoopsDB->query($sql);
         [$nom_price] = $xoopsDB->fetchRow($result8);
 
         $ad_title         = $myrow['title'];
@@ -104,7 +105,7 @@ function adslight_b2_show($options)
 
         $a_item['price'] = $priceHtml;
 
-        if (2 === $status) {
+        if (2 === (int)$status) {
             $a_item['sold'] = '<img src="assets/images/sold.gif" align="left" alt="">';
         }
 
@@ -147,6 +148,7 @@ function adslight_b2_show($options)
 
 /**
  * @param $options
+ * @return string
  */
 function adslight_b2_edit($options): string
 {

@@ -24,7 +24,6 @@ namespace XoopsModules\Adslight;
  */
 
 use Xmf\Module\Helper\Permission;
-use XoopsModules\Adslight;
 
 $moduleDirName = \basename(\dirname(__DIR__));
 
@@ -43,12 +42,12 @@ class CategoriesHandler extends \XoopsPersistableObjectHandler
     /**
      * Constructor
      * @param null|\XoopsDatabase                $db
-     * @param null|\XoopsModules\Adslight\Helper $helper
+     * @param null|Helper $helper
      */
 
     public function __construct(\XoopsDatabase $db = null, $helper = null)
     {
-        /** @var \XoopsModules\Adslight\Helper $this- >helper */
+        /** @var Helper $this- >helper */
         $this->helper = $helper;
         parent::__construct($db, 'adslight_categories', Categories::class, 'cid', 'title');
     }
@@ -65,8 +64,8 @@ class CategoriesHandler extends \XoopsPersistableObjectHandler
 
         return $obj;
     }
-    
-    
+
+
     //====================================
 
     /**
@@ -74,12 +73,12 @@ class CategoriesHandler extends \XoopsPersistableObjectHandler
      *
      * @return int
      */
-    public function getCategoriesCount($pid = 0)
+    public function getCategoriesCount($pid = 0): int
     {
         if (-1 == $pid) {
             return $this->getCount();
         }
-        $helper = Helper::getInstance();
+        $helper   = Helper::getInstance();
         $criteria = new \CriteriaCompo();
         if (isset($pid) && (-1 != $pid)) {
             $criteria->add(new \Criteria('pid', $pid));
@@ -90,9 +89,9 @@ class CategoriesHandler extends \XoopsPersistableObjectHandler
                 } else {
                     return 0;
                 }
-//                if (\is_object($GLOBALS['xoopsUser'])) {
-//                    $criteria->add(new \Criteria('moderator', $GLOBALS['xoopsUser']->getVar('uid')), 'OR');
-//                }
+                //                if (\is_object($GLOBALS['xoopsUser'])) {
+                //                    $criteria->add(new \Criteria('moderator', $GLOBALS['xoopsUser']->getVar('uid')), 'OR');
+                //                }
             }
         }
 
@@ -106,9 +105,9 @@ class CategoriesHandler extends \XoopsPersistableObjectHandler
      *
      * @return array
      */
-    public function getSubCats($categories)
+    public function getSubCats($categories): array
     {
-        $helper = Helper::getInstance();
+        $helper   = Helper::getInstance();
         $criteria = new \CriteriaCompo(new \Criteria('pid', '(' . \implode(',', \array_keys($categories)) . ')', 'IN'));
         $ret      = [];
         if (!$helper->isUserAdmin()) {

@@ -1184,7 +1184,7 @@
 				$el.parents( selector ).filter( ':first' );
 		},
 
-		// nextSort (optional), lets you disable next sort text
+		// nextSort (optional), let'syou disable next sort text
 		setColumnAriaLabel : function( c, $header, nextSort ) {
 			if ( $header.length ) {
 				var column = parseInt( $header.attr( 'data-column' ), 10 ),
@@ -4060,11 +4060,11 @@
 						if ( ffxn ) {
 							wo.filter_formatterCount++;
 							buildFilter = ffxn( $filter, column );
-							// no element returned, so lets go find it
+							// no element returned, so let'sgo find it
 							if ( buildFilter && buildFilter.length === 0 ) {
 								buildFilter = $filter.children( 'input' );
 							}
-							// element not in DOM, so lets attach it
+							// element not in DOM, so let'sattach it
 							if ( buildFilter && ( buildFilter.parent().length === 0 ||
 								( buildFilter.parent().length && buildFilter.parent()[0] !== $filter[0] ) ) ) {
 								$filter.append( buildFilter );

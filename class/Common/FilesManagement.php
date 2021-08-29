@@ -98,7 +98,7 @@ trait FilesManagement
 
         // Make destination directory
         if (!\is_dir($dest) && (!\mkdir($dest) && !\is_dir($dest))) {
-                throw new \RuntimeException(\sprintf('Directory "%s" was not created', $dest));
+            throw new \RuntimeException(\sprintf('Directory "%s" was not created', $dest));
         }
 
         // Loop through the folder

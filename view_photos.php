@@ -38,6 +38,8 @@ require_once \dirname(__DIR__, 2) . '/mainfile.php';
 $GLOBALS['xoopsOption']['template_main'] = 'adslight_view_photos.tpl';
 require_once XOOPS_ROOT_PATH . '/header.php';
 
+global $xoopsModule, $xoopsDB, $xoopsConfig, $xoTheme;
+
 /**
  * Module classes
  */
@@ -62,7 +64,7 @@ if ($GLOBALS['xoopsUser'] instanceof \XoopsUser) {
 
     $isOwner = $GLOBALS['xoopsUser']->getVar('uid') === $uid;
 
-    $module_id = $xoopsModule->getVar('mid');
+    $moduleId = $xoopsModule->getVar('mid');
 
     $groups = &$GLOBALS['xoopsUser']->getGroups();
 
@@ -72,7 +74,7 @@ if ($GLOBALS['xoopsUser'] instanceof \XoopsUser) {
     $perm_itemid = Request::getInt('item_id', 0, 'POST');
 
     //If no access
-    if ($grouppermHandler->checkRight('adslight_premium', $perm_itemid, $groups, $module_id)) {
+    if ($grouppermHandler->checkRight('adslight_premium', $perm_itemid, $groups, $moduleId)) {
         $permit = '1';
     } else {
         $permit = '0';
@@ -94,14 +96,14 @@ $criteria_lid = new \Criteria('lid', $lid);
 $criteria_uid = new \Criteria('uid', $uid);
 
 // Creating a factory of pictures
-$album_factory = new PicturesHandler($xoopsDB);
+$albumFactory = new PicturesHandler($xoopsDB);
 /**
  * Fetch pictures from the factory
  */
-$pictures_object_array = $album_factory->getObjects($criteria_lid, $criteria_uid);
+$pictures_object_array = $albumFactory->getObjects($criteria_lid, $criteria_uid);
 
 // How many pictures are on the user album
-$pictures_number = $album_factory->getCount($criteria_lid, $criteria_uid);
+$pictures_number = $albumFactory->getCount($criteria_lid, $criteria_uid);
 
 // Are there pictures in the album?
 if (0 === $pictures_number) {
@@ -109,7 +111,7 @@ if (0 === $pictures_number) {
 } else {
     // no pictures in the album
     /**
-     * Lets populate an array with the data from the pictures
+     * Let's populate an array with the data from the pictures
      */
     $i = 0;
     foreach ($pictures_object_array as $picture) {
@@ -130,7 +132,7 @@ if (!empty($GLOBALS['xoopsUser'])) {
     if ($isOwner
         && $GLOBALS['xoopsModuleConfig']['adslight_nb_pict'] > $pictures_number) {
         $maxfilebytes = $GLOBALS['xoopsModuleConfig']['adslight_maxfilesize'];
-        $album_factory->renderFormSubmit($uid, $lid, $maxfilebytes, $xoopsTpl);
+        $albumFactory->renderFormSubmit($uid, $lid, $maxfilebytes, $xoopsTpl);
     }
 }
 

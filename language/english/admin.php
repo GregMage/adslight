@@ -415,7 +415,6 @@ define('AM_ADSLIGHT_USERVOTES_RATING', 'Rating');
 define('AM_ADSLIGHT_USERVOTES_RATINGHOSTNAME', 'Ratinghostname');
 define('AM_ADSLIGHT_USERVOTES_RATINGTIMESTAMP', 'Ratingtimestamp');
 
-
 //Index
 define('AM_ADSLIGHT_STATISTICS', 'Adslight statistics');
 define('AM_ADSLIGHT_THEREARE_LISTING', "There are <span class='bold'>%s</span> Listing in the database");
@@ -450,7 +449,6 @@ define('AM_ADSLIGHT_ADD_PICTURES', 'Add new Pictures');
 define('AM_ADSLIGHT_PICTURES_LIST', 'List of Pictures');
 define('AM_ADSLIGHT_ADD_REPLIES', 'Add new Replies');
 define('AM_ADSLIGHT_REPLIES_LIST', 'List of Replies');
-
 
 //General
 //define('AM_ADSLIGHT_FORMOK', 'Registered successfull');

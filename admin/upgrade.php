@@ -25,12 +25,16 @@ declare(strict_types=1);
 use XoopsModules\Adslight\{
     Utility
 };
+/** @var Admin $adminObject */
+/** @var Helper $helper */
 
 $moduleDirName = \basename(\dirname(__DIR__));
 $admin_lang    = '_AM_' . mb_strtoupper($moduleDirName);
 
 require \dirname(__DIR__, 3) . '/include/cp_header.php';
 xoops_cp_header();
+
+global $xoopsModule, $xoopsDB, $xoopsUser;
 
 if (($xoopsUser instanceof \XoopsUser)
     && $xoopsUser->isAdmin($xoopsModule->mid())) {
@@ -103,7 +107,7 @@ if (($xoopsUser instanceof \XoopsUser)
         Utility::addField("remind INT(11) DEFAULT '0' NOT NULL AFTER comments", $xoopsDB->prefix('adslight_listing'));
     }
 
-    // At the end, if there was errors, show them or redirect user to the module's upgrade page
+    // At the end, if there were errors, show them or redirect user to the module's upgrade page
     if ($errors) {
         echo '<h1>' . constant("{$admin_lang}_UPGRADEFAILED") . '</h1>';
         echo '<br>' . constant("{$admin_lang}_UPGRADEFAILED0");

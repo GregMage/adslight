@@ -70,7 +70,8 @@ function index(): void
       */
 
     ///////// Il y a [..] Annonces en attente d'être approuvées //////
-    $result  = $xoopsDB->query('SELECT lid FROM ' . $xoopsDB->prefix('adslight_listing') . " WHERE valid='No'");
+    $sql     = 'SELECT lid FROM ' . $xoopsDB->prefix('adslight_listing') . " WHERE valid='No'";
+    $result  = $xoopsDB->query($sql);
     $numrows = $xoopsDB->getRowsNum($result);
     if ($numrows > 0) {
         echo "<table class='outer' border=0 cellspacing=5 cellpadding=0><tr><td width=40>";
@@ -143,7 +144,7 @@ function index(): void
 
 
     $url = _AM_ADSLIGHT_MENURSSFORUM_URL;
-          echo RSS_DisplayForum($url, 5, false, true);
+          echo rssDisplayForum($url, 5, false, true);
 
 
           echo '</td></tr>
@@ -161,7 +162,7 @@ function index(): void
                 <tr><th align="left">'._AM_ADSLIGHT_MENURSS_TITLE.'</th></tr>';
 
                   $url = "http://www.i-luc.fr/adslight/backend.php";
-        echo RSS_Display($url, 3, false, true);
+        echo rssDisplay($url, 3, false, true);
 
 
             echo '</table><br>
@@ -173,10 +174,14 @@ function index(): void
     ////// Right Menu Admin
 
     /// Statistiques
-    $Num1 = $xoopsDB->getRowsNum($xoopsDB->query('SELECT * FROM ' . $xoopsDB->prefix('adslight_listing') . "  WHERE (valid='Yes' AND status!='1')"));
-    $Num2 = $xoopsDB->getRowsNum($xoopsDB->query('SELECT * FROM ' . $xoopsDB->prefix('adslight_categories') . ' '));
-    $Num3 = $xoopsDB->getRowsNum($xoopsDB->query('SELECT * FROM ' . $xoopsDB->prefix('users') . "  WHERE (level = '1')"));
-    $Num4 = $xoopsDB->getRowsNum($xoopsDB->query('SELECT * FROM ' . $xoopsDB->prefix('xoopscomments') . "  WHERE (com_status = '2')"));
+    $sql  = 'SELECT * FROM ' . $xoopsDB->prefix('adslight_listing') . "  WHERE (valid='Yes' AND status!='1')";
+    $Num1 = $xoopsDB->getRowsNum($xoopsDB->query($sql));
+    $sql2 = 'SELECT * FROM ' . $xoopsDB->prefix('adslight_categories') . ' ';
+    $Num2 = $xoopsDB->getRowsNum($xoopsDB->query($sql2));
+    $sql3 = 'SELECT * FROM ' . $xoopsDB->prefix('users') . "  WHERE (level = '1')";
+    $Num3 = $xoopsDB->getRowsNum($xoopsDB->query($sql3));
+    $sql4 = 'SELECT * FROM ' . $xoopsDB->prefix('xoopscomments') . "  WHERE (com_status = '2')";
+    $Num4 = $xoopsDB->getRowsNum($xoopsDB->query($sql4));
 
     echo '<table width=100 border="0" class="outer"><tr>
                 <th align="left">' . _AM_ADSLIGHT_STAT_TITLE . '</th></tr>

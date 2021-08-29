@@ -40,6 +40,9 @@ foreach ($_REQUEST as $key => $val) {
 $xoopsOption['pagetype'] = 'search';
 
 require_once \dirname(__DIR__, 2) . '/mainfile.php';
+
+global $xoopsModule, $xoopsDB, $xoopsConfig, $xoTheme;
+
 $helper = Helper::getInstance();
 $helper->loadLanguage('admin');
 
@@ -120,8 +123,8 @@ switch ($action) {
     case 'results':
         /** @var \XoopsModuleHandler $moduleHandler */
         $moduleHandler = xoops_getHandler('module');
-        $criteria      = new \CriteriaCompo(new \Criteria('hassearch', 1));
-        $criteria->add(new \Criteria('isactive', 1));
+        $criteria      = new \CriteriaCompo(new \Criteria('hassearch', '1'));
+        $criteria->add(new \Criteria('isactive', '1'));
         $criteria->add(new \Criteria('mid', '(' . implode(',', $available_modules) . ')', 'IN'));
         $modules = $moduleHandler->getObjects($criteria, true);
         $mids    = Request::getArray('mids', []);
@@ -132,7 +135,7 @@ switch ($action) {
         require_once XOOPS_ROOT_PATH . '/header.php';
 
         // for xoops 2.2.x versions
-//        xoops_loadLanguage('main', $moduleDirName);
+        //        xoops_loadLanguage('main', $moduleDirName);
         // end
 
         echo '<h3>' . _ADSLIGHT_SEARCHRESULTS . "</h3>\n";
@@ -165,8 +168,8 @@ switch ($action) {
                     echo '<p>' . _SR_NOMATCH . '</p>';
                 } else {
                     for ($i = 0; $i < $count; ++$i) {
-//                        echo '<style type="text/css" media="all">@import url(' . XOOPS_URL . '/modules/adslight/assets/css/adslight.css);</style>';
-                        echo '<style type="text/css" media="all">@import url(' . $helper->url('assets/css/adslight.css') .');</style>';
+                        //                        echo '<style type="text/css" media="all">@import url(' . XOOPS_URL . '/modules/adslight/assets/css/adslight.css);</style>';
+                        echo '<style type="text/css" media="all">@import url(' . $helper->url('assets/css/adslight.css') . ');</style>';
                         echo '<table width="100%" class="outer"><tr>';
                         echo '<td width="30%">';
                         echo '<strong>' . htmlspecialchars($results[$i]['type'], ENT_QUOTES | ENT_HTML5) . '</strong><br>';
@@ -190,10 +193,10 @@ switch ($action) {
                         }
 
                         echo '' . $myts->displayTarea($results[$i]['desctext'], 1, 1, 1, 1, 1) . '';
-
-                        $result8 = $xoopsDB->query('SELECT nom_price FROM ' . $xoopsDB->prefix('adslight_price') . ' WHERE id_price=' . (int)$results[$i]['typeprice']);
+                        $sql     = 'SELECT nom_price FROM ' . $xoopsDB->prefix('adslight_price') . ' WHERE id_price=' . (int)$results[$i]['typeprice'];
+                        $result8 = $xoopsDB->query($sql);
                         [$nom_price] = $xoopsDB->fetchRow($result8);
-//                        $a_item['typeprice']    = $nom_price;
+                        //                        $a_item['typeprice']    = $nom_price;
 
                         $currencyCode                 = $helper->getConfig('adslight_currency_code');
                         $currencySymbol               = $helper->getConfig('adslight_currency_symbol');
@@ -234,8 +237,7 @@ switch ($action) {
 
         require_once XOOPS_ROOT_PATH . '/header.php';
 
-
-        $GLOBALS['xoopsTpl']->assign('imgscss', $helper->url('assets/css/adslight.css') );
+        $GLOBALS['xoopsTpl']->assign('imgscss', $helper->url('assets/css/adslight.css'));
         /** @var \XoopsModuleHandler $moduleHandler */
         $moduleHandler = xoops_getHandler('module');
         $module        = $moduleHandler->get($mid);

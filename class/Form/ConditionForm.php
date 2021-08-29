@@ -13,6 +13,7 @@ namespace XoopsModules\Adslight\Form;
  but WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
+
 /**
  * Module: Adslight
  *
@@ -25,14 +26,14 @@ namespace XoopsModules\Adslight\Form;
 use Xmf\Request;
 use XoopsModules\Adslight;
 
+require_once dirname(__DIR__, 2) . '/include/common.php';
 
-require_once \dirname(dirname(__DIR__)) . '/include/common.php';
-
-$moduleDirName = basename(dirname(__DIR__, 2));
+$moduleDirName = \basename(\dirname(__DIR__, 2));
 //$helper = Adslight\Helper::getInstance();
 $permHelper = new \Xmf\Module\Helper\Permission();
 
-xoops_load('XoopsFormLoader');
+\xoops_load('XoopsFormLoader');
+
 /**
  * Class ConditionForm
  */
@@ -40,6 +41,7 @@ class ConditionForm extends \XoopsThemeForm
 {
     public $targetObject;
     public $helper;
+
     /**
      * Constructor
      *
@@ -47,27 +49,24 @@ class ConditionForm extends \XoopsThemeForm
      */
     public function __construct($target)
     {
-      $this->helper = $target->helper;
-      $this->targetObject = $target;
+        $this->helper       = $target->helper;
+        $this->targetObject = $target;
 
-       $title = $this->targetObject->isNew() ? sprintf(AM_ADSLIGHT_CONDITION_ADD) : sprintf(AM_ADSLIGHT_CONDITION_EDIT);
-        parent::__construct($title, 'form', xoops_getenv('SCRIPT_NAME'),'post', true);
+        $title = $this->targetObject->isNew() ? \sprintf(\AM_ADSLIGHT_CONDITION_ADD) : \sprintf(\AM_ADSLIGHT_CONDITION_EDIT);
+        parent::__construct($title, 'form', \xoops_getenv('SCRIPT_NAME'), 'post', true);
         $this->setExtra('enctype="multipart/form-data"');
-        
-
 
         //include ID field, it's needed so the module knows if it is a new form or an edited form
-        
 
         $hidden = new \XoopsFormHidden('id_condition', $this->targetObject->getVar('id_condition'));
         $this->addElement($hidden);
         unset($hidden);
-        
-// id_condition
-            $this->addElement(new \XoopsFormLabel(AM_ADSLIGHT_CONDITION_ID_CONDITION, $this->targetObject->getVar('id_condition'), 'id_condition' ));
-            // nom_condition
-        $this->addElement(new \XoopsFormText(AM_ADSLIGHT_CONDITION_NOM_CONDITION, 'nom_condition', 50, 255, $this->targetObject->getVar('nom_condition')), false);
-                
+
+        // id_condition
+        $this->addElement(new \XoopsFormLabel(\AM_ADSLIGHT_CONDITION_ID_CONDITION, $this->targetObject->getVar('id_condition'), 'id_condition'));
+        // nom_condition
+        $this->addElement(new \XoopsFormText(\AM_ADSLIGHT_CONDITION_NOM_CONDITION, 'nom_condition', 50, 255, $this->targetObject->getVar('nom_condition')), false);
+
         $this->addElement(new \XoopsFormHidden('op', 'save'));
         $this->addElement(new \XoopsFormButton('', 'submit', _SUBMIT, 'submit'));
     }

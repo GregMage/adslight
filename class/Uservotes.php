@@ -13,6 +13,7 @@ namespace XoopsModules\Adslight;
  but WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
+
 /**
  * Module: Adslight
  *
@@ -27,13 +28,14 @@ use XoopsModules\Adslight\Form;
 
 //$permHelper = new \Xmf\Module\Helper\Permission();
 
-
 /**
  * Class Uservotes
  */
 class Uservotes extends \XoopsObject
 {
-    public $helper, $permHelper;
+    public $helper;
+    public $permHelper;
+
     /**
      * Constructor
      *
@@ -42,17 +44,17 @@ class Uservotes extends \XoopsObject
     public function __construct()
     {
         parent::__construct();
-//        /** @var  Adslight\Helper $helper */
-//        $this->helper = Adslight\Helper::getInstance();
-         $this->permHelper = new \Xmf\Module\Helper\Permission();
+        //        /** @var  Adslight\Helper $helper */
+        //        $this->helper = Adslight\Helper::getInstance();
+        $this->permHelper = new \Xmf\Module\Helper\Permission();
 
-        $this->initVar('ratingid', XOBJ_DTYPE_INT);
-        $this->initVar('usid', XOBJ_DTYPE_INT);
-        $this->initVar('ratinguser', XOBJ_DTYPE_INT);
-        $this->initVar('rating', XOBJ_DTYPE_INT);
-        $this->initVar('ratinghostname', XOBJ_DTYPE_TXTBOX);
-        $this->initVar('ratingtimestamp', XOBJ_DTYPE_INT);
-     }
+        $this->initVar('ratingid', \XOBJ_DTYPE_INT);
+        $this->initVar('usid', \XOBJ_DTYPE_INT);
+        $this->initVar('ratinguser', \XOBJ_DTYPE_INT);
+        $this->initVar('rating', \XOBJ_DTYPE_INT);
+        $this->initVar('ratinghostname', \XOBJ_DTYPE_TXTBOX);
+        $this->initVar('ratingtimestamp', \XOBJ_DTYPE_INT);
+    }
 
     /**
      * Get form
@@ -60,16 +62,16 @@ class Uservotes extends \XoopsObject
      * @param null
      * @return Adslight\Form\UservotesForm
      */
-    public function getForm()
+    public function getForm(): Form\UservotesForm
     {
         $form = new Form\UservotesForm($this);
         return $form;
     }
 
-        /**
+    /**
      * @return array|null
      */
-    public function getGroupsRead()
+    public function getGroupsRead(): ?array
     {
         //$permHelper = new \Xmf\Module\Helper\Permission();
         return $this->permHelper->getGroupsForItem('sbcolumns_read', $this->getVar('ratingid'));
@@ -78,16 +80,16 @@ class Uservotes extends \XoopsObject
     /**
      * @return array|null
      */
-    public function getGroupsSubmit()
+    public function getGroupsSubmit(): ?array
     {
-          //$permHelper = new \Xmf\Module\Helper\Permission();
-          return $this->permHelper->getGroupsForItem('sbcolumns_submit', $this->getVar('ratingid'));
+        //$permHelper = new \Xmf\Module\Helper\Permission();
+        return $this->permHelper->getGroupsForItem('sbcolumns_submit', $this->getVar('ratingid'));
     }
 
     /**
      * @return array|null
      */
-    public function getGroupsModeration()
+    public function getGroupsModeration(): ?array
     {
         //$permHelper = new \Xmf\Module\Helper\Permission();
         return $this->permHelper->getGroupsForItem('sbcolumns_moderation', $this->getVar('ratingid'));

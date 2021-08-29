@@ -101,6 +101,7 @@ class FS_Storage
      * @param      $errors
      * @param      $success
      * @param bool $verbose
+     * @return int
      */
     public static function dircopy($srcdir, $dstdir, &$errors, &$success, $verbose = false): int
     {

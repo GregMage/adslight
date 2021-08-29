@@ -112,7 +112,7 @@ define('_ADSLIGHT_RETURN', 'Return');
 define('_ADSLIGHT_FILES', 'Files with this extension');
 define('_ADSLIGHT_FILESTOP', 'may not be uploaded. Upload stopped');
 define('_ADSLIGHT_YIMG', 'Your image');
-define('_ADSLIGHT_TOBIG', 'is too big.<p> Use the function <b>Previous page</b> to return to the form an add a file');
+define('_ADSLIGHT_TOBIG', 'is too big.<p> Use the function <b>Previous page</b> to return to the form and add a file');
 define('_ADSLIGHT_ADSADDED', 'Your advertisement has been added.');
 define('_ADSLIGHT_PRINT', 'Print this Classified Ad');
 define('_ADSLIGHT_FRIENDSEND', 'Send this advertisement to a friend');

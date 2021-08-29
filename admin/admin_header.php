@@ -32,30 +32,30 @@ require \dirname(__DIR__) . '/include/common.php';
 require_once \dirname(__DIR__, 3) . '/class/xoopsform/grouppermform.php';
 require_once XOOPS_ROOT_PATH . '/class/theme.php';
 
-$db            = XoopsDatabaseFactory::getDatabaseConnection();
+$db     = XoopsDatabaseFactory::getDatabaseConnection();
 $helper = Helper::getInstance();
 
-global  $xoTheme;
+global $xoTheme;
 
 if (!isset($xoTheme)) {
     include_once $GLOBALS['xoops']->path('/class/theme.php');
     $GLOBALS['xoTheme'] = new \xos_opal_Theme();
-    $xoTheme = $GLOBALS['xoTheme'];
+    $xoTheme            = $GLOBALS['xoTheme'];
 }
 
 $moduleDirName = \basename(\dirname(__DIR__));
 $GLOBALS['xoopsTpl']->assign('mod_url', XOOPS_URL . '/modules/' . $moduleDirName);
 //$xoTheme->addStylesheet('browse.php?Frameworks/jquery/plugins/css/tablesorter/theme.blue.min.css');
 //$xoTheme->addStylesheet($helper->url( 'assets/js/tablesorter/css/theme.blue.css'));
-$xoTheme->addStylesheet($helper->url( 'assets/js/tablesorter/css/jquery.tablesorter.pager.min.css'));
+$xoTheme->addStylesheet($helper->url('assets/js/tablesorter/css/jquery.tablesorter.pager.min.css'));
 
 $adminObject         = Admin::getInstance();
 $listingHandler      = $helper->getHandler('Listing');
 $typeHandler         = $helper->getHandler('Type');
 $itemvotedataHandler = $helper->getHandler('Itemvotedata');
 $uservotedataHandler = $helper->getHandler('Uservotedata');
-$pathIcon16          = Admin::iconUrl('', 16);
-$pathIcon32          = Admin::iconUrl('', 32);
+$pathIcon16          = Admin::iconUrl('', '16');
+$pathIcon32          = Admin::iconUrl('', '32');
 $pathModIcon32       = $helper->getModule()->getInfo('modicons32');
 
 // Load language files

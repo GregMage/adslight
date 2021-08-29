@@ -107,7 +107,7 @@ class PicturesHandler extends \XoopsPersistableObjectHandler
     /**
      * insert a new AdslightPicture object into the database
      *
-     * @param bool         $force
+     * @param bool $force
      * @return bool FALSE if failed, TRUE if already present and unchanged or successful
      */
     public function insert(\XoopsObject $adslightPictures, $force = false): bool
@@ -353,7 +353,7 @@ class PicturesHandler extends \XoopsPersistableObjectHandler
      * Upload the file and Save into database
      *
      * @param string $title         A litle description of the file
-     * @param string $path_upload   The path to where the file should be uploaded
+     * @param string $pathUpload   The path to where the file should be uploaded
      * @param int    $thumbwidth    the width in pixels that the thumbnail will have
      * @param int    $thumbheight   the height in pixels that the thumbnail will have
      * @param int    $pictwidth     the width in pixels that the pic will have
@@ -365,7 +365,7 @@ class PicturesHandler extends \XoopsPersistableObjectHandler
      */
     public function receivePicture(
         $title,
-        $path_upload,
+        $pathUpload,
         $thumbwidth,
         $thumbheight,
         $pictwidth,
@@ -388,14 +388,14 @@ class PicturesHandler extends \XoopsPersistableObjectHandler
         ];
         $maxfilesize       = $maxfilebytes;
         // create the object to upload
-        $uploader = new \XoopsMediaUploader($path_upload, $allowed_mimetypes, $maxfilesize, $maxfilewidth, $maxfileheight);
+        $uploader = new \XoopsMediaUploader($pathUpload, $allowed_mimetypes, $maxfilesize, $maxfilewidth, $maxfileheight);
         // fetch the media
         if ($uploader->fetchMedia($_POST['xoops_upload_file'][0])) {
-            //lets create a name for it
+            //let'screate a name for it
             $uploader->setPrefix("pic_{$lid}_");
             //now let s upload the file
             if (!$uploader->upload()) {
-                // if there are errors lets return them
+                // if there are errors let'sreturn them
                 echo '<div style="color:#FF0000; background-color:#FFEAF4; border-color:#FF0000; border-width:thick; border-style:solid; text-align:center;"><p>' . $uploader->getErrors() . '</p></div>';
 
                 return false;
@@ -411,7 +411,7 @@ class PicturesHandler extends \XoopsPersistableObjectHandler
             $picture->setVar('uid_owner', $uid);
             $this->insert($picture);
             $saved_destination = $uploader->getSavedDestination();
-            $this->resizeImage($saved_destination, $thumbwidth, $thumbheight, $pictwidth, $pictheight, $path_upload);
+            $this->resizeImage($saved_destination, $thumbwidth, $thumbheight, $pictwidth, $pictheight, $pathUpload);
         } else {
             echo '<div style="color:#FF0000; background-color:#FFEAF4; border-color:#FF0000; border-width:thick; border-style:solid; text-align:center;"><p>' . $uploader->getErrors() . '</p></div>';
 
@@ -422,14 +422,14 @@ class PicturesHandler extends \XoopsPersistableObjectHandler
     }
 
     /**
-     * Resize a picture and save it to $path_upload
+     * Resize a picture and save it to $pathUpload
      *
      * @param string $img         the path to the file
      * @param int    $thumbwidth  the width in pixels that the thumbnail will have
      * @param int    $thumbheight the height in pixels that the thumbnail will have
      * @param int    $pictwidth   the width in pixels that the pic will have
      * @param int    $pictheight  the height in pixels that the pic will have
-     * @param string $path_upload The path to where the files should be saved after resizing
+     * @param string $pathUpload The path to where the files should be saved after resizing
      */
     public function resizeImage(
         $img,
@@ -437,7 +437,7 @@ class PicturesHandler extends \XoopsPersistableObjectHandler
         $thumbheight,
         $pictwidth,
         $pictheight,
-        $path_upload
+        $pathUpload
     ): void {
         $img2   = $img;
         $path   = \pathinfo($img);
@@ -451,10 +451,10 @@ class PicturesHandler extends \XoopsPersistableObjectHandler
                 $resized = \imagecreatetruecolor((int)\floor(\imagesx($img) * $yratio), $thumbheight);
             }
             \imagecopyresampled($resized, $img, 0, 0, 0, 0, \imagesx($resized) + 1, \imagesy($resized) + 1, \imagesx($img), \imagesy($img));
-            \imagejpeg($resized, "{$path_upload}/thumbs/thumb_{$path['basename']}");
+            \imagejpeg($resized, "{$pathUpload}/thumbs/thumb_{$path['basename']}");
             \imagedestroy($resized);
         } else {
-            \imagejpeg($img, "{$path_upload}/thumbs/thumb_{$path['basename']}");
+            \imagejpeg($img, "{$pathUpload}/thumbs/thumb_{$path['basename']}");
         }
         \imagedestroy($img);
         $path2   = \pathinfo($img2);
@@ -468,10 +468,10 @@ class PicturesHandler extends \XoopsPersistableObjectHandler
                 $resized2 = \imagecreatetruecolor((int)\floor(\imagesx($img2) * $yratio2), (int)$pictheight);
             }
             \imagecopyresampled($resized2, $img2, 0, 0, 0, 0, \imagesx($resized2) + 1, \imagesy($resized2) + 1, \imagesx($img2), \imagesy($img2));
-            \imagejpeg($resized2, "{$path_upload}/midsize/resized_{$path2['basename']}");
+            \imagejpeg($resized2, "{$pathUpload}/midsize/resized_{$path2['basename']}");
             \imagedestroy($resized2);
         } else {
-            \imagejpeg($img2, "{$path_upload}/midsize/resized_{$path2['basename']}");
+            \imagejpeg($img2, "{$pathUpload}/midsize/resized_{$path2['basename']}");
         }
         \imagedestroy($img2);
     }

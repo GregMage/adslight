@@ -33,11 +33,14 @@ use XoopsModules\Adslight\{
 /** @var Helper $helper */
 
 require_once __DIR__ . '/header.php';
+
+global $xoopsModule, $xoopsDB, $xoopsConfig, $xoTheme;
+
 //require_once XOOPS_ROOT_PATH . '/modules/adslight/include/gtickets.php';
 xoops_load('XoopsLocal');
 $tempXoopsLocal = new \XoopsLocal();
 $myts           = \MyTextSanitizer::getInstance();
-$module_id      = $xoopsModule->getVar('mid');
+$moduleId      = $xoopsModule->getVar('mid');
 
 if (is_object($GLOBALS['xoopsUser'])) {
     $groups = $GLOBALS['xoopsUser']->getGroups();
@@ -49,10 +52,10 @@ $grouppermHandler = xoops_getHandler('groupperm');
 
 $perm_itemid = Request::getInt('item_id', 0, 'POST');
 
-if (!$grouppermHandler->checkRight('adslight_view', $perm_itemid, $groups, $module_id)) {
+if (!$grouppermHandler->checkRight('adslight_view', $perm_itemid, $groups, $moduleId)) {
     redirect_header(XOOPS_URL . '/index.php', 3, _NOPERM);
 }
-if ($grouppermHandler->checkRight('adslight_premium', $perm_itemid, $groups, $module_id)) {
+if ($grouppermHandler->checkRight('adslight_premium', $perm_itemid, $groups, $moduleId)) {
     $prem_perm = '1';
 } else {
     $prem_perm = '0';
@@ -73,7 +76,7 @@ function adsView($cid, $min, $orderby, $show = 0): void
     global $xoopsDB, $xoopsTpl, $xoopsConfig, $myts, $mytree, $imagecat, $meta, $mid, $prem_perm, $xoopsModule;
 
     $helper     = Helper::getInstance();
-    $pathIcon16 = Admin::iconUrl('', 16);
+    $pathIcon16 = Admin::iconUrl('', '16');
 
     $GLOBALS['xoopsOption']['template_main'] = 'adslight_category.tpl';
     require_once XOOPS_ROOT_PATH . '/header.php';
@@ -127,7 +130,8 @@ function adsView($cid, $min, $orderby, $show = 0): void
         if ($usid = $member_usid) {
             $GLOBALS['xoopsTpl']->assign('istheirs', true);
 
-            [$show_user] = $xoopsDB->fetchRow($xoopsDB->query('SELECT COUNT(*) FROM ' . $xoopsDB->prefix('adslight_listing') . ' WHERE usid=' . $member_usid . ' '));
+            $sql = 'SELECT COUNT(*) FROM ' . $xoopsDB->prefix('adslight_listing') . ' WHERE usid=' . $member_usid . ' ';
+            [$show_user] = $xoopsDB->fetchRow($xoopsDB->query($sql));
 
             $GLOBALS['xoopsTpl']->assign('show_user', $show_user);
             $GLOBALS['xoopsTpl']->assign('show_user_link', 'members.php?usid=' . $member_usid);
@@ -136,9 +140,9 @@ function adsView($cid, $min, $orderby, $show = 0): void
 
     $default_sort = $GLOBALS['xoopsModuleConfig']['adslight_lsort_order'];
 
-    $cid = (int) $cid > 0 ? (int) $cid : 0;
-    $min = (int) $min > 0 ? (int) $min : 0;
-    $show = (int) $show > 0 ? (int) $show : $GLOBALS['xoopsModuleConfig']['adslight_perpage'];
+    $cid     = (int)$cid > 0 ? (int)$cid : 0;
+    $min     = (int)$min > 0 ? (int)$min : 0;
+    $show    = (int)$show > 0 ? (int)$show : $GLOBALS['xoopsModuleConfig']['adslight_perpage'];
     $max     = $min + $show;
     $orderby = isset($orderby) ? Utility::convertOrderByIn($orderby) : $default_sort;
 
@@ -167,16 +171,18 @@ function adsView($cid, $min, $orderby, $show = 0): void
     $GLOBALS['xoopsTpl']->assign('category_path', $pathstring);
     $GLOBALS['xoopsTpl']->assign('category_id', $cid);
 
-    $countresult = $xoopsDB->query('SELECT COUNT(*) FROM ' . $xoopsDB->prefix('adslight_listing') . ' WHERE  cid=' . $xoopsDB->escape($cid) . ' AND valid="Yes" AND status!="1"');
+    $sql         = 'SELECT COUNT(*) FROM ' . $xoopsDB->prefix('adslight_listing') . ' WHERE  cid=' . $xoopsDB->escape($cid) . ' AND valid="Yes" AND status!="1"';
+    $countresult = $xoopsDB->query($sql);
     [$trow] = $xoopsDB->fetchRow($countresult);
     $trows = $trow;
 
     $cat_perms = '';
-    if (is_iterable($categories) && count($categories) > 0) {
+    if (is_array($categories) && count($categories) > 0) {
         $cat_perms .= ' AND cid IN (' . implode(',', $categories) . ') ';
     }
 
-    $result = $xoopsDB->query('SELECT cid, pid, title, cat_desc, cat_keywords FROM ' . $xoopsDB->prefix('adslight_categories') . ' WHERE cid=' . $xoopsDB->escape($cid) . ' ' . $cat_perms);
+    $sql    = 'SELECT cid, pid, title, cat_desc, cat_keywords FROM ' . $xoopsDB->prefix('adslight_categories') . ' WHERE cid=' . $xoopsDB->escape($cid) . ' ' . $cat_perms;
+    $result = $xoopsDB->query($sql);
     [$cid, $pid, $title, $cat_desc, $cat_keywords] = $xoopsDB->fetchRow($result);
 
     $GLOBALS['xoopsTpl']->assign('cat_desc', $cat_desc);
@@ -266,7 +272,7 @@ function adsView($cid, $min, $orderby, $show = 0): void
         $rank = 1;
 
         $cat_perms = '';
-        if (is_iterable($categories) && count($categories) > 0) {
+        if (is_array($categories) && count($categories) > 0) {
             $cat_perms .= ' AND cid IN (' . implode(',', $categories) . ') ';
         }
 
@@ -330,10 +336,12 @@ function adsView($cid, $min, $orderby, $show = 0): void
                 }
             }
 
-            $result7 = $xoopsDB->query('SELECT nom_type FROM ' . $xoopsDB->prefix('adslight_type') . " WHERE id_type='" . $xoopsDB->escape($type) . "'");
+            $sql     = 'SELECT nom_type FROM ' . $xoopsDB->prefix('adslight_type') . " WHERE id_type='" . $xoopsDB->escape($type) . "'";
+            $result7 = $xoopsDB->query($sql);
             [$nom_type] = $xoopsDB->fetchRow($result7);
 
-            $result8 = $xoopsDB->query('SELECT nom_price FROM ' . $xoopsDB->prefix('adslight_price') . " WHERE id_price='" . $xoopsDB->escape($typeprice) . "'");
+            $sql     = 'SELECT nom_price FROM ' . $xoopsDB->prefix('adslight_price') . " WHERE id_price='" . $xoopsDB->escape($typeprice) . "'";
+            $result8 = $xoopsDB->query($sql);
             [$nom_price] = $xoopsDB->fetchRow($result8);
 
             $a_item['type']   = \htmlspecialchars($nom_type, ENT_QUOTES | ENT_HTML5);
@@ -361,7 +369,7 @@ function adsView($cid, $min, $orderby, $show = 0): void
             }
 
             $cat = addslashes($cid);
-            if (2 === $status) {
+            if (2 === (int)$status) {
                 $a_item['sold'] = _ADSLIGHT_RESERVEDMEMBER;
             }
 

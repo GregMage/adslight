@@ -77,7 +77,7 @@ if (1 === $marker) {
  * Creating the factory  and the criteria to edit the desc of the picture
  * The user must be the owner
  */
-$album_factory = new PicturesHandler($xoopsDB);
+$albumFactory = new PicturesHandler($xoopsDB);
 $criteria_img  = new \Criteria('cod_img', $cod_img);
 $uid           = $GLOBALS['xoopsUser']->getVar('uid');
 $criteria_uid  = new \Criteria('uid_owner', $uid);
@@ -85,16 +85,16 @@ $criteria      = new \CriteriaCompo($criteria_img);
 $criteria->add($criteria_uid);
 
 /**
- * Lets fetch the info of the pictures to be able to render the form
+ * Let's fetch the info of the pictures to be able to render the form
  * The user must be the owner
  */
-$array_pict = $album_factory->getObjects($criteria);
+$array_pict = $albumFactory->getObjects($criteria);
 if ($array_pict) {
     $caption = $array_pict[0]->getVar('title');
     $url     = $array_pict[0]->getVar('url');
 }
 $url = "{$GLOBALS['xoopsModuleConfig']['adslight_link_upload']}/thumbs/thumb_{$url}";
-$album_factory->renderFormEdit($caption, $cod_img, $url);
+$albumFactory->renderFormEdit($caption, $cod_img, $url);
 
 /**
  * Close page

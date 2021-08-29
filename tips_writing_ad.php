@@ -28,17 +28,17 @@ require_once __DIR__ . '/header.php';
 //require_once XOOPS_ROOT_PATH . '/modules/adslight/include/gtickets.php';
 
 $myts      = \MyTextSanitizer::getInstance();
-$module_id = $xoopsModule->getVar('mid');
+$moduleId = $xoopsModule->getVar('mid');
 
 $groups = $GLOBALS['xoopsUser'] instanceof \XoopsUser ? $GLOBALS['xoopsUser']->getGroups() : XOOPS_GROUP_ANONYMOUS;
 /** @var \XoopsGroupPermHandler $grouppermHandler */
 $grouppermHandler = xoops_getHandler('groupperm');
 $perm_itemid      = Request::getInt('item_id', 0, 'POST');
 //If no access
-if (!$grouppermHandler->checkRight('adslight_view', $perm_itemid, $groups, $module_id)) {
+if (!$grouppermHandler->checkRight('adslight_view', $perm_itemid, $groups, $moduleId)) {
     redirect_header(XOOPS_URL . '/index.php', 3, _NOPERM);
 }
-$prem_perm = $grouppermHandler->checkRight('adslight_premium', $perm_itemid, $groups, $module_id) ? '1' : '0';
+$prem_perm = $grouppermHandler->checkRight('adslight_premium', $perm_itemid, $groups, $moduleId) ? '1' : '0';
 
 #  function tips_writing
 #####################################################
@@ -74,7 +74,8 @@ function tips_writing(): void
         if ($usid) {
             $GLOBALS['xoopsTpl']->assign('istheirs', true);
 
-            [$show_user] = $xoopsDB->fetchRow($xoopsDB->query('SELECT COUNT(*) FROM ' . $xoopsDB->prefix('adslight_listing') . " WHERE usid=${member_usid}"));
+            $sql = 'SELECT COUNT(*) FROM ' . $xoopsDB->prefix('adslight_listing') . " WHERE usid=${member_usid}";
+            [$show_user] = $xoopsDB->fetchRow($xoopsDB->query($sql));
 
             $GLOBALS['xoopsTpl']->assign('show_user', $show_user);
             $GLOBALS['xoopsTpl']->assign('show_user_link', "members.php?usid=${member_usid}");

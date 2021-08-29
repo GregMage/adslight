@@ -66,6 +66,7 @@ class SysUtility
     /**
      * @param $text
      * @param $form_sort
+     * @return string
      */
     public static function selectSorting($text, $form_sort): string
     {
@@ -161,7 +162,7 @@ class SysUtility
             return false;
         }
 
-        $row      = $GLOBALS['xoopsDB']->fetchBoth($result);
+        $row = $GLOBALS['xoopsDB']->fetchBoth($result);
         return \explode(',', \str_replace("'", '', \mb_substr($row['COLUMN_TYPE'], 5, -6)));
     }
 
@@ -204,11 +205,11 @@ class SysUtility
      * @TODO: Refactor to consider HTML5 & void (self-closing) elements
      * @TODO: Consider using https://github.com/jlgrall/truncateHTML/blob/master/truncateHTML.php
      *
-     * @param string $text         String to truncate.
+     * @param string      $text         String to truncate.
      * @param int|null    $length       Length of returned string, including ellipsis.
      * @param string|null $ending       Ending to be appended to the trimmed string.
-     * @param bool   $exact        If false, $text will not be cut mid-word
-     * @param bool   $considerHtml If true, HTML tags would be handled correctly
+     * @param bool        $exact        If false, $text will not be cut mid-word
+     * @param bool        $considerHtml If true, HTML tags would be handled correctly
      *
      * @return string Trimmed string.
      */
@@ -313,7 +314,7 @@ class SysUtility
      * Get correct text editor based on user rights
      *
      * @param \Xmf\Module\Helper|null $helper
-     * @param array|null         $options
+     * @param array|null              $options
      * @return \XoopsFormDhtmlTextArea|\XoopsFormEditor
      */
     public static function getEditor(?\Xmf\Module\Helper $helper = null, ?array $options = null)

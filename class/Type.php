@@ -39,7 +39,6 @@ use XoopsModules\Adslight\{
 class Type extends \XoopsObject
 {
     public $helper;
-
     public $permHelper;
 
     /**
@@ -51,7 +50,7 @@ class Type extends \XoopsObject
     {
         parent::__construct();
         /** @var Helper $helper */
-        $this->helper = Helper::getInstance();
+        $this->helper     = Helper::getInstance();
         $this->permHelper = new Permission();
         $this->initVar('id_type', \XOBJ_DTYPE_INT);
         $this->initVar('nom_type', \XOBJ_DTYPE_TXTBOX);
@@ -65,7 +64,6 @@ class Type extends \XoopsObject
         return new TypeForm($this);
     }
 
-
     public function getGroupsRead(): ?array
     {
         //$permHelper = new \Xmf\Module\Helper\Permission();
@@ -75,7 +73,6 @@ class Type extends \XoopsObject
         );
     }
 
-
     public function getGroupsSubmit(): ?array
     {
         //$permHelper = new \Xmf\Module\Helper\Permission();
@@ -84,7 +81,6 @@ class Type extends \XoopsObject
             $this->getVar('id_type')
         );
     }
-
 
     public function getGroupsModeration(): ?array
     {

@@ -52,9 +52,9 @@ function adsNewCat($cid): void
     <tr>
       <td class="even">' . _AM_ADSLIGHT_CATNAME . ' </td><td class="odd" colspan=2><input type="text" name="title" size="50" maxlength="100">&nbsp; ' . _AM_ADSLIGHT_IN . ' &nbsp;';
 
-    $cid = Request::getInt('cid', 0, 'GET');
-
-    $result = $xoopsDB->query('SELECT cid, pid, title, cat_desc, cat_keywords, img, cat_order, affprice, cat_moderate, moderate_subcat FROM ' . $xoopsDB->prefix('adslight_categories') . " WHERE cid={$cid}");
+    $cid    = Request::getInt('cid', 0, 'GET');
+    $sql    = 'SELECT cid, pid, title, cat_desc, cat_keywords, img, cat_order, affprice, cat_moderate, moderate_subcat FROM ' . $xoopsDB->prefix('adslight_categories') . " WHERE cid={$cid}";
+    $result = $xoopsDB->query($sql);
     [$cat_id, $pid, $title, $cat_desc, $cat_keywords, $imgs, $cat_order, $affprice, $cat_moderate, $moderate_subcat] = $xoopsDB->fetchRow($result);
     $mytree->makeMySelBox('title', 'title', $cid, 1);
     echo '    </td>  </tr>';
@@ -130,8 +130,8 @@ function adsModCat($cid): void
     echo "<fieldset><legend style='font-weight: bold; color: #900;'>" . _AM_ADSLIGHT_MODIFCAT . '</legend>';
     //    ShowImg();
     Utility::showImage();
-
-    $result = $xoopsDB->query('SELECT cid, pid, title, cat_desc, cat_keywords, img, cat_order, affprice, cat_moderate, moderate_subcat FROM ' . $xoopsDB->prefix('adslight_categories') . " WHERE cid=${cid}");
+    $sql    = 'SELECT cid, pid, title, cat_desc, cat_keywords, img, cat_order, affprice, cat_moderate, moderate_subcat FROM ' . $xoopsDB->prefix('adslight_categories') . " WHERE cid=${cid}";
+    $result = $xoopsDB->query($sql);
     [$cat_id, $pid, $title, $cat_desc, $cat_keywords, $imgs, $cat_order, $affprice, $cat_moderate, $moderate_subcat] = $xoopsDB->fetchRow($result);
 
     $title    = \htmlspecialchars($title, ENT_QUOTES | ENT_HTML5);
@@ -262,11 +262,10 @@ function adsModCatS(
     $title  = \htmlspecialchars($title, ENT_QUOTES | ENT_HTML5);
     $cidd   = (int)$cidd;
 
-    $xoopsDB->query(
-        'UPDATE '
-        . $xoopsDB->prefix('adslight_categories')
-        . " SET title='${title}', cat_desc='${cat_desc}', cat_keywords='${cat_keywords}', pid='${cid}', img='${img}', cat_order='${cat_order}', affprice='${affprice}', cat_moderate='${cat_moderate}', moderate_subcat='${moderate_subcat}' WHERE cid={$cidd}"
-    );
+    $sql = 'UPDATE '
+           . $xoopsDB->prefix('adslight_categories')
+           . " SET title='${title}', cat_desc='${cat_desc}', cat_keywords='${cat_keywords}', pid='${cid}', img='${img}', cat_order='${cat_order}', affprice='${affprice}', cat_moderate='${cat_moderate}', moderate_subcat='${moderate_subcat}' WHERE cid={$cidd}";
+    $xoopsDB->query($sql);
 
     if (1 !== $moderate_subcat) {
         $xoopsDB->queryF('UPDATE ' . $xoopsDB->prefix('adslight_categories') . " SET cat_moderate=0, moderate_subcat=0 WHERE pid={$cidd}");
@@ -309,7 +308,8 @@ function adsAddCat(
         $title = '! ! ? ! !';
     }
 
-    $xoopsDB->query('INSERT INTO ' . $xoopsDB->prefix('adslight_categories') . " VALUES (NULL, '${cid}', '${title}', '${cat_desc}', '${cat_keywords}', '${img}', '${cat_order}', '${affprice}', '${cat_moderate}', '${moderate_subcat}')");
+    $sql = 'INSERT INTO ' . $xoopsDB->prefix('adslight_categories') . " VALUES (NULL, '${cid}', '${title}', '${cat_desc}', '${cat_keywords}', '${img}', '${cat_order}', '${affprice}', '${cat_moderate}', '${moderate_subcat}')";
+    $xoopsDB->query($sql);
 
     if (1 === $moderate_subcat) {
         $xoopsDB->queryF('UPDATE ' . $xoopsDB->prefix('adslight_categories') . ' SET cat_moderate=1 WHERE pid = ' . (int)$cid . '');

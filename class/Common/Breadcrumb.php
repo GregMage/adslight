@@ -35,7 +35,7 @@ namespace XoopsModules\Adslight\Common;
  */
 class Breadcrumb
 {
-    public $dirname;
+    public  $dirname;
     private $bread = [];
 
     public function __construct()

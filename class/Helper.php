@@ -41,6 +41,7 @@ class Helper extends \Xmf\Module\Helper
     }
 
     /**
+     * @param bool $debug
      * @return \XoopsModules\Adslight\Helper
      */
     public static function getInstance(bool $debug = false): self
@@ -52,7 +53,6 @@ class Helper extends \Xmf\Module\Helper
 
         return $instance;
     }
-
 
     public function getDirname(): string
     {

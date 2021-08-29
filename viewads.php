@@ -38,7 +38,7 @@ require_once __DIR__ . '/header.php';
 xoops_load('XoopsLocal');
 
 $myts      = \MyTextSanitizer::getInstance();
-$module_id = $xoopsModule->getVar('mid');
+$moduleId = $xoopsModule->getVar('mid');
 
 if (is_object($GLOBALS['xoopsUser'])) {
     $groups = $GLOBALS['xoopsUser']->getGroups();
@@ -49,10 +49,10 @@ if (is_object($GLOBALS['xoopsUser'])) {
 $grouppermHandler = xoops_getHandler('groupperm');
 $perm_itemid      = Request::getInt('item_id', 0, 'POST');
 //If no access
-if (!$grouppermHandler->checkRight('adslight_view', $perm_itemid, $groups, $module_id)) {
+if (!$grouppermHandler->checkRight('adslight_view', $perm_itemid, $groups, $moduleId)) {
     redirect_header(XOOPS_URL . '/index.php', 3, _NOPERM);
 }
-if ($grouppermHandler->checkRight('adslight_premium', $perm_itemid, $groups, $module_id)) {
+if ($grouppermHandler->checkRight('adslight_premium', $perm_itemid, $groups, $moduleId)) {
     $prem_perm = '1';
 } else {
     $prem_perm = '0';
@@ -73,7 +73,7 @@ function viewAds($lid = 0): void
 
     $moduleDirName = \basename(__DIR__);
 
-    $pathIcon16     = Admin::iconUrl('', 16);
+    $pathIcon16     = Admin::iconUrl('', '16');
     $contact_pm     = $contact = '';
     $pictures_array = [];
     $cid            = 0;
@@ -82,7 +82,7 @@ function viewAds($lid = 0): void
     $GLOBALS['xoopsOption']['template_main'] = 'adslight_item.tpl';
     require_once XOOPS_ROOT_PATH . '/header.php';
     //    require_once XOOPS_ROOT_PATH . '/include/comment_view.php';
-    $lid = (int) $lid > 0 ? (int) $lid : 0;
+    $lid  = (int)$lid > 0 ? (int)$lid : 0;
     $rate = '1' === $GLOBALS['xoopsModuleConfig']['adslight_rate_item'] ? '1' : '0';
     $GLOBALS['xoopsTpl']->assign('rate', $rate);
     $GLOBALS['xoopsTpl']->assign('xmid', $xoopsModule->getVar('mid'));
@@ -117,7 +117,8 @@ function viewAds($lid = 0): void
 
             $GLOBALS['xoopsTpl']->assign('user_email', $GLOBALS['xoopsUser']->getVar('email'));
 
-            [$show_user] = $xoopsDB->fetchRow($xoopsDB->query('SELECT COUNT(*) FROM ' . $xoopsDB->prefix('adslight_listing') . " WHERE usid=${member_usid}"));
+            $sql = 'SELECT COUNT(*) FROM ' . $xoopsDB->prefix('adslight_listing') . " WHERE usid=${member_usid}";
+            [$show_user] = $xoopsDB->fetchRow($xoopsDB->query($sql));
 
             $GLOBALS['xoopsTpl']->assign('show_user', $show_user);
             $GLOBALS['xoopsTpl']->assign('show_user_link', 'members.php?uid=' . $member_usid);
@@ -130,7 +131,7 @@ function viewAds($lid = 0): void
 
     $cat_perms  = '';
     $categories = Utility::getMyItemIds('adslight_view');
-    if (is_iterable($categories) && count($categories) > 0) {
+    if (is_array($categories) && count($categories) > 0) {
         $cat_perms .= ' AND cid IN (' . implode(',', $categories) . ') ';
     }
 
@@ -211,7 +212,7 @@ function viewAds($lid = 0): void
 
         $GLOBALS['xoopsTpl']->assign('category_title', $ctitle);
 
-        $module_id = $xoopsModule->getVar('mid');
+        $moduleId = $xoopsModule->getVar('mid');
         if (is_object($GLOBALS['xoopsUser'])) {
             $groups = $GLOBALS['xoopsUser']->getGroups();
         } else {
@@ -219,17 +220,19 @@ function viewAds($lid = 0): void
         }
         /** @var \XoopsGroupPermHandler $grouppermHandler */
         $grouppermHandler = xoops_getHandler('groupperm');
-        $GLOBALS['xoopsTpl']->assign('purchasable', $grouppermHandler->checkRight('adslight_purchase', $cid, $groups, $module_id));
+        $GLOBALS['xoopsTpl']->assign('purchasable', $grouppermHandler->checkRight('adslight_purchase', $cid, $groups, $moduleId));
 
         $ctitle     = \htmlspecialchars($ctitle, ENT_QUOTES | ENT_HTML5);
         $varid[$x]  = $ccid;
         $varnom[$x] = $ctitle;
 
-        [$nbe] = $xoopsDB->fetchRow($xoopsDB->query('SELECT COUNT(*) FROM ' . $xoopsDB->prefix('adslight_listing') . ' WHERE valid="Yes" AND cid=' . $xoopsDB->escape($cid) . ' AND status!="1"'));
+        $sql = 'SELECT COUNT(*) FROM ' . $xoopsDB->prefix('adslight_listing') . ' WHERE valid="Yes" AND cid=' . $xoopsDB->escape($cid) . ' AND status!="1"';
+        [$nbe] = $xoopsDB->fetchRow($xoopsDB->query($sql));
         if (0 !== (int)$pid) {
             $x = 1;
             while (0 !== (int)$pid) {
-                $result4 = $xoopsDB->query('SELECT cid, pid, title FROM ' . $xoopsDB->prefix('adslight_categories') . ' WHERE cid=' . $xoopsDB->escape($pid));
+                $sql     = 'SELECT cid, pid, title FROM ' . $xoopsDB->prefix('adslight_categories') . ' WHERE cid=' . $xoopsDB->escape($pid);
+                $result4 = $xoopsDB->query($sql);
                 [$ccid, $pid, $ctitle] = $xoopsDB->fetchRow($result4);
 
                 $ctitle     = \htmlspecialchars($ctitle, ENT_QUOTES | ENT_HTML5);
@@ -298,7 +301,7 @@ function viewAds($lid = 0): void
         $country       = \htmlspecialchars($country, ENT_QUOTES | ENT_HTML5);
         $contactby     = \htmlspecialchars($contactby, ENT_QUOTES | ENT_HTML5);
         $premium       = \htmlspecialchars($premium, ENT_QUOTES | ENT_HTML5);
-        if (2 === $status) {
+        if (2 === (int)$status) {
             $sold = _ADSLIGHT_RESERVED;
         } else {
             $sold = '';
@@ -335,13 +338,16 @@ function viewAds($lid = 0): void
             }
         }
 
-        $result7 = $xoopsDB->query('SELECT nom_type FROM ' . $xoopsDB->prefix('adslight_type') . " WHERE id_type='" . $xoopsDB->escape($type) . "'");
+        $sql     = 'SELECT nom_type FROM ' . $xoopsDB->prefix('adslight_type') . " WHERE id_type='" . $xoopsDB->escape($type) . "'";
+        $result7 = $xoopsDB->query($sql);
         [$nom_type] = $xoopsDB->fetchRow($result7);
 
-        $result8 = $xoopsDB->query('SELECT nom_price FROM ' . $xoopsDB->prefix('adslight_price') . " WHERE id_price='" . $xoopsDB->escape($typeprice) . "'");
+        $sql     = 'SELECT nom_price FROM ' . $xoopsDB->prefix('adslight_price') . " WHERE id_price='" . $xoopsDB->escape($typeprice) . "'";
+        $result8 = $xoopsDB->query($sql);
         [$nom_price] = $xoopsDB->fetchRow($result8);
 
-        $result9 = $xoopsDB->query('SELECT nom_condition FROM ' . $xoopsDB->prefix('adslight_condition') . " WHERE id_condition='" . $xoopsDB->escape($typecondition) . "'");
+        $sql     = 'SELECT nom_condition FROM ' . $xoopsDB->prefix('adslight_condition') . " WHERE id_condition='" . $xoopsDB->escape($typecondition) . "'";
+        $result9 = $xoopsDB->query($sql);
         [$nom_condition] = $xoopsDB->fetchRow($result9);
 
         $GLOBALS['xoopsTpl']->assign('type', htmlspecialchars($nom_type, ENT_QUOTES | ENT_HTML5));
@@ -428,15 +434,15 @@ function viewAds($lid = 0): void
         if ('' !== $photo) {
             $criteria_lid          = new \Criteria('lid', $lid);
             $criteria_uid          = new \Criteria('uid', $usid);
-            $album_factory         = new PicturesHandler($xoopsDB);
-            $pictures_object_array = $album_factory->getObjects($criteria_lid, $criteria_uid);
-            $pictures_number       = $album_factory->getCount($criteria_lid, $criteria_uid);
+            $albumFactory         = new PicturesHandler($xoopsDB);
+            $pictures_object_array = $albumFactory->getObjects($criteria_lid, $criteria_uid);
+            $pictures_number       = $albumFactory->getCount($criteria_lid, $criteria_uid);
             if (0 === $pictures_number) {
                 $nopicturesyet = _ADSLIGHT_NOTHINGYET;
                 $GLOBALS['xoopsTpl']->assign('lang_nopicyet', $nopicturesyet);
             } else {
                 /**
-                 * Lets populate an array with the data from the pictures
+                 * Let's populate an array with the data from the pictures
                  */
                 $i = 0;
                 foreach ($pictures_object_array as $picture) {
@@ -491,7 +497,8 @@ function viewAds($lid = 0): void
     } else {
         $GLOBALS['xoopsTpl']->assign('no_ad', _ADSLIGHT_NOCLAS);
     }
-    $result8 = $xoopsDB->query('SELECT title FROM ' . $xoopsDB->prefix('adslight_categories') . ' WHERE cid=' . $xoopsDB->escape($cid));
+    $sql     = 'SELECT title FROM ' . $xoopsDB->prefix('adslight_categories') . ' WHERE cid=' . $xoopsDB->escape($cid);
+    $result8 = $xoopsDB->query($sql);
 
     [$ctitle] = $xoopsDB->fetchRow($result8);
     $GLOBALS['xoopsTpl']->assign('friend', '<img src="assets/images/friend.gif" border="0" alt="' . _ADSLIGHT_SENDFRIENDS . '" >&nbsp;&nbsp;<a rel="nofollow" href="sendfriend.php?op=SendFriend&amp;lid=' . $lid . '">' . _ADSLIGHT_SENDFRIENDS . '</a>');
@@ -508,6 +515,7 @@ function viewAds($lid = 0): void
 #####################################################
 /**
  * @param $cid
+ * @return string
  */
 function categorynewgraphic($cid): string
 {
@@ -515,11 +523,12 @@ function categorynewgraphic($cid): string
 
     $cat_perms  = '';
     $categories = Utility::getMyItemIds('adslight_view');
-    if (is_iterable($categories) && count($categories) > 0) {
+    if (is_array($categories) && count($categories) > 0) {
         $cat_perms .= ' AND cid IN (' . implode(',', $categories) . ') ';
     }
 
-    $newresult = $xoopsDB->query('SELECT date_created FROM ' . $xoopsDB->prefix('adslight_listing') . ' WHERE cid=' . $xoopsDB->escape($cid) . ' AND valid = "Yes" ' . $cat_perms . ' ORDER BY date_created DESC LIMIT 1');
+    $sql       = 'SELECT date_created FROM ' . $xoopsDB->prefix('adslight_listing') . ' WHERE cid=' . $xoopsDB->escape($cid) . ' AND valid = "Yes" ' . $cat_perms . ' ORDER BY date_created DESC LIMIT 1';
+    $newresult = $xoopsDB->query($sql);
     [$date_created] = $xoopsDB->fetchRow($newresult);
 
     $newcount  = $GLOBALS['xoopsModuleConfig']['adslight_countday'];

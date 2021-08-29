@@ -32,15 +32,18 @@ use XoopsModules\Adslight\{
 /** @var Helper $helper */
 
 require_once __DIR__ . '/header.php';
+
+global $xoopsModule, $xoopsDB, $xoopsConfig, $xoTheme;
+
 $myts      = \MyTextSanitizer::getInstance();
-$module_id = $xoopsModule->getVar('mid');
+$moduleId = $xoopsModule->getVar('mid');
 $groups    = $GLOBALS['xoopsUser'] instanceof \XoopsUser ? $GLOBALS['xoopsUser']->getGroups() : XOOPS_GROUP_ANONYMOUS;
 /** @var \XoopsGroupPermHandler $grouppermHandler */
 $grouppermHandler = xoops_getHandler('groupperm');
 $perm_itemid      = Request::getInt('item_id', 0, 'POST');
 
 //If no access
-if (!$grouppermHandler->checkRight('adslight_submit', $perm_itemid, $groups, $module_id)) {
+if (!$grouppermHandler->checkRight('adslight_submit', $perm_itemid, $groups, $moduleId)) {
     $helper->redirect('index.php', 3, _NOPERM);
 }
 
@@ -168,7 +171,7 @@ function modAd($lid): void
         $result
     );
     $categories = Utility::getMyItemIds('adslight_submit');
-    if (is_iterable($categories) && count($categories) > 0) {
+    if (is_array($categories) && count($categories) > 0) {
         if (!in_array((int)$cide, $categories, true)) {
             $helper->redirect('index.php', 3, _NOPERM);
         }
@@ -191,7 +194,7 @@ function modAd($lid): void
 
             xoops_load('XoopsLocal');
             $tempXoopsLocal = new \XoopsLocal();
-            //  For US currency with 2 numbers after the decimal comment out if you dont want 2 numbers after decimal
+            //  For US currency with 2 numbers after the decimal comment out if you don't want 2 numbers after decimal
             $price = $tempXoopsLocal->number_format($price, 2, ',', ' ');
             //  For other countries uncomment the below line and comment out the above line
             //      $price = $tempXoopsLocal->number_format($price);
@@ -260,15 +263,15 @@ function modAd($lid): void
             }
 
             echo "<tr><td class='head'>" . _ADSLIGHT_STATUS . "</td><td class='head'><input type=\"radio\" name=\"status\" value=\"0\"";
-            if ('0' === $status) {
+            if (0 === (int)$status) {
                 echo 'checked';
             }
             echo '>' . _ADSLIGHT_ACTIVE . '&nbsp;&nbsp; <input type="radio" name="status" value="1"';
-            if ('1' === $status) {
+            if (1 === (int)$status) {
                 echo 'checked';
             }
             echo '>' . _ADSLIGHT_INACTIVE . '&nbsp;&nbsp; <input type="radio" name="status" value="2"';
-            if ('2' === $status) {
+            if (2 === (int)$status) {
                 echo 'checked';
             }
             echo '>' . _ADSLIGHT_SOLD . '</td></tr>';
@@ -277,7 +280,8 @@ function modAd($lid): void
     </tr>";
             echo '<tr><td class="head">' . _ADSLIGHT_PRICE2 . " </td><td class=\"head\"><input type=\"text\" name=\"price\" size=\"20\" value=\"${price}\" > " . $GLOBALS['xoopsModuleConfig']['adslight_currency_symbol'];
 
-            $result3 = $xoopsDB->query('SELECT nom_price, id_price FROM ' . $xoopsDB->prefix('adslight_price') . ' ORDER BY id_price');
+            $sql     = 'SELECT nom_price, id_price FROM ' . $xoopsDB->prefix('adslight_price') . ' ORDER BY id_price';
+            $result3 = $xoopsDB->query($sql);
             echo ' <select name="typeprice">';
             while ([$nom_price, $id_price] = $xoopsDB->fetchRow($result3)) {
                 $sel = '';
@@ -287,14 +291,14 @@ function modAd($lid): void
                 echo "<option value=\"${id_price}\" ${sel}>${nom_price}</option>";
             }
             echo '</select></td></tr>';
-            $module_id = $xoopsModule->getVar('mid');
+            $moduleId = $xoopsModule->getVar('mid');
             $groups    = $GLOBALS['xoopsUser'] instanceof \XoopsUser ? $GLOBALS['xoopsUser']->getGroups() : XOOPS_GROUP_ANONYMOUS;
             /** @var \XoopsGroupPermHandler $grouppermHandler */
             $grouppermHandler = xoops_getHandler('groupperm');
             $perm_itemid      = Request::getInt('item_id', 0, 'GET');
 
             //If no access
-            if ($grouppermHandler->checkRight('adslight_premium', $perm_itemid, $groups, $module_id)) {
+            if ($grouppermHandler->checkRight('adslight_premium', $perm_itemid, $groups, $moduleId)) {
                 echo "<tr>
     <td width='30%' class='head'>" . _ADSLIGHT_HOW_LONG . " </td><td class='head'><input type=\"text\" name=\"expire\" size=\"3\" maxlength=\"3\" value=\"${expire}\" >  " . _ADSLIGHT_DAY . '</td>
     </tr>';
@@ -309,7 +313,8 @@ function modAd($lid): void
             echo '<tr>
     <td class="head">' . _ADSLIGHT_TYPE . ' </td><td class="head"><select name="type">';
 
-            $result5 = $xoopsDB->query('SELECT nom_type, id_type FROM ' . $xoopsDB->prefix('adslight_type') . ' ORDER BY nom_type');
+            $sql     = 'SELECT nom_type, id_type FROM ' . $xoopsDB->prefix('adslight_type') . ' ORDER BY nom_type';
+            $result5 = $xoopsDB->query($sql);
             while ([$nom_type, $id_type] = $xoopsDB->fetchRow($result5)) {
                 $sel = '';
                 if ($id_type === $type) {
@@ -323,7 +328,8 @@ function modAd($lid): void
             echo '<tr>
     <td class="head">' . _ADSLIGHT_TYPE_CONDITION . ' </td><td class="head"><select name="typecondition">';
 
-            $result6 = $xoopsDB->query('SELECT nom_condition, id_condition FROM ' . $xoopsDB->prefix('adslight_condition') . ' ORDER BY nom_condition');
+            $sql     = 'SELECT nom_condition, id_condition FROM ' . $xoopsDB->prefix('adslight_condition') . ' ORDER BY nom_condition';
+            $result6 = $xoopsDB->query($sql);
             while ([$nom_condition, $id_condition] = $xoopsDB->fetchRow($result6)) {
                 $sel = '';
                 if ($id_condition === $typecondition) {
@@ -335,7 +341,7 @@ function modAd($lid): void
 
             echo '<tr>
     <td class="head">' . _ADSLIGHT_CAT . ' </td><td class="head">';
-            $mytree->makeMySelBox('title', 'title', $cide, '', 'cid');
+            $mytree->makeMySelBox('title', 'title', $cide, 0, 'cid');
             echo '</td>
     </tr><tr>
     <td class="head">' . _ADSLIGHT_DESC . ' </td><td class="head">';
@@ -350,7 +356,7 @@ function modAd($lid): void
     </tr></table>';
             echo '<input type="hidden" name="op" value="ModAdS" >';
 
-            $module_id = $xoopsModule->getVar('mid');
+            $moduleId = $xoopsModule->getVar('mid');
             if (is_object($GLOBALS['xoopsUser'])) {
                 $groups = &$GLOBALS['xoopsUser']->getGroups();
             } else {
@@ -360,7 +366,7 @@ function modAd($lid): void
             $grouppermHandler = xoops_getHandler('groupperm');
             $perm_itemid      = Request::getInt('item_id', 0, 'POST');
             //If no access
-            if ($grouppermHandler->checkRight('adslight_premium', $perm_itemid, $groups, $module_id)) {
+            if ($grouppermHandler->checkRight('adslight_premium', $perm_itemid, $groups, $moduleId)) {
                 echo '<input type="hidden" name="valid" value="Yes" >';
             } elseif ('1' === $GLOBALS['xoopsModuleConfig']['adslight_moderated']) {
                 echo '<input type="hidden" name="valid" value="No" >';

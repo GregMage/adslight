@@ -35,6 +35,8 @@ use XoopsModules\Adslight\{
     Common\Configurator,
     Common\Migrate,
 };
+/** @var Admin $adminObject */
+/** @var Helper $helper */
 
 require_once __DIR__ . '/admin_header.php';
 xoops_cp_header();

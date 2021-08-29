@@ -44,7 +44,7 @@ if ($GLOBALS['xoopsModuleConfig']['active_rewriteurl'] > 0) {
     require_once __DIR__ . '/seo_url.php';
 }
 
-$pathIcon16 = Admin::iconUrl('', 16);
+$pathIcon16 = Admin::iconUrl('', '16');
 
 $myts = \MyTextSanitizer::getInstance();
 

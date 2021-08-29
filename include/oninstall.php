@@ -86,8 +86,10 @@ function xoops_module_install_adslight(\XoopsModule $module): bool
     $grouppermHandler->addRight($moduleDirName . '_view', 1, XOOPS_GROUP_USERS, $moduleId);
     $grouppermHandler->addRight($moduleDirName . '_view', 1, XOOPS_GROUP_ANONYMOUS, $moduleId);
 
-    $result8 = $xoopsDB->query('SELECT COUNT(*) FROM ' . $xoopsDB->prefix('adslight_categories'));
-    $rowsCount = $xoopsDB->getRowsNum($xoopsDB->query('SELECT * FROM ' . $xoopsDB->prefix('adslight_categories') . ''));
+    $sql = 'SELECT COUNT(*) FROM ' . $xoopsDB->prefix('adslight_categories');
+    $result8 = $xoopsDB->query($sql);
+    $sql = 'SELECT * FROM ' . $xoopsDB->prefix('adslight_categories') . '';
+    $rowsCount = $xoopsDB->getRowsNum($xoopsDB->query($sql));
 
 
 
@@ -102,9 +104,11 @@ function xoops_module_install_adslight(\XoopsModule $module): bool
     $permName2 = $moduleDirName . '_submit';
     $permName3 = $moduleDirName . '_view';
 
-    $rowsCount = $xoopsDB->getRowsNum($xoopsDB->query('SELECT * FROM ' . $xoopsDB->prefix('adslight_categories') . ' '));
+    $sql       = 'SELECT * FROM ' . $xoopsDB->prefix('adslight_categories') . ' ';
+    $rowsCount = $xoopsDB->getRowsNum($xoopsDB->query($sql));
 
-    $result = $xoopsDB->query('SELECT cid FROM ' . $xoopsDB->prefix('adslight_categories'));
+    $sql    = 'SELECT cid FROM ' . $xoopsDB->prefix('adslight_categories');
+    $result = $xoopsDB->query($sql);
 
     while (false !== ($myrow = $xoopsDB->fetchArray($result))) {
         $categoryId = (int)$myrow['cid'];

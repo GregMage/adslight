@@ -32,9 +32,11 @@ use XoopsModules\Adslight\{
 
 require_once __DIR__ . '/header.php';
 
+global $xoopsModule, $xoopsDB, $xoopsConfig, $xoTheme;
+
 $myts = \MyTextSanitizer::getInstance(); // MyTextSanitizer object
 global $xoopsModule;
-$pathIcon16 = Admin::iconUrl('', 16);
+$pathIcon16 = Admin::iconUrl('', '16');
 xoops_load('XoopsLocal');
 $moduleDirName = \basename(__DIR__);
 
@@ -46,7 +48,7 @@ require_once XOOPS_ROOT_PATH . '/include/comment_view.php';
 
 $lid       = Request::getInt('lid', 0, 'GET');
 $usid      = Request::getInt('usid', 0, 'GET');
-$module_id = $xoopsModule->getVar('mid');
+$moduleId = $xoopsModule->getVar('mid');
 if (is_object($GLOBALS['xoopsUser'])) {
     $groups = $GLOBALS['xoopsUser']->getGroups();
 } else {
@@ -57,11 +59,11 @@ $grouppermHandler = xoops_getHandler('groupperm');
 $perm_itemid      = Request::getInt('item_id', 0, 'POST');
 
 //If no access
-$permit = ! $grouppermHandler->checkRight('adslight_premium', $perm_itemid, $groups, $module_id) ? '0' : '1';
+$permit = !$grouppermHandler->checkRight('adslight_premium', $perm_itemid, $groups, $moduleId) ? '0' : '1';
 
 $GLOBALS['xoopsTpl']->assign('permit', $permit);
 $isadmin = ($GLOBALS['xoopsUser'] instanceof \XoopsUser)
-            && $GLOBALS['xoopsUser']->isAdmin($xoopsModule->mid());
+           && $GLOBALS['xoopsUser']->isAdmin($xoopsModule->mid());
 
 $GLOBALS['xoopsTpl']->assign('add_from', _ADSLIGHT_ADDFROM . ' ' . $xoopsConfig['sitename']);
 $GLOBALS['xoopsTpl']->assign('add_from_title', _ADSLIGHT_ADDFROM);
@@ -90,7 +92,7 @@ if (!isset($max)) {
     $max = $min + $show;
 }
 $orderby = 'date_created ASC';
-$rate = '1' === $GLOBALS['xoopsModuleConfig']['adslight_rate_user'] ? '1' : '0';
+$rate    = '1' === $GLOBALS['xoopsModuleConfig']['adslight_rate_user'] ? '1' : '0';
 $GLOBALS['xoopsTpl']->assign('rate', $rate);
 
 if ($GLOBALS['xoopsUser']) {
@@ -100,12 +102,13 @@ if ($GLOBALS['xoopsUser']) {
 
 $cat_perms  = '';
 $categories = Utility::getMyItemIds('adslight_view');
-if (is_iterable($categories) && count($categories) > 0) {
+if (is_array($categories) && count($categories) > 0) {
     $cat_perms .= ' AND cid IN (' . implode(',', $categories) . ') ';
 }
 
 if (1 === $istheirs) {
-    $countresult = $xoopsDB->query('SELECT COUNT(*) FROM ' . $xoopsDB->prefix('adslight_listing') . ' WHERE usid=' . $xoopsDB->escape($usid) . " AND valid='Yes' ${cat_perms}");
+    $sql         = 'SELECT COUNT(*) FROM ' . $xoopsDB->prefix('adslight_listing') . ' WHERE usid=' . $xoopsDB->escape($usid) . " AND valid='Yes' ${cat_perms}";
+    $countresult = $xoopsDB->query($sql);
     [$trow] = $xoopsDB->fetchRow($countresult);
 
     $sql    = 'SELECT lid, cid, title, status, expire, type, desctext, tel, price, typeprice, date_created, email, submitter, usid, town, country, contactby, premium, valid, photo, hits, item_rating, item_votes, user_rating, user_votes, comments FROM '
@@ -115,7 +118,8 @@ if (1 === $istheirs) {
               . " AND valid='Yes' ${cat_perms} ORDER BY ${orderby}";
     $result = $xoopsDB->query($sql, $show, $min);
 } else {
-    $countresult = $xoopsDB->query('SELECT COUNT(*) FROM ' . $xoopsDB->prefix('adslight_listing') . ' WHERE usid=' . $xoopsDB->escape($usid) . " AND valid='Yes' AND status!='1' ${cat_perms}");
+    $sql         = 'SELECT COUNT(*) FROM ' . $xoopsDB->prefix('adslight_listing') . ' WHERE usid=' . $xoopsDB->escape($usid) . " AND valid='Yes' AND status!='1' ${cat_perms}";
+    $countresult = $xoopsDB->query($sql);
     [$trow] = $xoopsDB->fetchRow($countresult);
 
     $sql    = 'SELECT lid, cid, title, status, expire, type, desctext, tel, price, typeprice, date_created, email, submitter, usid, town, country, contactby, premium, valid, photo, hits, item_rating, item_votes, user_rating, user_votes, comments FROM '
@@ -147,7 +151,7 @@ if ($trows > '0') {
     }
     while (false !== [$lid, $cid, $title, $status, $expire, $type, $desctext, $tel, $price, $typeprice, $date_created, $email, $submitter, $usid, $town, $country, $contactby, $premium, $valid, $photo, $hits, $item_rating, $item_votes, $user_rating, $user_votes, $comments] = $xoopsDB->fetchRow(
             $result
-    )) {
+        )) {
         $newitem   = '';
         $newcount  = $GLOBALS['xoopsModuleConfig']['adslight_countday'];
         $startdate = time() - (86400 * $newcount);
@@ -164,22 +168,27 @@ if ($trows > '0') {
         if (2 === (int)$status) {
             $status_is = _ADSLIGHT_SOLD;
         }
-        $countresult = $xoopsDB->query('SELECT COUNT(*) FROM ' . $xoopsDB->prefix('adslight_replies') . " WHERE lid='" . $xoopsDB->escape($lid) . "'");
+        $sql         = 'SELECT COUNT(*) FROM ' . $xoopsDB->prefix('adslight_replies') . " WHERE lid='" . $xoopsDB->escape($lid) . "'";
+        $countresult = $xoopsDB->query($sql);
         [$rrow] = $xoopsDB->fetchRow($countresult);
         $rrows = $rrow;
         $GLOBALS['xoopsTpl']->assign('reply_count', $rrows);
 
-        $result2 = $xoopsDB->query('SELECT r_lid, lid, date_created, submitter, message, email, r_usid FROM ' . $xoopsDB->prefix('adslight_replies') . ' WHERE lid =' . $xoopsDB->escape($lid));
+        $sql     = 'SELECT r_lid, lid, date_created, submitter, message, email, r_usid FROM ' . $xoopsDB->prefix('adslight_replies') . ' WHERE lid =' . $xoopsDB->escape($lid);
+        $result2 = $xoopsDB->query($sql);
         [$r_lid, $rlid, $rdate, $rsubmitter, $message, $remail, $r_usid] = $xoopsDB->fetchRow($result2);
 
         //Fix bug for type and typeprice
-        $result7 = $xoopsDB->query('SELECT nom_type FROM ' . $xoopsDB->prefix('adslight_type') . ' WHERE id_type=' . (int)$type);
+        $sql     = 'SELECT nom_type FROM ' . $xoopsDB->prefix('adslight_type') . ' WHERE id_type=' . (int)$type;
+        $result7 = $xoopsDB->query($sql);
         [$nom_type] = $xoopsDB->fetchRow($result7);
 
-        //        $result8 = $xoopsDB->query('SELECT nom_price FROM ' . $xoopsDB->prefix('adslight_price') . " WHERE id_price='" . $xoopsDB->escape($typeprice) . "'");
+        // $sql = 'SELECT nom_price FROM ' . $xoopsDB->prefix('adslight_price') . " WHERE id_price='" . $xoopsDB->escape($typeprice) . "'";
+        //        $result8 = $xoopsDB->query($sql);
         //        [$nom_price] = $xoopsDB->fetchRow($result8);
 
-        $result8 = $xoopsDB->query('SELECT nom_price FROM ' . $xoopsDB->prefix('adslight_price') . ' WHERE id_price=' . (int)$typeprice);
+        $sql     = 'SELECT nom_price FROM ' . $xoopsDB->prefix('adslight_price') . ' WHERE id_price=' . (int)$typeprice;
+        $result8 = $xoopsDB->query($sql);
         [$nom_price] = $xoopsDB->fetchRow($result8);
 
         if ($isadmin) {
@@ -207,7 +216,7 @@ if ($trows > '0') {
         $GLOBALS['xoopsTpl']->assign('rating', number_format((float)$user_rating, 2));
         $GLOBALS['xoopsTpl']->assign('status_head', _ADSLIGHT_STATUS);
         $tempXoopsLocal = new \XoopsLocal();
-        //  For US currency with 2 numbers after the decimal comment out if you dont want 2 numbers after decimal
+        //  For US currency with 2 numbers after the decimal comment out if you don't want 2 numbers after decimal
         $priceFormatted = $tempXoopsLocal->number_format($price, 2, ',', ' ');
         //  For other countries uncomment the below line and comment out the above line
         //      $priceFormatted = $tempXoopsLocal->number_format($price);
@@ -265,7 +274,7 @@ if ($trows > '0') {
             $view_now = '';
         }
         $sold = '';
-        if (2 === $status) {
+        if (2 === (int)$status) {
             $sold = _ADSLIGHT_RESERVEDMEMBER;
         }
 

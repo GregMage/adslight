@@ -13,6 +13,7 @@ namespace XoopsModules\Adslight\Common;
  but WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
+
 /**
  * Module: Adslight
  *
@@ -21,13 +22,14 @@ namespace XoopsModules\Adslight\Common;
  * @copyright       {@link https://xoops.org/ XOOPS Project}
  * @license         GPL 2.0 or later
  */
+
 use Xmf\Request;
 use XoopsModules\Adslight;
 
-require_once  \dirname(__DIR__, 4)  . '/mainfile.php';
-$moduleDirName = basename(dirname(__DIR__, 2));
-$moduleDirNameUpper = mb_strtoupper($moduleDirName);
-xoops_loadLanguage('filechecker', $moduleDirName);
+require_once \dirname(__DIR__, 4) . '/mainfile.php';
+$moduleDirName      = \basename(\dirname(__DIR__, 2));
+$moduleDirNameUpper = \mb_strtoupper($moduleDirName);
+\xoops_loadLanguage('filechecker', $moduleDirName);
 
 /**
  * Class FileChecker
@@ -44,8 +46,8 @@ class FileChecker
     public static function getFileStatus($file_path, $original_file_path = null, $redirectFile)
     {
         global $pathIcon16;
-        $moduleDirName      = basename(dirname(__DIR__, 2));
-        $moduleDirNameUpper = mb_strtoupper($moduleDirName);
+        $moduleDirName      = \basename(\dirname(__DIR__, 2));
+        $moduleDirNameUpper = \mb_strtoupper($moduleDirName);
 
         if (empty($file_path)) {
             return false;
@@ -56,26 +58,24 @@ class FileChecker
         if (null === $original_file_path) {
             if (self::fileExists($file_path)) {
                 $path_status = "<img src='$pathIcon16/1.png' >";
-                $path_status .= "$file_path (" . constant('CO_' . $moduleDirNameUpper . '_' . 'AVAILABLE') . ') ';
+                $path_status .= "$file_path (" . \constant('CO_' . $moduleDirNameUpper . '_' . 'AVAILABLE') . ') ';
             } else {
                 $path_status = "<img src='$pathIcon16/0.png' >";
-                $path_status .= "$file_path (" . constant('CO_' . $moduleDirNameUpper . '_' . 'NOTAVAILABLE') . ') ';
+                $path_status .= "$file_path (" . \constant('CO_' . $moduleDirNameUpper . '_' . 'NOTAVAILABLE') . ') ';
             }
-        } else {
-            if (self::compareFiles($file_path, $original_file_path)) {
+        } elseif (self::compareFiles($file_path, $original_file_path)) {
                 $path_status = "<img src='$pathIcon16/1.png' >";
-                $path_status .= "$file_path (" . constant('CO_' . $moduleDirNameUpper . '_' . 'AVAILABLE') . ') ';
+                $path_status .= "$file_path (" . \constant('CO_' . $moduleDirNameUpper . '_' . 'AVAILABLE') . ') ';
             } else {
                 $path_status = "<img src='$pathIcon16/0.png' >";
-                $path_status .= "$file_path (" . constant('CO_' . $moduleDirNameUpper . '_' . 'NOTAVAILABLE') . ') ';
+                $path_status .= "$file_path (" . \constant('CO_' . $moduleDirNameUpper . '_' . 'NOTAVAILABLE') . ') ';
                 $path_status .= "<form action='" . $_SERVER['SCRIPT_NAME'] . "' method='post'>";
                 $path_status .= "<input type='hidden' name='op' value='copyfile'>";
                 $path_status .= "<input type='hidden' name='file_path' value='$file_path'>";
                 $path_status .= "<input type='hidden' name='original_file_path' value='$original_file_path'>";
                 $path_status .= "<input type='hidden' name='redirect' value='$redirectFile'>";
-                $path_status .= "<button class='submit' onClick='this.form.submit();'>" . constant('CO_' . $moduleDirNameUpper . '_' . 'CREATETHEFILE') . '</button>';
+                $path_status .= "<button class='submit' onClick='this.form.submit();'>" . \constant('CO_' . $moduleDirNameUpper . '_' . 'CREATETHEFILE') . '</button>';
                 $path_status .= '</form>';
-            }
         }
 
         return $path_status;
@@ -87,12 +87,12 @@ class FileChecker
      *
      * @return bool
      */
-    public static function copyFile($source_path, $destination_path)
+    public static function copyFile($source_path, $destination_path): bool
     {
-        $source_path      = str_replace('..', '', $source_path);
-        $destination_path = str_replace('..', '', $destination_path);
+        $source_path      = \str_replace('..', '', $source_path);
+        $destination_path = \str_replace('..', '', $destination_path);
 
-        return @copy($source_path, $destination_path);
+        return @\copy($source_path, $destination_path);
     }
 
     /**
@@ -101,19 +101,19 @@ class FileChecker
      *
      * @return bool
      */
-    public static function compareFiles($file1_path, $file2_path)
+    public static function compareFiles($file1_path, $file2_path): bool
     {
         if (!self::fileExists($file1_path) || !self::fileExists($file2_path)) {
             return false;
         }
-        if (filetype($file1_path) !== filetype($file2_path)) {
+        if (\filetype($file1_path) !== \filetype($file2_path)) {
             return false;
         }
-        if (filesize($file1_path) !== filesize($file2_path)) {
+        if (\filesize($file1_path) !== \filesize($file2_path)) {
             return false;
         }
-        $crc1 = mb_strtoupper(dechex(crc32(file_get_contents($file1_path))));
-        $crc2 = mb_strtoupper(dechex(crc32(file_get_contents($file2_path))));
+        $crc1 = \mb_strtoupper(\dechex(\crc32(file_get_contents($file1_path))));
+        $crc2 = \mb_strtoupper(\dechex(\crc32(file_get_contents($file2_path))));
         return !($crc1 !== $crc2);
     }
 
@@ -122,9 +122,9 @@ class FileChecker
      *
      * @return bool
      */
-    public static function fileExists($file_path)
+    public static function fileExists($file_path): bool
     {
-        return is_file($file_path);
+        return \is_file($file_path);
     }
 
     /**
@@ -133,17 +133,17 @@ class FileChecker
      *
      * @return bool
      */
-    public static function setFilePermissions($target, $mode = 0777)
+    public static function setFilePermissions($target, $mode = 0777): bool
     {
-        $target = str_replace('..', '', $target);
+        $target = \str_replace('..', '', $target);
 
-        return @chmod($target, (int)$mode);
+        return @\chmod($target, (int)$mode);
     }
 }
 
-$op = Request::getString('op', '', 'POST');
-$moduleDirName      = basename(dirname(__DIR__, 2));
-$moduleDirNameUpper = mb_strtoupper($moduleDirName);
+$op                 = Request::getString('op', '', 'POST');
+$moduleDirName      = \basename(\dirname(__DIR__, 2));
+$moduleDirNameUpper = \mb_strtoupper($moduleDirName);
 switch ($op) {
     case 'copyfile':
         if (Request::hasVar('original_file_path', 'POST')) {
@@ -155,7 +155,7 @@ switch ($op) {
         if (Request::hasVar('redirect', 'POST')) {
             $redirect = $_POST['redirect'];
         }
-        $msg = FileChecker::copyFile($original_file_path, $file_path) ? constant('CO_' . $moduleDirNameUpper . '_' . 'FILECOPIED') : constant('CO_' . $moduleDirNameUpper . '_' . 'FILENOTCOPIED');
-        redirect_header($redirect, 2, $msg . ': ' . $file_path);
+        $msg = FileChecker::copyFile($original_file_path, $file_path) ? \constant('CO_' . $moduleDirNameUpper . '_' . 'FILECOPIED') : \constant('CO_' . $moduleDirNameUpper . '_' . 'FILENOTCOPIED');
+        \redirect_header($redirect, 2, $msg . ': ' . $file_path);
         break;
 }

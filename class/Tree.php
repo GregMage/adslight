@@ -91,12 +91,14 @@ class Tree
 
     /**
      * @param $sel_id
+     * @return array
      */
     public function getFirstChildId($sel_id): array
     {
         $idarray = [];
         $sel_id  = (int)$sel_id;
-        $result  = $this->db->query('SELECT SQL_CACHE ' . $this->id . ' FROM ' . $this->table . ' WHERE ' . $this->pid . '=' . $sel_id);
+        $sql = 'SELECT SQL_CACHE ' . $this->id . ' FROM ' . $this->table . ' WHERE ' . $this->pid . '=' . $sel_id;
+        $result  = $this->db->query($sql);
 
         $categories = Utility::getMyItemIds('adslight_view');
         if (\is_array($categories) && $categories !== []) {
@@ -118,6 +120,7 @@ class Tree
      * @param        $sel_id
      * @param string $order
      * @param array  $idarray
+     * @return array
      */
     public function getAllChildId($sel_id, $order = '', $idarray = []): array
     {
@@ -149,6 +152,7 @@ class Tree
      * @param        $sel_id
      * @param string $order
      * @param array  $idarray
+     * @return array
      */
     public function getAllParentId($sel_id, $order = '', $idarray = []): array
     {
@@ -176,6 +180,7 @@ class Tree
      * @param        $sel_id
      * @param        $title
      * @param string $path
+     * @return string
      */
     public function getPathFromId($sel_id, $title, $path = ''): string
     {
@@ -265,6 +270,7 @@ class Tree
      * @param        $title
      * @param        $funcURL
      * @param string $path
+     * @return string
      */
     public function getNicePathFromId($sel_id, $title, $funcURL, $path = ''): string
     {
@@ -291,11 +297,13 @@ class Tree
     /**
      * @param        $sel_id
      * @param string $path
+     * @return string
      */
     public function getIdPathFromId($sel_id, $path = ''): string
     {
         $sel_id = (int)$sel_id;
-        $result = $this->db->query('SELECT SQL_CACHE ' . $this->pid . ' FROM ' . $this->table . ' WHERE ' . $this->id . '=' . $sel_id);
+        $sql = 'SELECT SQL_CACHE ' . $this->pid . ' FROM ' . $this->table . ' WHERE ' . $this->id . '=' . $sel_id;
+        $result = $this->db->query($sql);
         if (0 === $this->db->getRowsNum($result)) {
             return $path;
         }
@@ -382,7 +390,7 @@ class Tree
     public function makeAdSelBox($title, $order = '', $preset_id = 0, $none = 0, $sel_name = '', $onchange = ''): void
     {
         global $myts, $xoopsDB;
-        $pathIcon16 = Admin::iconUrl('', 16);
+        $pathIcon16 = Admin::iconUrl('', '16');
         //        require_once XOOPS_ROOT_PATH . '/modules/adslight/include/gtickets.php';
 
         if ('' === $sel_name) {
@@ -463,7 +471,8 @@ class Tree
 
     public function getCategoryList(): array
     {
-        $result = $this->db->query('SELECT SQL_CACHE cid, pid, title FROM ' . $this->table);
+        $sql = 'SELECT SQL_CACHE cid, pid, title FROM ' . $this->table;
+        $result = $this->db->query($sql);
         $ret    = [];
         \MyTextSanitizer::getInstance();
         while (false !== ($myrow = $this->db->fetchArray($result))) {

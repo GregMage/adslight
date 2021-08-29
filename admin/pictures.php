@@ -22,9 +22,14 @@ declare(strict_types=1);
  */
 
 use Xmf\Request;
+/** @var Admin $adminObject */
+/** @var Helper $helper */
 
 require __DIR__ . '/admin_header.php';
 xoops_cp_header();
+
+global $xoopsModule, $xoopsDB, $xoopsConfig, $xoTheme;
+
 //It recovered the value of argument op in URL$
 $op    = Request::getString('op', 'list');
 $order = Request::getString('order', 'desc');
@@ -32,10 +37,9 @@ $sort  = Request::getString('sort', '');
 
 $moduleDirName = \basename(\dirname(__DIR__));
 $GLOBALS['xoopsTpl']->assign('mod_url', XOOPS_URL . '/modules/' . $moduleDirName);
-$xoTheme->addStylesheet($helper->url( 'assets/js/tablesorter/css/theme.blue.css'));
+$xoTheme->addStylesheet($helper->url('assets/js/tablesorter/css/theme.blue.css'));
 
 $adminObject->displayNavigation(basename(__FILE__));
-/** @var \Xmf\Module\Helper\Permission $permHelper */
 $permHelper = new \Xmf\Module\Helper\Permission();
 $uploadDir  = XOOPS_UPLOAD_PATH . "/$moduleDirName/";
 $uploadUrl  = XOOPS_UPLOAD_URL . "/$moduleDirName/";
@@ -182,18 +186,17 @@ switch ($op) {
                 $picturesArray['date_updated'] = formatTimestamp($picturesTempArray[$i]->getVar('date_updated'), 's');
 
                 $GLOBALS['xoopsTpl']->assign('selectorlid', AM_ADSLIGHT_PICTURES_LID);
-//                $picturesArray['lid'] = $listingHandler->get($picturesTempArray[$i]->getVar('lid'))->getVar('title');
-                $picturesArray['lid'] = "<a href='" . $helper->url('viewads.php?lid=') .  $listingHandler->get($picturesTempArray[$i]->getVar('lid'))->getVar('lid') . "'>" . $listingHandler->get($picturesTempArray[$i]->getVar('lid'))->getVar('title'). "</a>";
+                //                $picturesArray['lid'] = $listingHandler->get($picturesTempArray[$i]->getVar('lid'))->getVar('title');
+                $picturesArray['lid'] = "<a href='" . $helper->url('viewads.php?lid=') . $listingHandler->get($picturesTempArray[$i]->getVar('lid'))->getVar('lid') . "'>" . $listingHandler->get($picturesTempArray[$i]->getVar('lid'))->getVar('title') . '</a>';
 
                 $GLOBALS['xoopsTpl']->assign('selectoruid_owner', AM_ADSLIGHT_PICTURES_UID_OWNER);
-//                $picturesArray['uid_owner'] = strip_tags(\XoopsUser::getUnameFromId($picturesTempArray[$i]->getVar('uid_owner')));
-                $picturesArray['uid_owner'] = "<a href='" . XOOPS_URL . '/userinfo.php?uid=' . ($picturesTempArray[$i]->getVar('uid_owner')) . "'>" . strip_tags(\XoopsUser::getUnameFromId($picturesTempArray[$i]->getVar('uid_owner'))). "</a>";
+                //                $picturesArray['uid_owner'] = strip_tags(\XoopsUser::getUnameFromId($picturesTempArray[$i]->getVar('uid_owner')));
+                $picturesArray['uid_owner'] = "<a href='" . XOOPS_URL . '/userinfo.php?uid=' . ($picturesTempArray[$i]->getVar('uid_owner')) . "'>" . strip_tags(\XoopsUser::getUnameFromId($picturesTempArray[$i]->getVar('uid_owner'))) . '</a>';
 
                 $GLOBALS['xoopsTpl']->assign('selectorurl', AM_ADSLIGHT_PICTURES_URL);
-//                $picturesArray['url']         = strip_tags($picturesTempArray[$i]->getVar('url'));
+                //                $picturesArray['url']         = strip_tags($picturesTempArray[$i]->getVar('url'));
 
                 $picturesArray['url'] = "<img src='" . $uploadUrl . $picturesTempArray[$i]->getVar('url') . "' name='" . 'name' . "' id=" . 'id' . " alt='' style='max-width:100px'>";
-
 
                 $picturesArray['edit_delete'] = "<a href='pictures.php?op=edit&cod_img=" . $i . "'><img src=" . $pathIcon16 . "/edit.png alt='" . _EDIT . "' title='" . _EDIT . "'></a>
                <a href='pictures.php?op=delete&cod_img=" . $i . "'><img src=" . $pathIcon16 . "/delete.png alt='" . _DELETE . "' title='" . _DELETE . "'></a>

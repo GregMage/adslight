@@ -24,6 +24,7 @@ declare(strict_types=1);
 
 /**
  * @param XoopsObject $xoopsModule
+ * @return bool
  */
 function xoops_module_update_adslight(\XoopsObject $xoopsModule): bool
 {

@@ -55,6 +55,7 @@ function seo_urls($s)
 
 /**
  * @param $matches
+ * @return string
  */
 function replace_links($matches): string
 {
@@ -100,20 +101,14 @@ function replace_links($matches): string
 /**
  * @param $cid
  *
- * @return string|string[]|null
+ * @return string|array<string>|null
  */
 function adslight_seo_cat($cid)
 {
     /** @var \XoopsMySQLDatabase $xoopsDB */
     $xoopsDB = \XoopsDatabaseFactory::getDatabaseConnection();
-    $query   = '
-        SELECT
-            title
-        FROM
-            ' . $xoopsDB->prefix('adslight_categories') . '
-        WHERE
-            cid = ' . $cid . ' ';
-    $result  = $xoopsDB->query($query);
+    $sql     = ' SELECT title FROM ' . $xoopsDB->prefix('adslight_categories') . ' WHERE cid = ' . $cid . ' ';
+    $result  = $xoopsDB->query($sql);
     $res     = $xoopsDB->fetchArray($result);
 
     return adslight_seo_title($res['title']);
@@ -122,20 +117,14 @@ function adslight_seo_cat($cid)
 /**
  * @param $lid
  *
- * @return string|string[]|null
+ * @return string|array<string>|null
  */
 function adslight_seo_titre($lid)
 {
     /** @var \XoopsMySQLDatabase $xoopsDB */
     $xoopsDB = \XoopsDatabaseFactory::getDatabaseConnection();
-    $query   = '
-        SELECT
-            title
-        FROM
-            ' . $xoopsDB->prefix('adslight_listing') . '
-        WHERE
-            lid = ' . $lid . ' ';
-    $result  = $xoopsDB->query($query);
+    $sql     = ' SELECT title FROM ' . $xoopsDB->prefix('adslight_listing') . ' WHERE lid = ' . $lid . ' ';
+    $result  = $xoopsDB->query($sql);
     $res     = $xoopsDB->fetchArray($result);
 
     return adslight_seo_title($res['title']);
@@ -145,7 +134,7 @@ function adslight_seo_titre($lid)
  * @param string $title
  * @param bool   $withExt
  *
- * @return string|string[]|null
+ * @return string|array<string>|null
  */
 function adslight_seo_title($title = '', $withExt = false)
 {
@@ -158,7 +147,7 @@ function adslight_seo_title($title = '', $withExt = false)
     }
 
     // Transformation de la chaine en minuscule
-    // Codage de la chaine afin d'�viter les erreurs 500 en cas de caract�res impr�vus
+    // String encoding to avoid 500 errors in case of unforeseen characters
     $title = rawurlencode(mb_strtolower($title));
 
     // Transformation des ponctuations

@@ -22,7 +22,11 @@ declare(strict_types=1);
  */
 
 use Xmf\Request;
+
+/** @var Admin $adminObject */
 /** @var Helper $helper */
+
+global $xoopsModule, $xoopsDB, $xoopsConfig, $xoTheme;
 
 require __DIR__ . '/admin_header.php';
 xoops_cp_header();
@@ -33,10 +37,9 @@ $sort  = Request::getString('sort', '');
 
 $moduleDirName = \basename(\dirname(__DIR__));
 $GLOBALS['xoopsTpl']->assign('mod_url', XOOPS_URL . '/modules/' . $moduleDirName);
-$xoTheme->addStylesheet($helper->url( 'assets/js/tablesorter/css/theme.blue.css'));
+$xoTheme->addStylesheet($helper->url('assets/js/tablesorter/css/theme.blue.css'));
 
 $adminObject->displayNavigation(basename(__FILE__));
-/** @var \Xmf\Module\Helper\Permission $permHelper */
 $permHelper = new \Xmf\Module\Helper\Permission();
 $uploadDir  = XOOPS_UPLOAD_PATH . "/$moduleDirName/categories/";
 $uploadUrl  = XOOPS_UPLOAD_URL . "/$moduleDirName/categories/";
@@ -158,32 +161,26 @@ switch ($op) {
         //            $class = "odd";
         */
 
-
-
-
-//    // Creating the objects for top categories
-//    $categoriesObj = $helper->getHandler('Categories')->getCategories($helper->getConfig('idxcat_perpage'), $startcategory, 0);
-//
-//    echo '</tr>';
-//    /** @var \XoopsPersistableObjectHandler $categoriesHandler */
-//    $totalCategories = $categoriesHandler->getCount();
-//
-////    $totalCategories2 = $helper->getHandler('Categories')->getCategoriesCount(0);
-//
-//    if (is_iterable($categoriesObject) && count($categoriesObject) > 0) {
-//        foreach ($categoriesObject as $key => $thiscat) {
-//            Utility::displayCategory($thiscat);
-//        }
-//        unset($key);
-//    } else {
-//        echo '<tr>';
-//        echo "<td class='head' align='center' colspan= '7'>" . _AM_PUBLISHER_NOCAT . '</td>';
-//        echo '</tr>';
-//        $categoryId = '0';
-//    }
-
-
-
+        //    // Creating the objects for top categories
+        //    $categoriesObj = $helper->getHandler('Categories')->getCategories($helper->getConfig('idxcat_perpage'), $startcategory, 0);
+        //
+        //    echo '</tr>';
+        //    /** @var \XoopsPersistableObjectHandler $categoriesHandler */
+        //    $totalCategories = $categoriesHandler->getCount();
+        //
+        ////    $totalCategories2 = $helper->getHandler('Categories')->getCategoriesCount(0);
+        //
+        //    if (is_array($categoriesObject) && count($categoriesObject) > 0) {
+        //        foreach ($categoriesObject as $key => $thiscat) {
+        //            Utility::displayCategory($thiscat);
+        //        }
+        //        unset($key);
+        //    } else {
+        //        echo '<tr>';
+        //        echo "<td class='head' align='center' colspan= '7'>" . _AM_PUBLISHER_NOCAT . '</td>';
+        //        echo '</tr>';
+        //        $categoryId = '0';
+        //    }
 
         // Display Page Navigation
         if ($categoriesTempRows > $categoriesPaginationLimit) {
@@ -294,7 +291,5 @@ switch ($op) {
 
         break;
 }
-
-
 
 require __DIR__ . '/admin_footer.php';

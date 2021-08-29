@@ -43,8 +43,8 @@ if (!empty($mids)) {
 }
 if (empty($modules)) {
     $criteria = new \CriteriaCompo();
-    $criteria->add(new \Criteria('hassearch', 1));
-    $criteria->add(new \Criteria('isactive', 1));
+    $criteria->add(new \Criteria('hassearch', '1'));
+    $criteria->add(new \Criteria('isactive', '1'));
 
     /** @var \XoopsModuleHandler $moduleHandler */
     $moduleHandler = xoops_getHandler('module');

@@ -26,8 +26,13 @@ use Xmf\Request;
 use XoopsModules\Adslight\{
     Tree
 };
+/** @var Admin $adminObject */
+/** @var Helper $helper */
 
 require_once __DIR__ . '/admin_header.php';
+
+global $xoopsModule, $xoopsDB, $xoopsConfig, $xoTheme;
+
 $op     = Request::getString('op', 'list');
 $mytree = new Tree($xoopsDB->prefix('adslight_categories'), 'cid', 'pid');
 global $mytree, $xoopsDB;

@@ -22,6 +22,8 @@ declare(strict_types=1);
  */
 require_once __DIR__ . '/admin_header.php';
 xoops_cp_header();
+/** @var Admin $adminObject */
+/** @var Helper $helper */
 
 //if ( !is_readable(XOOPS_ROOT_PATH. "/Frameworks/art/functions.admin.php")) {
 //    adslight_adminmenu(7, "");

@@ -28,6 +28,7 @@ use XoopsModules\Adslight\{
 };
 
 /** @var Admin $adminObject */
+/** @var Helper $helper */
 
 require_once __DIR__ . '/admin_header.php';
 // Display Admin header
@@ -36,34 +37,26 @@ xoops_cp_header();
 $adminObject->displayNavigation(basename(__FILE__));
 
 //count "total Listing"
-/** @var \XoopsPersistableObjectHandler $listingHandler */
 $totalListing = $listingHandler->getCount();
 //count "total Categories"
-/** @var \XoopsPersistableObjectHandler $categoriesHandler */
 $totalCategories = $categoriesHandler->getCount();
 //count "total Type"
 /** @var \XoopsPersistableObjectHandler $typeHandler */
 $totalType = $typeHandler->getCount();
 //count "total Price"
-/** @var \XoopsPersistableObjectHandler $priceHandler */
 $totalPrice = $priceHandler->getCount();
 //count "total Condition"
-/** @var \XoopsPersistableObjectHandler $conditionHandler */
 $totalCondition = $conditionHandler->getCount();
 //count "total Iplog"
-/** @var \XoopsPersistableObjectHandler $iplogHandler */
 $totalIplog = $iplogHandler->getCount();
 //count "total Itemvotes"
-/** @var \XoopsPersistableObjectHandler $itemvotesHandler */
 $totalItemvotes = $itemvotesHandler->getCount();
 //count "total Uservotes"
 /** @var \XoopsPersistableObjectHandler $uservotesHandler */
 $totalUservotes = $uservotesHandler->getCount();
 //count "total Pictures"
-/** @var \XoopsPersistableObjectHandler $picturesHandler */
 $totalPictures = $picturesHandler->getCount();
 //count "total Replies"
-/** @var \XoopsPersistableObjectHandler $repliesHandler */
 $totalReplies = $repliesHandler->getCount();
 // InfoBox Statistics
 $adminObject->addInfoBox(AM_ADSLIGHT_STATISTICS);

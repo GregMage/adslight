@@ -32,6 +32,7 @@ use XoopsModules\Adslight\PicturesHandler;
 require_once \dirname(__DIR__, 2) . '/mainfile.php';
 $GLOBALS['xoopsOption']['template_main'] = 'adslight_index.tpl';
 require_once XOOPS_ROOT_PATH . '/header.php';
+global $xoopsDB, $xoopsUser;
 $helper = Helper::getInstance();
 /**
  * Modules class includes
@@ -40,7 +41,7 @@ $helper = Helper::getInstance();
 /**
  * Factory of pictures created
  */
-$album_factory = new PicturesHandler($xoopsDB);
+$albumFactory = new PicturesHandler($xoopsDB);
 /**
  * Getting the title
  */
@@ -49,7 +50,7 @@ $lid   = Request::getInt('lid', 0, 'POST');
 /**
  * Getting parameters defined in admin side
  */
-$path_upload   = $GLOBALS['xoopsModuleConfig']['adslight_path_upload'];
+$pathUpload   = $GLOBALS['xoopsModuleConfig']['adslight_path_upload'];
 $pictwidth     = $GLOBALS['xoopsModuleConfig']['adslight_resized_width'];
 $pictheight    = $GLOBALS['xoopsModuleConfig']['adslight_resized_height'];
 $thumbwidth    = $GLOBALS['xoopsModuleConfig']['adslight_thumb_width'];
@@ -69,9 +70,9 @@ if ('sel_photo' === Request::getArray('xoops_upload_file', '', 'POST')[0]) {
     /**
      * Try to upload picture resize it insert in database and then redirect to index
      */
-    if ($album_factory->receivePicture(
+    if ($albumFactory->receivePicture(
         $title,
-        $path_upload,
+        $pathUpload,
         $thumbwidth,
         $thumbheight,
         $pictwidth,

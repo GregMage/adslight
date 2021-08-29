@@ -32,6 +32,7 @@ use XoopsModules\Adslight\{
  * @param $limit
  * @param $offset
  * @param $userid
+ * @return array
  */
 function adslight_search(
     $queryarray,
@@ -67,15 +68,16 @@ function adslight_search(
     $i      = 0;
     while (false !== ($myrow = $xoopsDB->fetchArray($result))) {
         $myts    = \MyTextSanitizer::getInstance();
-        $result2 = $xoopsDB->query('SELECT url FROM ' . $xoopsDB->prefix('adslight_pictures') . " WHERE lid={$myrow['lid']} ORDER BY date_created LIMIT 1 ");
+        $sql     = 'SELECT url FROM ' . $xoopsDB->prefix('adslight_pictures') . " WHERE lid={$myrow['lid']} ORDER BY date_created LIMIT 1 ";
+        $result2 = $xoopsDB->query($sql);
         [$url] = $xoopsDB->fetchRow($result2);
         $url = \htmlspecialchars($url ?? '', ENT_QUOTES | ENT_HTML5);
 
-        $ret[$i]['image']     = 'assets/images/deco/icon.png';
-        $ret[$i]['link']      = 'viewads.php?lid=' . $myrow['lid'] . '';
-        $ret[$i]['title']     = $myrow['title'];
-        $ret[$i]['type']      = Utility::getNameType($myrow['type']);
-//        $ret[$i]['price']     = number_format((float)$myrow['price'], 2, '.', ',');
+        $ret[$i]['image'] = 'assets/images/deco/icon.png';
+        $ret[$i]['link']  = 'viewads.php?lid=' . $myrow['lid'] . '';
+        $ret[$i]['title'] = $myrow['title'];
+        $ret[$i]['type']  = Utility::getNameType($myrow['type']);
+        //        $ret[$i]['price']     = number_format((float)$myrow['price'], 2, '.', ',');
         $ret[$i]['price']     = $myrow['price'];
         $ret[$i]['typeprice'] = $myrow['typeprice'];
         $ret[$i]['town']      = $myrow['town'];
