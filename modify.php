@@ -172,7 +172,7 @@ function modAd($lid): void
     );
     $categories = Utility::getMyItemIds('adslight_submit');
     if (is_array($categories) && count($categories) > 0) {
-        if (!in_array((int)$cide, $categories, true)) {
+        if (!\in_array((int)$cide, $categories, true)) {
             $helper->redirect('index.php', 3, _NOPERM);
         }
     } else {    // User can't see any category

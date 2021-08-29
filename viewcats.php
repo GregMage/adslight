@@ -156,7 +156,7 @@ function adsView($cid, $min, $orderby, $show = 0): void
 
     //TO DO - check on permissions here
     //    if ($categories && is_array($categories)) {
-    //        if (!in_array($cid, $categories)) {
+    //        if (!\in_array($cid, $categories)) {
     //            $helper->redirect('index.php', 3, _NOPERM);
     //        }
     //    } else {    // User can't see any category
@@ -217,7 +217,7 @@ function adsView($cid, $min, $orderby, $show = 0): void
     if (count($arr) > 0) {
         $scount = 1;
         foreach ($arr as $ele) {
-            if (in_array($ele['cid'], $categories, true)) {
+            if (\in_array($ele['cid'], $categories, true)) {
                 $sub_arr         = [];
                 $sub_arr         = $mytree->getFirstChild($ele['cid'], 'title');
                 $space           = 0;
@@ -225,7 +225,7 @@ function adsView($cid, $min, $orderby, $show = 0): void
                 $infercategories = '';
                 $totallisting    = Utility::getTotalItems($ele['cid'], 1);
                 foreach ($sub_arr as $sub_ele) {
-                    if (in_array($sub_ele['cid'], $categories, true)) {
+                    if (\in_array($sub_ele['cid'], $categories, true)) {
                         $chtitle = \htmlspecialchars($sub_ele['title'], ENT_QUOTES | ENT_HTML5);
 
                         if ($chcount > 5) {

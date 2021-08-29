@@ -159,14 +159,14 @@ function index(): void
         $content      .= $title . ' ';
 
         $arr = [];
-        if (in_array($myrow['cid'], $categories, true)) {
+        if (\in_array($myrow['cid'], $categories, true)) {
             $arr           = $mytree->getFirstChild($myrow['cid'], 'title');
             $space         = 0;
             $chcount       = 1;
             $subcategories = '';
             if (1 === $GLOBALS['xoopsModuleConfig']['adslight_souscat']) {
                 foreach ($arr as $ele) {
-                    if (in_array($ele['cid'], $categories, true)) {
+                    if (\in_array($ele['cid'], $categories, true)) {
                         $chtitle = \htmlspecialchars($ele['title'], ENT_QUOTES | ENT_HTML5);
                         if ($chcount > $GLOBALS['xoopsModuleConfig']['adslight_nbsouscat']) {
                             $subcategories .= "<a href=\"viewcats.php?cid={$myrow['cid']}\">" . _ADSLIGHT_CATPLUS . '</a>';

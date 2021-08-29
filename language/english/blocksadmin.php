@@ -17,7 +17,6 @@
  * @author     XOOPS Development Team
  */
 
-// Blocks & Groups Admin
 define('_AM_TOPPAGE', 'Top Page');
 define('_AM_ALLPAGES', 'All Pages');
 define('_AM_TITLE', 'Title');

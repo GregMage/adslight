@@ -81,7 +81,7 @@ if (Request::hasVar('submit', 'POST')) {
     $cid = Request::getInt('cid', 0, 'POST');
 
     $cat_perms = Utility::getMyItemIds('adslight_submit');
-    if (!in_array($cid, $cat_perms, true)) {
+    if (!\in_array($cid, $cat_perms, true)) {
         redirect_header(XOOPS_URL, 2, _NOPERM);
     }
 
@@ -279,7 +279,7 @@ if (Request::hasVar('submit', 'POST')) {
     $cid       = Request::getInt('cid', 0, 'GET');
     $cat_perms = Utility::getMyItemIds('adslight_submit');
     if ((is_array($cat_perms) && $cat_perms !== []) && $cid > 0) {
-        if (!in_array($cid, $cat_perms, true)) {
+        if (!\in_array($cid, $cat_perms, true)) {
             $helper->redirect('index.php', 3, _NOPERM);
         }
 
