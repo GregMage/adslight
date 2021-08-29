@@ -1,6 +1,6 @@
 <table cellspacing="1" class="outer width100">
     <tr>
-        <th><{$add_from_title}> <{$add_from_sitename}></th>
+        <th><{$add_from_title|default:''}> <{$add_from_sitename|default:''}></th>
     </tr>
     <{if $moderated|default:false}>
         <{if $xoops_isadmin}>
@@ -26,7 +26,7 @@
                         <table class="bullinfo">
                             <tr>
                                 <td class="bullinfotext">
-                                    <{$bullinfotext}>
+                                    <{$bullinfotext|default:''}>
                                 </td>
                             </tr>
                         </table>
@@ -36,7 +36,7 @@
                             <tr>
                                 <form name='search' id='search' action='search.php' method='post'
                                       onsubmit='return xoopsFormValidate_search();'>
-                                    <input type='hidden' name='mids[]' value='<{$xmid}>'>
+                                    <input type='hidden' name='mids[]' value='<{$xmid|default:''}>'>
                                     <td colspan="2"><strong><{$smarty.const._ADSLIGHT_SEARCH_LISTINGS}></strong><br><br>
                                     </td>
                             </tr>

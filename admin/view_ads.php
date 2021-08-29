@@ -531,26 +531,26 @@ function modifyAds($lid): void
 #####################################################
 
 /**
- * @param $lid
- * @param $cat
- * @param $title
- * @param $status
- * @param $expire
- * @param $type
- * @param $desctext
- * @param $tel
- * @param $price
- * @param $typeprice
- * @param $typecondition
- * @param $date_created
- * @param $email
- * @param $submitter
- * @param $town
- * @param $country
- * @param $contactby
- * @param $premium
- * @param $valid
- * @param $photo
+ * @param string $lid
+ * @param string $cat
+ * @param string $title
+ * @param string $status
+ * @param string $expire
+ * @param string $type
+ * @param string $desctext
+ * @param string $tel
+ * @param string $price
+ * @param string $typeprice
+ * @param string $typecondition
+ * @param string $date_created
+ * @param string $email
+ * @param string $submitter
+ * @param string $town
+ * @param string $country
+ * @param string $contactby
+ * @param string $premium
+ * @param string $valid
+ * @param string $photo
  */
 function modifyAdsS(
     $lid,
@@ -646,30 +646,30 @@ function listingDel($lid, $photo): void
 #  function listingValid
 #####################################################
 /**
- * @param $lid
- * @param $cat
- * @param $title
- * @param $status
- * @param $expire
- * @param $type
- * @param $desctext
- * @param $tel
- * @param $price
- * @param $typeprice
- * @param $typecondition
- * @param $date_created
- * @param $email
- * @param $submitter
- * @param $town
- * @param $country
- * @param $contactby
- * @param $premium
- * @param $valid
- * @param $photo
+ * @param string $lid
+ * @param string $cid
+ * @param string $title
+ * @param string $status
+ * @param string $expire
+ * @param string $type
+ * @param string $desctext
+ * @param string $tel
+ * @param string $price
+ * @param string $typeprice
+ * @param string $typecondition
+ * @param string $date_created
+ * @param string $email
+ * @param string $submitter
+ * @param string $town
+ * @param string $country
+ * @param string $contactby
+ * @param string $premium
+ * @param string $valid
+ * @param string $photo
  */
 function listingValid(
     $lid,
-    $cat,
+    $cid,
     $title,
     $status,
     $expire,

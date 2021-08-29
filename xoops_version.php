@@ -124,6 +124,10 @@ $modversion['templates'] = [
 
     ['file' => 'admin/adslight_admin_testtablesorter.tpl', 'description' => ''],
 
+
+    ['file' => 'adslight_listing.tpl', 'description' => ''],
+    ['file' => 'adslight_listing_list0.tpl', 'description' => ''],
+
 ];
 
 // ------------------- Blocks ------------------- //

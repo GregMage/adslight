@@ -136,7 +136,8 @@ if (Request::hasVar('submit', 'POST')) {
     if (!$success) {
         /** @var \XoopsModuleHandler $moduleHandler */
         $moduleHandler = xoops_getHandler('module');
-        $myModule      = $moduleHandler->getByDirname('adslight');
+        /** @var XoopsModule $myModule */
+        $myModule = $moduleHandler->getByDirname('adslight');
         $myModule->setErrors('Could not query the database.');
     }
 
@@ -160,8 +161,8 @@ if (Request::hasVar('submit', 'POST')) {
         $result2                 = $xoopsDB->query($sql);
         if ($result2 instanceof \mysqli_result) {
             $row = $xoopsDB->fetchArray($result2);
+            $tags['CATEGORY_TITLE']  = $row['title'];
         }
-        $tags['CATEGORY_TITLE']  = $row['title'];
         $tags['CATEGORY_URL']    = XOOPS_URL . "/modules/adslight/viewcats.php?cid={$cid}";
         /** @var \XoopsNotificationHandler $notificationHandler */
         $notificationHandler = xoops_getHandler('notification');
@@ -288,7 +289,7 @@ if (Request::hasVar('submit', 'POST')) {
 
         [$cat_title, $cat_moderate] = $xoopsDB->fetchRow($category);
         $form->addElement(new \XoopsFormLabel(_ADSLIGHT_CAT3, "<b>{$cat_title}</b>"));
-        $form->addElement(new \XoopsFormHidden('cid', $cid), true);
+        $form->addElement(new \XoopsFormHidden('cid', (string)$cid), true);
 
         if (1 === (int)$premium) {
             $radio        = new \XoopsFormRadio(_ADSLIGHT_STATUS, 'status', '');

@@ -58,6 +58,7 @@ function adslight_notify_iteminfo(
         }
         /** @var \XoopsModuleHandler $moduleHandler */
         $moduleHandler = xoops_getHandler('module');
+        /** @var \XoopsModule $myModule */
         $myModule      = $moduleHandler->getByDirname('adslight');
         $myModule->setErrors('Could not query the database.');
     }

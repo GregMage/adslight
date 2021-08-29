@@ -21,19 +21,27 @@ declare(strict_types=1);
  * @license         GPL 2.0 or later
  */
 
+use Xmf\Module\Admin;
 use Xmf\Request;
-
-/** @var Admin $adminObject */
-/** @var Helper $helper */
+use XoopsModules\Adslight\{
+    Helper,
+    Utility
+};
 
 global $xoopsModule, $xoopsDB, $xoopsConfig, $xoTheme;
 
 require __DIR__ . '/admin_header.php';
 xoops_cp_header();
 //It recovered the value of argument op in URL$
-$op    = Request::getString('op', 'list');
-$order = Request::getString('order', 'desc');
-$sort  = Request::getString('sort', '');
+/** @var XoopsModules\Adslight\Helper $helper */
+$helper      = Helper::getInstance();
+/** @var \XoopsModules\Adslight\Utility $utility */
+$utility = new Utility();
+/** @var Xmf\Module\Admin $adminObject */
+$adminObject = Admin::getInstance();
+$op          = Request::getString('op', 'list');
+$order       = Request::getString('order', 'desc');
+$sort        = Request::getString('sort', '');
 
 $moduleDirName = \basename(\dirname(__DIR__));
 $GLOBALS['xoopsTpl']->assign('mod_url', XOOPS_URL . '/modules/' . $moduleDirName);
@@ -43,12 +51,15 @@ $adminObject->displayNavigation(basename(__FILE__));
 $permHelper = new \Xmf\Module\Helper\Permission();
 $uploadDir  = XOOPS_UPLOAD_PATH . "/$moduleDirName/categories/";
 $uploadUrl  = XOOPS_UPLOAD_URL . "/$moduleDirName/categories/";
+/** @var \XoopsPersistableObjectHandler $categoriesHandler */
+$categoriesHandler = $helper->getHandler('Categories');
 
 switch ($op) {
     case 'new':
         $adminObject->addItemButton(AM_ADSLIGHT_CATEGORIES_LIST, 'categories.php', 'list');
         $adminObject->displayButton('left');
 
+        /** @var \XoopsModules\Adslight\Categories $categoriesObject */
         $categoriesObject = $categoriesHandler->create();
         $form             = $categoriesObject->getForm();
         $form->display();
@@ -241,6 +252,7 @@ switch ($op) {
                 $GLOBALS['xoopsTpl']->assign('selectorcat_moderate', AM_ADSLIGHT_CATEGORIES_CAT_MODERATE);
                 $categoriesArray['cat_moderate'] = strip_tags(\XoopsUser::getUnameFromId($categoriesTempArray[$i]->getVar('cat_moderate')));
 
+                $pathIcon16 = \Xmf\Module\Admin::iconUrl('', '16');
                 $GLOBALS['xoopsTpl']->assign('selectormoderate_subcat', AM_ADSLIGHT_CATEGORIES_MODERATE_SUBCAT);
                 $categoriesArray['moderate_subcat'] = strip_tags(\XoopsUser::getUnameFromId($categoriesTempArray[$i]->getVar('moderate_subcat')));
                 $categoriesArray['edit_delete']     = "<a href='categories.php?op=edit&cid=" . $i . "'><img src=" . $pathIcon16 . "/edit.png alt='" . _EDIT . "' title='" . _EDIT . "'></a>

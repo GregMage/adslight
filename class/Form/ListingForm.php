@@ -52,9 +52,12 @@ class ListingForm extends \XoopsThemeForm
         $this->helper       = $target->helper;
         $this->targetObject = $target;
 
+        $this->helper->loadLanguage('admin');
+
         $title = $this->targetObject->isNew() ? \sprintf(\AM_ADSLIGHT_LISTING_ADD) : \sprintf(\AM_ADSLIGHT_LISTING_EDIT);
         parent::__construct($title, 'form', \xoops_getenv('SCRIPT_NAME'), 'post', true);
         $this->setExtra('enctype="multipart/form-data"');
+
 
         //include ID field, it's needed so the module knows if it is a new form or an edited form
 
@@ -168,19 +171,19 @@ class ListingForm extends \XoopsThemeForm
         $imgtray->addElement($fileseltray);
         $this->addElement($imgtray);
         // Hits
-        $this->addElement(new \XoopsFormText(\AM_ADSLIGHT_LISTING_HITS, 'hits', 50, 255, $this->targetObject->getVar('hits')), false);
+        $this->addElement(new \XoopsFormLabel(\AM_ADSLIGHT_LISTING_HITS, $this->targetObject->getVar('hits'),'hits'));
         // Item_rating
-        $this->addElement(new \XoopsFormText(\AM_ADSLIGHT_LISTING_ITEM_RATING, 'item_rating', 50, 255, $this->targetObject->getVar('item_rating')), false);
+        $this->addElement(new \XoopsFormLabel(\AM_ADSLIGHT_LISTING_ITEM_RATING, $this->targetObject->getVar('item_rating'),'item_rating'));
         // Item_votes
-        $this->addElement(new \XoopsFormText(\AM_ADSLIGHT_LISTING_ITEM_VOTES, 'item_votes', 50, 255, $this->targetObject->getVar('item_votes')), false);
+        $this->addElement(new \XoopsFormLabel(\AM_ADSLIGHT_LISTING_ITEM_VOTES, $this->targetObject->getVar('item_votes'),'item_votes' ));
         // User_rating
-        $this->addElement(new \XoopsFormText(\AM_ADSLIGHT_LISTING_USER_RATING, 'user_rating', 50, 255, $this->targetObject->getVar('user_rating')), false);
+        $this->addElement(new \XoopsFormLabel(\AM_ADSLIGHT_LISTING_USER_RATING, $this->targetObject->getVar('user_rating'),'user_rating' ));
         // User_votes
-        $this->addElement(new \XoopsFormText(\AM_ADSLIGHT_LISTING_USER_VOTES, 'user_votes', 50, 255, $this->targetObject->getVar('user_votes')), false);
+        $this->addElement(new \XoopsFormLabel(\AM_ADSLIGHT_LISTING_USER_VOTES, $this->targetObject->getVar('user_votes'),'user_votes' ));
         // Comments
-        $this->addElement(new \XoopsFormText(\AM_ADSLIGHT_LISTING_COMMENTS, 'comments', 50, 255, $this->targetObject->getVar('comments')), false);
+        $this->addElement(new \XoopsFormLabel(\AM_ADSLIGHT_LISTING_COMMENTS, $this->targetObject->getVar('comments'), 'comments'));
         // Remind
-        $this->addElement(new \XoopsFormText(\AM_ADSLIGHT_LISTING_REMIND, 'remind', 50, 255, $this->targetObject->getVar('remind')), false);
+        $this->addElement(new \XoopsFormLabel(\AM_ADSLIGHT_LISTING_REMIND, $this->targetObject->getVar('remind'), 'remind'));
 
         $this->addElement(new \XoopsFormHidden('op', 'save'));
         $this->addElement(new \XoopsFormButton('', 'submit', _SUBMIT, 'submit'));

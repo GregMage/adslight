@@ -23,8 +23,10 @@ namespace XoopsModules\Adslight;
  * @license         GPL 2.0 or later
  */
 
-use XoopsModules\Adslight;
-use XoopsModules\Adslight\Form;
+use XoopsModules\Adslight\{
+    Form
+};
+
 
 //$permHelper = new \Xmf\Module\Helper\Permission();
 

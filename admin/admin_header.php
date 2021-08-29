@@ -87,7 +87,7 @@ $itemvotesHandler = $helper->getHandler('Itemvotes');
 /** @var \XoopsPersistableObjectHandler $uservotesHandler */
 $uservotesHandler = $helper->getHandler('Uservotes');
 /** @var \XoopsPersistableObjectHandler $picturesHandler */
-$picturesHandler = $helper->getHandler('Pictures');
+$picturesHandler = $helper->getHandler('Picture');
 /** @var \XoopsPersistableObjectHandler $repliesHandler */
 $repliesHandler = $helper->getHandler('Replies');
 

@@ -1,4 +1,4 @@
-<{if $adslight_active_menu == 1 }>
+<{if $adslight_active_menu|default:0 == 1 }>
     <{include file='db:adslight_menu.tpl'}>
 <{/if}>
 <{include file='db:adslight_search.tpl'}>
@@ -34,7 +34,7 @@
 <table border="0" cellspacing="1" class="outer" style="width:100%;">
     <tr>
         <th>
-            <{$last_head}>
+            <{$last_head|default:''}>
         </th>
     </tr>
     <tr>
@@ -43,14 +43,14 @@
                 <tr>
                     <td class="head"></td>
                     <td class="head">
-                        <{$last_head_title}>
+                        <{$last_head_title|default:''}>
                     </td>
                     <td width="80" align="left" class="head">
-                        <{$last_head_local}>
+                        <{$last_head_local|default:''}>
                     </td>
                 </tr>
             </table>
-            <{if $use_extra_code == 1}>
+            <{if $use_extra_code|default:0 == 1}>
                 <{foreach from=$items item=item name=items}>
                     <{if $smarty.foreach.items.iteration eq $index_code_place}>
                         <{if $adslight_use_banner == 1}>
@@ -89,7 +89,7 @@
                                 <strong><{$item.price}></strong>&nbsp;-&nbsp;<{$item.price_typeprice}>
                                 <{else}>&nbsp;
                                 <{/if}><br>
-                                <{if $item.sold}><{$item.sold}><{/if}>
+                                <{if $item.sold|default:''}><{$item.sold}><{/if}>
                             </td>
                             <td width="80" align="left">
                                 <{$item.local}>

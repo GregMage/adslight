@@ -27,8 +27,9 @@ namespace XoopsModules\Adslight;
  */
 
 use Xmf\Module\Helper\Permission;
-use XoopsModules\Adslight\Form;
-use XoopsModules\Adslight\Helper;
+use XoopsModules\Adslight\{
+    Form
+};
 
 //$permHelper = new \Xmf\Module\Helper\Permission();
 

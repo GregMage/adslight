@@ -27,8 +27,6 @@ namespace XoopsModules\Adslight;
 use Xmf\Request;
 use XoopsModules\Adslight\{
     Common,
-    Categories,
-    CategoriesHandler
 };
 
 /**

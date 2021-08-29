@@ -44,30 +44,17 @@ $adminmenu[] = [
     'icon'  => $pathIcon32 . '/home.png',
 ];
 //global $xoopsModule;
-$adminmenu[] = [
-    'title' => _MI_ADSLIGHT_ADMENU0,
-    'link'  => 'admin/main.php',
-    'icon'  => $pathIcon32 . '/dashboard.png',
-];
-$adminmenu[] = [
-    'title' => _MI_ADSLIGHT_ADMENU1,
-    'link'  => 'admin/map.php',
-    'icon'  => $pathIcon32 . '/category.png',
-];
+//$adminmenu[] = [
+//    'title' => _MI_ADSLIGHT_ADMENU0,
+//    'link'  => 'admin/main.php',
+//    'icon'  => $pathIcon32 . '/dashboard.png',
+//];
+//$adminmenu[] = [
+//    'title' => _MI_ADSLIGHT_ADMENU1,
+//    'link'  => 'admin/map.php',
+//    'icon'  => $pathIcon32 . '/category.png',
+//];
 
-if (isset($pathModIcon32) && null !== $pathModIcon32) {
-    $adminmenu[] = [
-        'title' => _MI_ADSLIGHT_ADMENU5,
-        'link'  => 'admin/options.php',
-        'icon'  => $pathModIcon32 . '/preferences.png',
-    ];
-}
-$adminmenu[] = [
-    'title' => _MI_ADSLIGHT_ADMENU2,
-    'link'  => 'admin/groupperms.php',
-    'icon'  => $pathIcon32 . '/permissions.png',
-];
-//=======================================
 $adminmenu[] = [
     'title' => MI_ADSLIGHT_ADMENU2,
     'link'  => 'admin/listing.php',
@@ -81,22 +68,45 @@ $adminmenu[] = [
 ];
 
 $adminmenu[] = [
-    'title' => MI_ADSLIGHT_ADMENU4,
-    'link'  => 'admin/type.php',
-    'icon'  => "{$pathIcon32}/addlink.png",
+    'title' => MI_ADSLIGHT_ADMENU10,
+    'link'  => 'admin/pictures.php',
+    'icon'  => "{$pathIcon32}/photo.png",
 ];
 
+
+if (isset($pathModIcon32) && null !== $pathModIcon32) {
+    $adminmenu[] = [
+        'title' => _MI_ADSLIGHT_ADMENU5,
+        'link'  => 'admin/options.php',
+        'icon'  => $pathModIcon32 . '/preferences.png',
+    ];
+}
 $adminmenu[] = [
-    'title' => MI_ADSLIGHT_ADMENU5,
-    'link'  => 'admin/price.php',
-    'icon'  => "{$pathIcon32}/cash_stack.png",
+    'title' => _MI_ADSLIGHT_ADMENU2,
+    'link'  => 'admin/groupperms.php',
+    'icon'  => $pathIcon32 . '/permissions.png',
 ];
 
-$adminmenu[] = [
-    'title' => MI_ADSLIGHT_ADMENU6,
-    'link'  => 'admin/condition.php',
-    'icon'  => "{$pathIcon32}/album.png",
-];
+
+//=======================================
+
+//$adminmenu[] = [
+//    'title' => MI_ADSLIGHT_ADMENU4,
+//    'link'  => 'admin/type.php',
+//    'icon'  => "{$pathIcon32}/addlink.png",
+//];
+//
+//$adminmenu[] = [
+//    'title' => MI_ADSLIGHT_ADMENU5,
+//    'link'  => 'admin/price.php',
+//    'icon'  => "{$pathIcon32}/cash_stack.png",
+//];
+//
+//$adminmenu[] = [
+//    'title' => MI_ADSLIGHT_ADMENU6,
+//    'link'  => 'admin/condition.php',
+//    'icon'  => "{$pathIcon32}/album.png",
+//];
 
 //$adminmenu[] = [
 //    'title' => MI_ADSLIGHT_ADMENU7,
@@ -114,12 +124,6 @@ $adminmenu[] = [
     'title' => MI_ADSLIGHT_ADMENU9,
     'link'  => 'admin/uservotes.php',
     'icon'  => "{$pathIcon32}/stats.png",
-];
-
-$adminmenu[] = [
-    'title' => MI_ADSLIGHT_ADMENU10,
-    'link'  => 'admin/pictures.php',
-    'icon'  => "{$pathIcon32}/photo.png",
 ];
 
 $adminmenu[] = [
@@ -144,18 +148,20 @@ $adminmenu[] = [
 //    'icon'  => $pathModIcon32 . '/discussion.png'
 //);
 
-//Feedback
-$adminmenu[] = [
-    'title' => constant('CO_' . $moduleDirNameUpper . '_' . 'ADMENU_FEEDBACK'),
-    'link'  => 'admin/feedback.php',
-    'icon'  => $pathIcon32 . '/mail_foward.png',
-];
 // Blocks Admin
 $adminmenu[] = [
     'title' => constant('CO_' . $moduleDirNameUpper . '_' . 'BLOCKS'),
     'link'  => 'admin/blocksadmin.php',
     'icon'  => $pathIcon32 . '/block.png',
 ];
+
+//Feedback
+$adminmenu[] = [
+    'title' => constant('CO_' . $moduleDirNameUpper . '_' . 'ADMENU_FEEDBACK'),
+    'link'  => 'admin/feedback.php',
+    'icon'  => $pathIcon32 . '/mail_foward.png',
+];
+
 if (is_object($helper->getModule()) && $helper->getConfig('displayDeveloperTools')) {
     $adminmenu[] = [
         'title' => constant('CO_' . $moduleDirNameUpper . '_' . 'ADMENU_MIGRATE'),

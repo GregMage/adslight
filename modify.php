@@ -346,10 +346,18 @@ function modAd($lid): void
     </tr><tr>
     <td class="head">' . _ADSLIGHT_DESC . ' </td><td class="head">';
             //            $wysiwyg_text_area = Utility::getEditor(_ADSLIGHT_DESC, 'desctext', $desctext, '100%', '200px');
-            $wysiwyg_text_area = Utility::getEditor(
-                $helper,
-                $options
-            );
+
+//            $desctext = $myts->displayTarea($desctext, 1);
+
+            $options           = [];
+            $options['name']   = _ADSLIGHT_DESC;
+            $options['value']  = $desctext;
+            $options['rows']   = 10;
+            $options['cols']   = '100%';
+            $options['width']  = '100%';
+            $options['height'] = '400px';
+
+            $wysiwyg_text_area = Utility::getEditor($helper, $options);
             echo $wysiwyg_text_area->render();
             echo '</td></tr>
     <td colspan=2><br><input type="submit" value="' . _ADSLIGHT_MODIFANN . '" ></td>

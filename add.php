@@ -135,8 +135,10 @@ if (Request::hasVar('submit', 'POST')) {
     );
     $success = $xoopsDB->query($sql);
     if (!$success) {
+        /** @var \XoopsModuleHandler $moduleHandler */
         $moduleHandler = xoops_getHandler('module');
-        $myModule      = $moduleHandler->getByDirname('adslight');
+        /** @var XoopsModule $myModule */
+        $myModule = $moduleHandler->getByDirname('adslight');
         $myModule->setErrors('Could not query the database.');
     }
 
@@ -157,12 +159,11 @@ if (Request::hasVar('submit', 'POST')) {
         $tags['TYPE']            = Utility::getNameType($type);
         $tags['LINK_URL']        = XOOPS_URL . '/modules/adslight/viewads.php?' . '&lid=' . $lid;
         $sql                     = 'SELECT title FROM ' . $xoopsDB->prefix('adslight_categories') . ' WHERE cid=' . $cid;
-        /** @var \mysqli_result|bool $result2 */
         $result2 = $xoopsDB->query($sql);
         if ($result2 instanceof \mysqli_result) {
             $row = $xoopsDB->fetchArray($result2);
+            $tags['CATEGORY_TITLE'] = $row['title'];
         }
-        $tags['CATEGORY_TITLE'] = $row['title'];
         $tags['CATEGORY_URL']   = XOOPS_URL . '/modules/adslight/viewcats.php?cid="' . addslashes((string)$cid);
         /** @var \XoopsNotificationHandler $notificationHandler */
         $notificationHandler = xoops_getHandler('notification');
@@ -184,12 +185,11 @@ if (Request::hasVar('submit', 'POST')) {
         $tags['NEED_TO_LOGIN'] = _ADSLIGHT_NEED_TO_LOGIN;
         $tags['ADMIN_LINK']    = XOOPS_URL . '/modules/adslight/admin/validate_ads.php';
         $sql                   = 'SELECT title FROM ' . $xoopsDB->prefix('adslight_categories') . ' WHERE cid=' . $cid;
-        /** @var \mysqli_result|bool $result2 */
         $result2                = $xoopsDB->query($sql);
         if ($result2 instanceof \mysqli_result) {
             $row = $xoopsDB->fetchArray($result2);
+            $tags['CATEGORY_TITLE'] = $row['title'];
         }
-        $tags['CATEGORY_TITLE'] = $row['title'];
         $tags['NEWAD']          = _ADSLIGHT_NEWAD;
 
         $mail = xoops_getMailer();
@@ -281,9 +281,8 @@ if (Request::hasVar('submit', 'POST')) {
         // Category select box
         ob_start();
         $mytree->makeMySelBox('title', 'title', $cid, 1, 'cid');
-        $form->addElement(new \XoopsFormLabel(_ADSLIGHT_CAT3, ob_get_clean())??'', true);
+        $form->addElement(new \XoopsFormLabel(_ADSLIGHT_CAT3, (string)ob_get_clean())??'', true);
         $sql = 'SELECT title, cat_moderate FROM ' . $xoopsDB->prefix('adslight_categories') . " WHERE cid='" . $xoopsDB->escape($cid) . "'";
-        /** @var \mysqli_result|bool $category */
         $category = $xoopsDB->query($sql);
         if ($category instanceof \mysqli_result) {
             [$cat_title, $cat_moderate] = $xoopsDB->fetchRow($category);
@@ -360,7 +359,7 @@ if (Request::hasVar('submit', 'POST')) {
             $form->addElement(new \XoopsFormHidden('valid', 'Yes'), false);
         }
         $form->addElement(new \XoopsFormHidden('usid', $member_usid), false);
-        $form->addElement(new \XoopsFormHidden('date_created', time()), false);
+        $form->addElement(new \XoopsFormHidden('date_created', (string)time()), false);
         $form->addElement(new \XoopsFormButton('', 'submit', _ADSLIGHT_SUBMIT, 'submit'));
         $form->display();
         $GLOBALS['xoopsTpl']->assign('submit_form', ob_get_clean());

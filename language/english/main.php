@@ -451,3 +451,125 @@ define('_ADSLIGHT_CONTACTBY2', ' by:');
 
 define('_MA_ADSLIGHT_MUSTREGFIRST', 'You Must Register First');
 define('_ADSLIGHT_VALIDATE_FAILED', 'Validation Failed');
+
+//=====================================================
+
+// Listing
+define('MD_ADSLIGHT_ADMIN', 'Admin');
+define('MD_ADSLIGHT_INDEX', 'Home');
+define('MD_ADSLIGHT_ACTION', 'Action');
+define('MD_ADSLIGHT_VIEW', 'View');
+define('MD_ADSLIGHT_PRINT', 'Print');
+define('MD_ADSLIGHT_TELL_A_FRIEND', 'Tell A Friend');
+
+define('MD_ADSLIGHT_TITLE', 'Adslight');
+define('MD_ADSLIGHT_DESC', 'This module is to create Classifieds Ads.');
+define('MD_ADSLIGHT_INDEX_DESC', 'This module is to create Classifieds Ads.');
+// Listing
+define('MD_ADSLIGHT_LISTING', 'Listing');
+define('MD_ADSLIGHT_LISTING_DESC', 'Listing description');
+define('MD_ADSLIGHT_LISTING_LID', 'ID');
+define('MD_ADSLIGHT_LISTING_CID', 'Category');
+define('MD_ADSLIGHT_LISTING_TITLE', 'Title');
+define('MD_ADSLIGHT_LISTING_STATUS', 'Status');
+define('MD_ADSLIGHT_LISTING_EXPIRE', 'Expire');
+define('MD_ADSLIGHT_LISTING_TYPE', 'Type');
+define('MD_ADSLIGHT_LISTING_DESCTEXT', 'Description');
+define('MD_ADSLIGHT_LISTING_TEL', 'Phone');
+define('MD_ADSLIGHT_LISTING_PRICE', 'Price');
+define('MD_ADSLIGHT_LISTING_TYPEPRICE', 'PriceType');
+define('MD_ADSLIGHT_LISTING_TYPECONDITION', 'Condition');
+define('MD_ADSLIGHT_LISTING_DATE_CREATED', 'Created');
+define('MD_ADSLIGHT_LISTING_EMAIL', 'Email');
+define('MD_ADSLIGHT_LISTING_SUBMITTER', 'Submitter');
+define('MD_ADSLIGHT_LISTING_USID', 'Zip');
+define('MD_ADSLIGHT_LISTING_TOWN', 'Town');
+define('MD_ADSLIGHT_LISTING_COUNTRY', 'country');
+define('MD_ADSLIGHT_LISTING_CONTACTBY', 'Contactby');
+define('MD_ADSLIGHT_LISTING_PREMIUM', 'premium');
+define('MD_ADSLIGHT_LISTING_VALID', 'Valid');
+define('MD_ADSLIGHT_LISTING_PHOTO', 'Photo');
+define('MD_ADSLIGHT_LISTING_HITS', 'Hits');
+define('MD_ADSLIGHT_LISTING_ITEM_RATING', 'ItemRating');
+define('MD_ADSLIGHT_LISTING_ITEM_VOTES', 'ItemVotes');
+define('MD_ADSLIGHT_LISTING_USER_RATING', 'user_rating');
+define('MD_ADSLIGHT_LISTING_USER_VOTES', 'user_votes');
+define('MD_ADSLIGHT_LISTING_COMMENTS', 'comments');
+define('MD_ADSLIGHT_LISTING_REMIND', 'remind');
+// Categories
+define('MD_ADSLIGHT_CATEGORIES', 'Categories');
+define('MD_ADSLIGHT_CATEGORIES_DESC', 'Categories description');
+define('MD_ADSLIGHT_CATEGORIES_CID', 'ID');
+define('MD_ADSLIGHT_CATEGORIES_PID', 'Parent');
+define('MD_ADSLIGHT_CATEGORIES_TITLE', 'Title');
+define('MD_ADSLIGHT_CATEGORIES_CAT_DESC', 'Desc');
+define('MD_ADSLIGHT_CATEGORIES_CAT_KEYWORDS', 'Keywords');
+define('MD_ADSLIGHT_CATEGORIES_IMG', 'Image');
+define('MD_ADSLIGHT_CATEGORIES_CAT_ORDER', 'Order');
+define('MD_ADSLIGHT_CATEGORIES_AFFPRICE', 'Price');
+define('MD_ADSLIGHT_CATEGORIES_CAT_MODERATE', 'CatModerator');
+define('MD_ADSLIGHT_CATEGORIES_MODERATE_SUBCAT', 'SubcatModerator');
+// Adtype
+define('MD_ADSLIGHT_TYPE', 'Adtype');
+define('MD_ADSLIGHT_TYPE_DESC', 'Adtype description');
+define('MD_ADSLIGHT_TYPE_ID_TYPE', 'ID');
+define('MD_ADSLIGHT_TYPE_NOM_TYPE', 'Name');
+// Price
+define('MD_ADSLIGHT_PRICE', 'Price');
+define('MD_ADSLIGHT_PRICE_DESC', 'Price description');
+define('MD_ADSLIGHT_PRICE_ID_PRICE', 'ID');
+define('MD_ADSLIGHT_PRICE_NOM_PRICE', 'Price');
+// Condition
+define('MD_ADSLIGHT_CONDITION', 'Condition');
+define('MD_ADSLIGHT_CONDITION_DESC', 'Condition description');
+define('MD_ADSLIGHT_CONDITION_ID_CONDITION', 'ID');
+define('MD_ADSLIGHT_CONDITION_NOM_CONDITION', 'Condition');
+// Iplog
+define('MD_ADSLIGHT_IPLOG', 'Iplog');
+define('MD_ADSLIGHT_IPLOG_DESC', 'Iplog description');
+define('MD_ADSLIGHT_IPLOG_IP_ID', 'ID');
+define('MD_ADSLIGHT_IPLOG_LID', 'Listing');
+define('MD_ADSLIGHT_IPLOG_DATE_CREATED', 'DateTimeCreated');
+define('MD_ADSLIGHT_IPLOG_SUBMITTER', 'Submitter');
+define('MD_ADSLIGHT_IPLOG_IPNUMBER', 'Ipnumber');
+define('MD_ADSLIGHT_IPLOG_EMAIL', 'Email');
+// Itemvotes
+define('MD_ADSLIGHT_ITEMVOTES', 'Itemvotes');
+define('MD_ADSLIGHT_ITEMVOTES_DESC', 'Itemvotes description');
+define('MD_ADSLIGHT_ITEMVOTES_RATINGID', 'ID');
+define('MD_ADSLIGHT_ITEMVOTES_LID', 'Listing');
+define('MD_ADSLIGHT_ITEMVOTES_RATINGUSER', 'Ratinguser');
+define('MD_ADSLIGHT_ITEMVOTES_RATING', 'Rating');
+define('MD_ADSLIGHT_ITEMVOTES_RATINGHOSTNAME', 'Ratinghostname');
+define('MD_ADSLIGHT_ITEMVOTES_RATINGTIMESTAMP', 'Ratingtimestamp');
+// Uservotes
+define('MD_ADSLIGHT_USERVOTES', 'Uservotes');
+define('MD_ADSLIGHT_USERVOTES_DESC', 'Uservotes description');
+define('MD_ADSLIGHT_USERVOTES_RATINGID', 'ID');
+define('MD_ADSLIGHT_USERVOTES_USID', 'User');
+define('MD_ADSLIGHT_USERVOTES_RATINGUSER', 'Ratinguser');
+define('MD_ADSLIGHT_USERVOTES_RATING', 'Rating');
+define('MD_ADSLIGHT_USERVOTES_RATINGHOSTNAME', 'Ratinghostname');
+define('MD_ADSLIGHT_USERVOTES_RATINGTIMESTAMP', 'Ratingtimestamp');
+// Pictures
+define('MD_ADSLIGHT_PICTURES', 'Pictures');
+define('MD_ADSLIGHT_PICTURES_DESC', 'Pictures description');
+define('MD_ADSLIGHT_PICTURES_COD_IMG', 'ID');
+define('MD_ADSLIGHT_PICTURES_TITLE', 'Title');
+define('MD_ADSLIGHT_PICTURES_DATE_CREATED', 'Added');
+define('MD_ADSLIGHT_PICTURES_DATE_UPDATED', 'Updated');
+define('MD_ADSLIGHT_PICTURES_LID', 'Listing');
+define('MD_ADSLIGHT_PICTURES_UID_OWNER', 'Owner');
+define('MD_ADSLIGHT_PICTURES_URL', 'URL');
+// Replies
+define('MD_ADSLIGHT_REPLIES', 'Replies');
+define('MD_ADSLIGHT_REPLIES_DESC', 'Replies description');
+define('MD_ADSLIGHT_REPLIES_R_LID', 'ID');
+define('MD_ADSLIGHT_REPLIES_LID', 'Listing');
+define('MD_ADSLIGHT_REPLIES_TITLE', 'Title');
+define('MD_ADSLIGHT_REPLIES_DATE', 'Date');
+define('MD_ADSLIGHT_REPLIES_SUBMITTER', 'Submitter');
+define('MD_ADSLIGHT_REPLIES_MESSAGE', 'Message');
+define('MD_ADSLIGHT_REPLIES_TELE', 'Phone');
+define('MD_ADSLIGHT_REPLIES_EMAIL', 'Email');
+define('MD_ADSLIGHT_REPLIES_R_USID', 'User');

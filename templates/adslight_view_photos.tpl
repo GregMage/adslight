@@ -60,7 +60,7 @@
     </ul>
     <br>
     <br>
-    <table border="0" cellspacing="1" cellpadding="0">
+    <table border="1" cellspacing="2" cellpadding="10">
         <tr>
             <td>
             <th><{$form_picture.title}></th>
@@ -69,7 +69,16 @@
     </table>
 <form name="<{$form_picture.name}>" action="<{$form_picture.action}>"
       method="<{$form_picture.method}>" <{$form_picture.extra}> id="submitpicture">
-    <{securityToken}><{*//mb*}>
+
+
+<{*<{if $xcube}>*}>
+<{*<{$form_picture.elements.XOOPS_G_TICKET.body}>*}>
+<{*<{else}>*}>
+<{$form_picture.elements.XOOPS_TOKEN_REQUEST.body}>
+<{*<{/if }>*}>
+
+<{*    <{securityToken}>//mb*}>
+
     <p><strong><{$form_picture.elements.1.caption}></strong></p>
     <p><strong><{$form_picture.elements.sel_photo.caption}></strong>
         <{$form_picture.elements.sel_photo.body}></p>
@@ -77,11 +86,18 @@
         <{$form_picture.elements.caption.body}></p>
     <{$form_picture.elements.lid.body}>
     <{$form_picture.elements.submit_button.body}>
-    </form><{$form_picture.javascript}><{/if}>
+    </form>
+
+    <{$form_picture.javascript}>
+
+    <{/if}>
+
+
 <div style="text-align: center; padding: 3px; margin: 3px;">
     <{$commentsnav|default:''}>
     <{$lang_notice|default:''}>
 </div>
+
 <div style="margin: 3px; padding: 3px;">
     <{if $comment_mode|default:'' == "flat"}>
         <{include file="db:system_comments_flat.tpl"}>

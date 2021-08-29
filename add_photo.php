@@ -41,7 +41,7 @@ $helper = Helper::getInstance();
 /**
  * Factory of pictures created
  */
-$albumFactory = new PicturesHandler($xoopsDB);
+$albumFactory = $helper->getHandler('Picture');
 /**
  * Getting the title
  */

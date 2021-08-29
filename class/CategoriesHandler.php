@@ -23,11 +23,7 @@ namespace XoopsModules\Adslight;
  * @license         GPL 2.0 or later
  */
 
-use Xmf\Module\Helper\Permission;
 
-$moduleDirName = \basename(\dirname(__DIR__));
-
-$permHelper = new Permission();
 
 /**
  * Class CategoriesHandler
@@ -35,7 +31,7 @@ $permHelper = new Permission();
 class CategoriesHandler extends \XoopsPersistableObjectHandler
 {
     /**
-     * @var Helper
+     * @var XoopsModules\Adslight\Helper
      */
     public $helper;
 

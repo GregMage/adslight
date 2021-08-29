@@ -23,8 +23,8 @@ declare(strict_types=1);
  */
 $rssContent = [];
 /**
- * @param $item
- * @param $type
+ * @param DOMDocument $item
+ * @param string $type
  * @return array
  */
 function rssTags($item, $type): array
@@ -51,7 +51,7 @@ function rssTags($item, $type): array
 }
 
 /**
- * @param $channel
+ * @param DOMDocument $channel
  */
 function rssChannel($channel): void
 {
@@ -102,7 +102,7 @@ function rssRetrieveLinks($url): void
 }
 
 /**
- * @param     $url
+ * @param string    $url
  * @param int $size
  * @return string
  */
@@ -129,7 +129,7 @@ function rssLinks($url, $size = 15): string
 }
 
 /**
- * @param     $url
+ * @param string    $url
  * @param int $size
  * @param int $site
  * @return string
@@ -180,7 +180,7 @@ function rssDisplay(
 }
 
 /**
- * @param     $url
+ * @param string    $url
  * @param int $size
  * @param int $site
  * @param int $withdate

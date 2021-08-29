@@ -52,7 +52,7 @@ class CategoriesForm extends \XoopsThemeForm
         $this->helper       = $target->helper;
         $this->targetObject = $target;
 
-        $title = $this->targetObject->isNew() ? \sprintf(\AM_ADSLIGHT_CATEGORIES_ADD) : \sprintf(\AM_ADSLIGHT_CATEGORIES_EDIT);
+        $title = $this->targetObject->isNew() ? \AM_ADSLIGHT_CATEGORIES_ADD : \AM_ADSLIGHT_CATEGORIES_EDIT;
         parent::__construct($title, 'form', \xoops_getenv('SCRIPT_NAME'), 'post', true);
         $this->setExtra('enctype="multipart/form-data"');
 

@@ -499,9 +499,9 @@ define('AM_ADSLIGHT_LISTING_DATE_CREATED', 'Created');
 //define('AM_ADSLIGHT_LISTING_COMMENTS', 'comments');
 //define('AM_ADSLIGHT_LISTING_REMIND', 'remind');
 // Categories
-define('AM_ADSLIGHT_CATEGORIES_ADD', 'Add a categories');
-define('AM_ADSLIGHT_CATEGORIES_EDIT', 'Edit categories');
-define('AM_ADSLIGHT_CATEGORIES_DELETE', 'Delete categories');
+define('AM_ADSLIGHT_CATEGORIES_ADD', 'Add a category');
+define('AM_ADSLIGHT_CATEGORIES_EDIT', 'Edit category');
+define('AM_ADSLIGHT_CATEGORIES_DELETE', 'Delete category');
 define('AM_ADSLIGHT_CATEGORIES_CID', 'ID');
 define('AM_ADSLIGHT_CATEGORIES_PID', 'Parent');
 define('AM_ADSLIGHT_CATEGORIES_TITLE', 'Title');
@@ -510,8 +510,8 @@ define('AM_ADSLIGHT_CATEGORIES_CAT_KEYWORDS', 'Keywords');
 define('AM_ADSLIGHT_CATEGORIES_IMG', 'Image');
 define('AM_ADSLIGHT_CATEGORIES_CAT_ORDER', 'Order');
 define('AM_ADSLIGHT_CATEGORIES_AFFPRICE', 'Price');
-define('AM_ADSLIGHT_CATEGORIES_CAT_MODERATE', 'CatModerator');
-define('AM_ADSLIGHT_CATEGORIES_MODERATE_SUBCAT', 'SubcatModerator');
+define('AM_ADSLIGHT_CATEGORIES_CAT_MODERATE', 'Category Moderator');
+define('AM_ADSLIGHT_CATEGORIES_MODERATE_SUBCAT', 'Subcategory Moderator');
 // Type
 //define('AM_ADSLIGHT_TYPE_ADD', 'Add a type');
 //define('AM_ADSLIGHT_TYPE_EDIT', 'Edit type');
@@ -531,14 +531,14 @@ define('AM_ADSLIGHT_CONDITION_DELETE', 'Delete condition');
 define('AM_ADSLIGHT_CONDITION_ID_CONDITION', 'ID');
 define('AM_ADSLIGHT_CONDITION_NOM_CONDITION', 'Condition');
 // Iplog
-define('AM_ADSLIGHT_IPLOG_ADD', 'Add a iplog');
-define('AM_ADSLIGHT_IPLOG_EDIT', 'Edit iplog');
-define('AM_ADSLIGHT_IPLOG_DELETE', 'Delete iplog');
+define('AM_ADSLIGHT_IPLOG_ADD', 'Add IPlog');
+define('AM_ADSLIGHT_IPLOG_EDIT', 'Edit IPlog');
+define('AM_ADSLIGHT_IPLOG_DELETE', 'Delete IPlog');
 define('AM_ADSLIGHT_IPLOG_IP_ID', 'ID');
 define('AM_ADSLIGHT_IPLOG_LID', 'Listing');
 define('AM_ADSLIGHT_IPLOG_DATE_CREATED', 'DateTimeCreated');
 define('AM_ADSLIGHT_IPLOG_SUBMITTER', 'Submitter');
-define('AM_ADSLIGHT_IPLOG_IPNUMBER', 'Ipnumber');
+define('AM_ADSLIGHT_IPLOG_IPNUMBER', 'IP number');
 define('AM_ADSLIGHT_IPLOG_EMAIL', 'Email');
 // Itemvotes
 //define('AM_ADSLIGHT_ITEMVOTES_ADD', 'Add a itemvotes');
@@ -561,9 +561,9 @@ define('AM_ADSLIGHT_IPLOG_EMAIL', 'Email');
 //define('AM_ADSLIGHT_USERVOTES_RATINGHOSTNAME', 'Ratinghostname');
 //define('AM_ADSLIGHT_USERVOTES_RATINGTIMESTAMP', 'Ratingtimestamp');
 // Pictures
-define('AM_ADSLIGHT_PICTURES_ADD', 'Add a pictures');
-define('AM_ADSLIGHT_PICTURES_EDIT', 'Edit pictures');
-define('AM_ADSLIGHT_PICTURES_DELETE', 'Delete pictures');
+define('AM_ADSLIGHT_PICTURES_ADD', 'Add a picture');
+define('AM_ADSLIGHT_PICTURES_EDIT', 'Edit picture');
+define('AM_ADSLIGHT_PICTURES_DELETE', 'Delete picture');
 define('AM_ADSLIGHT_PICTURES_COD_IMG', 'ID');
 define('AM_ADSLIGHT_PICTURES_TITLE', 'Title');
 define('AM_ADSLIGHT_PICTURES_DATE_CREATED', 'Added');
@@ -572,9 +572,9 @@ define('AM_ADSLIGHT_PICTURES_LID', 'Listing');
 define('AM_ADSLIGHT_PICTURES_UID_OWNER', 'Owner');
 define('AM_ADSLIGHT_PICTURES_URL', 'URL');
 // Replies
-define('AM_ADSLIGHT_REPLIES_ADD', 'Add a replies');
-define('AM_ADSLIGHT_REPLIES_EDIT', 'Edit replies');
-define('AM_ADSLIGHT_REPLIES_DELETE', 'Delete replies');
+define('AM_ADSLIGHT_REPLIES_ADD', 'Add a reply');
+define('AM_ADSLIGHT_REPLIES_EDIT', 'Edit reply');
+define('AM_ADSLIGHT_REPLIES_DELETE', 'Delete reply');
 define('AM_ADSLIGHT_REPLIES_R_LID', 'ID');
 define('AM_ADSLIGHT_REPLIES_LID', 'Listing');
 define('AM_ADSLIGHT_REPLIES_TITLE', 'Title');
@@ -624,3 +624,5 @@ define('AM_ADSLIGHT_ADD_SAMPLEDATA', 'Import Sample Data (will delete ALL curren
 define('AM_ADSLIGHT_SAMPLEDATA_SUCCESS', 'Sample Date uploaded successfully');
 
 define('AM_ADSLIGHT_MAINTAINEDBY', 'is maintained by the');
+
+

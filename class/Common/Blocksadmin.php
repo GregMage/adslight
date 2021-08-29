@@ -104,10 +104,10 @@ class Blocksadmin
              . \constant('CO_' . $this->moduleDirNameUpper . '_' . 'ACTION')
              . '</th></tr>
         ';
-        $blockArray   = \XoopsBlock::getByModule($xoopsModule->mid());
+        $blockArray = \XoopsBlock::getByModule($xoopsModule->mid());
         $blockCount = \count($blockArray);
-        $class       = 'even';
-        $cachetimes  = [
+        $class      = 'even';
+        $cachetimes = [
             0       => _NOCACHE,
             30      => \sprintf(_SECONDS, 30),
             60      => _MINUTE,
@@ -122,9 +122,9 @@ class Blocksadmin
         ];
         foreach ($blockArray as $i) {
             $groupsPermissions = $grouppermHandler->getGroupIds('block_read', $i->getVar('bid'));
-            $sql          = 'SELECT module_id FROM ' . $this->db->prefix('block_module_link') . ' WHERE block_id=' . $i->getVar('bid');
-            $result       = $this->db->query($sql);
-            $modules      = [];
+            $sql               = 'SELECT module_id FROM ' . $this->db->prefix('block_module_link') . ' WHERE block_id=' . $i->getVar('bid');
+            $result            = $this->db->query($sql);
+            $modules           = [];
             while (false !== ($row = $this->db->fetchArray($result))) {
                 $modules[] = (int)$row['module_id'];
             }
@@ -328,7 +328,7 @@ class Blocksadmin
             $modules[] = (int)$row['module_id'];
         }
         $isCustom = \in_array($myblock->getVar('block_type'), ['C', 'E']);
-        $block     = [
+        $block    = [
             'title'      => $myblock->getVar('title') . ' Clone',
             'form_title' => \constant('CO_' . $this->moduleDirNameUpper . '_' . 'BLOCKS_CLONEBLOCK'),
             'name'       => $myblock->getVar('name'),
@@ -467,7 +467,7 @@ class Blocksadmin
             $modules[] = (int)$row['module_id'];
         }
         $isCustom = \in_array($myblock->getVar('block_type'), ['C', 'E']);
-        $block     = [
+        $block    = [
             'title'      => $myblock->getVar('title'),
             'form_title' => \_AM_SYSTEM_BLOCKS_EDITBLOCK,
             //        'name'       => $myblock->getVar('name'),
@@ -498,9 +498,9 @@ class Blocksadmin
      * @param int               $bid
      * @param string            $btitle
      * @param string            $bside
-     * @param int               $bweight
-     * @param bool              $bvisible
-     * @param int               $bcachetime
+     * @param string            $bweight
+     * @param string            $bvisible
+     * @param string            $bcachetime
      * @param array             $bmodule
      * @param null|array|string $options
      * @param null|array        $groups
@@ -613,7 +613,7 @@ class Blocksadmin
     /**
      * @param null $block
      */
-    public function render($block = null): void
+    public function render($block = null)
     {
         \xoops_load('XoopsFormLoader');
         \xoops_loadLanguage('common', $this->moduleDirNameUpper);
@@ -624,15 +624,15 @@ class Blocksadmin
         }
         $sideSelect = new \XoopsFormSelect(\_AM_SYSTEM_BLOCKS_TYPE, 'bside', $block['side']);
         $sideSelect->addOptionArray([
-                                         0 => \_AM_SYSTEM_BLOCKS_SBLEFT,
-                                         1 => \_AM_SYSTEM_BLOCKS_SBRIGHT,
-                                         3 => \_AM_SYSTEM_BLOCKS_CBLEFT,
-                                         4 => \_AM_SYSTEM_BLOCKS_CBRIGHT,
-                                         5 => \_AM_SYSTEM_BLOCKS_CBCENTER,
-                                         7 => \_AM_SYSTEM_BLOCKS_CBBOTTOMLEFT,
-                                         8 => \_AM_SYSTEM_BLOCKS_CBBOTTOMRIGHT,
-                                         9 => \_AM_SYSTEM_BLOCKS_CBBOTTOM,
-                                     ]);
+                                        0 => \_AM_SYSTEM_BLOCKS_SBLEFT,
+                                        1 => \_AM_SYSTEM_BLOCKS_SBRIGHT,
+                                        3 => \_AM_SYSTEM_BLOCKS_CBLEFT,
+                                        4 => \_AM_SYSTEM_BLOCKS_CBRIGHT,
+                                        5 => \_AM_SYSTEM_BLOCKS_CBCENTER,
+                                        7 => \_AM_SYSTEM_BLOCKS_CBBOTTOMLEFT,
+                                        8 => \_AM_SYSTEM_BLOCKS_CBBOTTOMRIGHT,
+                                        9 => \_AM_SYSTEM_BLOCKS_CBBOTTOM,
+                                    ]);
         $form->addElement($sideSelect);
         $form->addElement(new \XoopsFormText(\constant('CO_' . $this->moduleDirNameUpper . '_' . 'WEIGHT'), 'bweight', 2, 5, $block['weight']));
         $form->addElement(new \XoopsFormRadioYN(\constant('CO_' . $this->moduleDirNameUpper . '_' . 'VISIBLE'), 'bvisible', $block['visible']));
@@ -654,11 +654,11 @@ class Blocksadmin
             $form->addElement($textarea, true);
             $ctypeSelect = new \XoopsFormSelect(\_AM_SYSTEM_BLOCKS_CTYPE, 'bctype', $block['ctype']);
             $ctypeSelect->addOptionArray([
-                                              'H' => \_AM_SYSTEM_BLOCKS_HTML,
-                                              'P' => \_AM_SYSTEM_BLOCKS_PHP,
-                                              'S' => \_AM_SYSTEM_BLOCKS_AFWSMILE,
-                                              'T' => \_AM_SYSTEM_BLOCKS_AFNOSMILE,
-                                          ]);
+                                             'H' => \_AM_SYSTEM_BLOCKS_HTML,
+                                             'P' => \_AM_SYSTEM_BLOCKS_PHP,
+                                             'S' => \_AM_SYSTEM_BLOCKS_AFWSMILE,
+                                             'T' => \_AM_SYSTEM_BLOCKS_AFNOSMILE,
+                                         ]);
             $form->addElement($ctypeSelect);
         } else {
             if ('' !== $block['template']) {
@@ -711,7 +711,7 @@ class Blocksadmin
         }
 
         //Submit buttons
-        $buttonTray    = new \XoopsFormElementTray('', '');
+        $buttonTray   = new \XoopsFormElementTray('', '');
         $submitButton = new \XoopsFormButton('', 'submitblock', _SUBMIT, 'submit');
         $buttonTray->addElement($submitButton);
 

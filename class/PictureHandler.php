@@ -28,9 +28,9 @@ $moduleDirName = \basename(\dirname(__DIR__));
 $permHelper = new \Xmf\Module\Helper\Permission();
 
 /**
- * Class ItemvotesHandler
+ * Class PicturesHandler
  */
-class ItemvotesHandler extends \XoopsPersistableObjectHandler
+class PictureHandler extends \XoopsPersistableObjectHandler
 {
     /**
      * @var Helper
@@ -47,7 +47,7 @@ class ItemvotesHandler extends \XoopsPersistableObjectHandler
     {
         /** @var \XoopsModules\Adslight\Helper $this- >helper */
         $this->helper = $helper;
-        parent::__construct($db, 'adslight_itemvotes', Itemvotes::class, 'ratingid', 'ratingid');
+        parent::__construct($db, 'adslight_pictures', Picture::class, 'cod_img', 'title');
     }
 
     /**
