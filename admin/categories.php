@@ -53,7 +53,7 @@ $adminObject->displayNavigation(basename(__FILE__));
 $permHelper = new \Xmf\Module\Helper\Permission();
 $uploadDir  = XOOPS_UPLOAD_PATH . "/$moduleDirName/categories/";
 $uploadUrl  = XOOPS_UPLOAD_URL . "/$moduleDirName/categories/";
-/** @var \XoopsPersistableObjectHandler $categoriesHandler */
+/** @var \XoopsModules\Adslight\CategoriesHandler $categoriesHandler */
 $categoriesHandler = $helper->getHandler('Categories');
 
 switch ($op) {

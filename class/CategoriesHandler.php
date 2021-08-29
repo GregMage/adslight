@@ -75,12 +75,13 @@ class CategoriesHandler extends \XoopsPersistableObjectHandler
             return $this->getCount();
         }
         $helper   = Helper::getInstance();
+        $permHelper = $this->helper->getHandler('Permission');
         $criteria = new \CriteriaCompo();
         if (isset($pid) && (-1 != $pid)) {
             $criteria->add(new \Criteria('pid', $pid));
             if (!$helper->isUserAdmin()) {
-                $categoriesGranted = $this->helper->getHandler('Permission')->getGrantedItems('category_read');
-                if (\count($categoriesGranted) > 0) {
+                $categoriesGranted = $permHelper->getGrantedItems('category_read');
+                if (is_array($categoriesGranted) && \count($categoriesGranted) > 0) {
                     $criteria->add(new \Criteria('cid', '(' . \implode(',', $categoriesGranted) . ')', 'IN'));
                 } else {
                     return 0;
