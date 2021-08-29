@@ -24,6 +24,7 @@ declare(strict_types=1);
 use Xmf\Request;
 use XoopsModules\Adslight\{
     Helper,
+    Listing,
     Utility
 };
 /** @var Helper $helper */
@@ -51,7 +52,7 @@ $xoTheme->addStylesheet($stylesheet);
 $db = \XoopsDatabaseFactory::getDatabaseConnection();
 
 // Get Handler
-/** @var \XoopsPersistableObjectHandler $listingHandler */
+/** @var \XoopsModules\Adslight\ListingHandler $listingHandler */
 $listingHandler = $helper->getHandler('Listing');
 
 $listingPaginationLimit = $helper->getConfig('userpager');
@@ -69,6 +70,7 @@ $lid = \Xmf\Request::getInt('lid', 0, 'GET');
 
 switch ($op) {
     case 'edit':
+        /** @var \XoopsModules\Adslight\Listing $listingObject */
         $listingObject = $listingHandler->get(Request::getString('lid', ''));
         $form          = $listingObject->getForm();
         $form->display();

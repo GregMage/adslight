@@ -24,9 +24,11 @@ declare(strict_types=1);
 use Xmf\Module\Admin;
 use Xmf\Request;
 use XoopsModules\Adslight\{
+    Categories,
     Helper,
     Utility
 };
+/** @var \XoopsModules\Adslight\Categories $categoriesObject */
 
 global $xoopsModule, $xoopsDB, $xoopsConfig, $xoTheme;
 
@@ -59,8 +61,7 @@ switch ($op) {
         $adminObject->addItemButton(AM_ADSLIGHT_CATEGORIES_LIST, 'categories.php', 'list');
         $adminObject->displayButton('left');
 
-        /** @var \XoopsModules\Adslight\Categories $categoriesObject */
-        $categoriesObject = $categoriesHandler->create();
+         $categoriesObject = $categoriesHandler->create();
         $form             = $categoriesObject->getForm();
         $form->display();
         break;
@@ -143,7 +144,7 @@ switch ($op) {
 
         $id_field = Request::getString('cid', '');
 
-        if ($utility::cloneRecord('adslight_categories', 'cid', $id_field)) {
+        if ($utility::cloneRecord('adslight_categories', 'cid', (int)$id_field)) {
             redirect_header('categories.php', 3, AM_ADSLIGHT_CLONED_OK);
         } else {
             redirect_header('categories.php', 3, AM_ADSLIGHT_CLONED_FAILED);

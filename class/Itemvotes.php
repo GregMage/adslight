@@ -61,7 +61,7 @@ class Itemvotes extends \XoopsObject
      * Get form
      *
      * @param null
-     * @return Adslight\Form\ItemvotesForm
+     * @return Form\ItemvotesForm
      */
     public function getForm(): Form\ItemvotesForm
     {

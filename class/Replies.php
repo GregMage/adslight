@@ -64,7 +64,7 @@ class Replies extends \XoopsObject
      * Get form
      *
      * @param null
-     * @return Adslight\Form\RepliesForm
+     * @return Form\RepliesForm
      */
     public function getForm(): Form\RepliesForm
     {

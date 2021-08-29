@@ -58,7 +58,7 @@ class Condition extends \XoopsObject
      * Get form
      *
      * @param null
-     * @return Adslight\Form\ConditionForm
+     * @return Form\ConditionForm
      */
     public function getForm(): Form\ConditionForm
     {

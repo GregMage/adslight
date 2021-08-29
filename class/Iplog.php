@@ -61,7 +61,7 @@ class Iplog extends \XoopsObject
      * Get form
      *
      * @param null
-     * @return Adslight\Form\IplogForm
+     * @return Form\IplogForm
      */
     public function getForm(): Form\IplogForm
     {

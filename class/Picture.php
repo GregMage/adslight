@@ -62,7 +62,7 @@ class Picture extends \XoopsObject
      * Get form
      *
      * @param null
-     * @return Adslight\Form\PicturesForm
+     * @return Form\PicturesForm
      */
     public function getForm(): Form\PicturesForm
     {

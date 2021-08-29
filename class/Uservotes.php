@@ -61,7 +61,7 @@ class Uservotes extends \XoopsObject
      * Get form
      *
      * @param null
-     * @return Adslight\Form\UservotesForm
+     * @return Form\UservotesForm
      */
     public function getForm(): Form\UservotesForm
     {

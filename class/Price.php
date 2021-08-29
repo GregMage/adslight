@@ -57,7 +57,7 @@ class Price extends \XoopsObject
      * Get form
      *
      * @param null
-     * @return Adslight\Form\PriceForm
+     * @return Form\PriceForm
      */
     public function getForm(): Form\PriceForm
     {

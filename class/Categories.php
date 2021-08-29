@@ -66,7 +66,7 @@ class Categories extends \XoopsObject
      * Get form
      *
      * @param null
-     * @return Adslight\Form\CategoriesForm
+     * @return Form\CategoriesForm
      */
     public function getForm(): Form\CategoriesForm
     {

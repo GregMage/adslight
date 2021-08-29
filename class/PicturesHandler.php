@@ -189,7 +189,7 @@ class PicturesHandler extends \XoopsPersistableObjectHandler
      * retrieve Pictures object(s) from the database
      *
      * @param \CriteriaCompo|\CriteriaElement|null $criteria  {@link \CriteriaElement} conditions to be met
-     * @param bool                  $id_as_key use the UID as key for the array?
+     * @param bool                                 $id_as_key use the UID as key for the array?
      * @return array  array of {@link Pictures} objects
      */
     public function &getObjects(\CriteriaElement $criteria = null, $id_as_key = false, $as_object = true) //&getObjects(?\CriteriaElement $criteria = null, $id_as_key = false): array

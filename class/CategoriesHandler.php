@@ -31,7 +31,7 @@ namespace XoopsModules\Adslight;
 class CategoriesHandler extends \XoopsPersistableObjectHandler
 {
     /**
-     * @var XoopsModules\Adslight\Helper
+     * @var Helper
      */
     public $helper;
 
