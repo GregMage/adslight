@@ -326,7 +326,7 @@ function viewAds($lid = 0): void
             $GLOBALS['xoopsTpl']->assign('xoop_user', true);
             $currentid = $GLOBALS['xoopsUser']->getVar('uid', 'E');
             if ($usid == $currentid) {
-                $GLOBALS['xoopsTpl']->assign('modifyads', '<img src=' . $pathIcon16 . '/edit.png border="0" alt="' . _ADSLIGHT_MODIFANN . '" >&nbsp;&nbsp;<a href="modify.php?op=ModAd&amp;lid=' . $lid . '">' . _ADSLIGHT_MODIFANN . '</a>');
+                $GLOBALS['xoopsTpl']->assign('modifyads', '<img src=' . $pathIcon16 . '/edit.png border="0" alt="' . _ADSLIGHT_MODIFANN . '" >&nbsp;&nbsp;<a href="modify.php?op=modad&amp;lid=' . $lid . '">' . _ADSLIGHT_MODIFANN . '</a>');
                 $GLOBALS['xoopsTpl']->assign('deleteads', '<img src=' . $pathIcon16 . '/delete.png  border="0" alt="' . _ADSLIGHT_SUPPRANN . '" >&nbsp;&nbsp;<a href="modify.php?op=ListingDel&amp;lid=' . $lid . '">' . _ADSLIGHT_SUPPRANN . '</a>');
                 $GLOBALS['xoopsTpl']->assign('add_photos', '<img src="assets/images/shape_square_add.png" border="0" alt="' . _ADSLIGHT_SUPPRANN . '" >&nbsp;&nbsp;<a href="view_photos.php?lid=' . $lid . '&uid=' . $usid . '">' . _ADSLIGHT_ADD_PHOTOS . '</a>');
 

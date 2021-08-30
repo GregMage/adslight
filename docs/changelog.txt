@@ -1,8 +1,14 @@
-<h5>2.4.0 Alpha-2   [NOT RELEASED]</h5>  Dev: XOOPS 2.5.11, PHP 7.4.22, PHP 8.0.9, PHP 8.1.0 Beta 3
+<h5>2.4.0 Alpha-3   [NOT RELEASED]</h5>  Dev: XOOPS 2.5.11, PHP 7.4.22, PHP 8.0.9, PHP 8.1.0 Beta 3
+<hr>
+
+<h5>2.4.0 Alpha-2   [2021-08-30]</h5>  Dev: XOOPS 2.5.11, PHP 7.4.22, PHP 8.0.9, PHP 8.1.0 Beta 3
 <hr>
 - added sorting to Admin tables (mamba)
 - added paging and filter to Admin tables (mamba)
 - added Blocksadmin class (mamba)
+- refactoring to Request (mamba)
+- added castles to testdata (mamba)
+- fixed in_array needles not being int for strict comparison (mamba)
 
 <h5>2.4.0 Alpha-1   [2021-08-19]</h5>  Dev: XOOPS 2.5.11, PHP 7.4.22, PHP 8.0.9, PHP 8.1.0 Beta 3
 <hr>

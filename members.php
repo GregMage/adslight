@@ -203,7 +203,7 @@ if ($trows > '0') {
             if ($usid === $member_usid) {
                 $istheirs = true;
                 $GLOBALS['xoopsTpl']->assign('istheirs', $istheirs);
-                $modify_link = "<a href='modify.php?op=ModAd&amp;lid=" . $lid . "'><img src='" . $pathIcon16 . "/edit.png'  border=0 alt=\"" . _ADSLIGHT_MODADMIN . '" ></a>';
+                $modify_link = "<a href='modify.php?op=modad&amp;lid=" . $lid . "'><img src='" . $pathIcon16 . "/edit.png'  border=0 alt=\"" . _ADSLIGHT_MODADMIN . '" ></a>';
             } else {
                 $istheirs = false;
                 $GLOBALS['xoopsTpl']->assign('istheirs', '');

@@ -86,7 +86,7 @@
                                 </strong><br>
                                 <{$item.type}><br>
                                 <{if $item.price|default:'' !=""}>
-                                <strong><{$item.price}></strong>&nbsp;-&nbsp;<{$item.price_typeprice}>
+                                <strong><{$item.price}></strong>&nbsp;
                                 <{else}>&nbsp;
                                 <{/if}><br>
                                 <{if $item.sold|default:''}><{$item.sold}><{/if}>

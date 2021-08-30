@@ -33,7 +33,7 @@ use XoopsModules\Adslight\{
 
 $GLOBALS['xoopsOption']['template_main'] = 'adslight_category.tpl';
 
-global $xoopsModule;
+global $xoopsModule, $xoopsDB;
 
 require_once __DIR__ . '/header.php';
 
@@ -155,18 +155,18 @@ function index(): void
             $img = '';
         }
 
-        $totallisting = Utility::getTotalItems($myrow['cid'], 1);
+        $totallisting = Utility::getTotalItems((int)$myrow['cid'], 1);
         $content      .= $title . ' ';
 
         $arr = [];
-        if (\in_array($myrow['cid'], $categories, true)) {
+        if (\in_array((int)$myrow['cid'], $categories, true)) {
             $arr           = $mytree->getFirstChild($myrow['cid'], 'title');
             $space         = 0;
             $chcount       = 1;
             $subcategories = '';
             if (1 === $GLOBALS['xoopsModuleConfig']['adslight_souscat']) {
                 foreach ($arr as $ele) {
-                    if (\in_array($ele['cid'], $categories, true)) {
+                    if (\in_array((int)$ele['cid'], $categories, true)) {
                         $chtitle = \htmlspecialchars($ele['title'], ENT_QUOTES | ENT_HTML5);
                         if ($chcount > $GLOBALS['xoopsModuleConfig']['adslight_nbsouscat']) {
                             $subcategories .= "<a href=\"viewcats.php?cid={$myrow['cid']}\">" . _ADSLIGHT_CATPLUS . '</a>';
@@ -341,7 +341,7 @@ function index(): void
  */
 function categorynewgraphic($cid)
 {
-    global $xoopsDB;
+    global $xoopsDB, $xoopsModuleConfig;
 }
 
 ######################################################

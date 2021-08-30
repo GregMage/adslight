@@ -145,7 +145,7 @@ function delReply($r_lid, $ok): void
 /**
  * @param $lid
  */
-function modAd($lid): void
+function modifyAd($lid): void
 {
     global $xoopsDB, $xoopsModule, $xoopsConfig, $myts;
     $contactselect = '';
@@ -362,7 +362,7 @@ function modAd($lid): void
             echo '</td></tr>
     <td colspan=2><br><input type="submit" value="' . _ADSLIGHT_MODIFANN . '" ></td>
     </tr></table>';
-            echo '<input type="hidden" name="op" value="ModAdS" >';
+            echo '<input type="hidden" name="op" value="modads" >';
 
             $moduleId = $xoopsModule->getVar('mid');
             if (is_object($GLOBALS['xoopsUser'])) {
@@ -412,7 +412,7 @@ function modAd($lid): void
  * @param $premium
  * @param $valid
  */
-function modAdS(
+function modifyAds(
     $lid,
     $cat,
     $title,
@@ -432,40 +432,47 @@ function modAdS(
     $contactby,
     $premium,
     $valid
-): void {
+) {
     global $xoopsDB, $myts;
     $helper = Helper::getInstance();
     if (!$GLOBALS['xoopsSecurity']->check()) {
         $helper->redirect('index.php', 3, $GLOBALS['xoopsSecurity']->getErrors());
     }
-    $title         = $myts->addSlashes($title);
-    $status        = $myts->addSlashes($status);
-    $expire        = $myts->addSlashes($expire);
-    $type          = $myts->addSlashes($type);
-    $desctext      = $myts->displayTarea($desctext, 1, 1, 1, 1, 1);
-    $tel           = $myts->addSlashes($tel);
-    $price         = str_replace([' '], '', $price);
-    $typeprice     = $myts->addSlashes($typeprice);
-    $typecondition = $myts->addSlashes($typecondition);
-    $submitter     = $myts->addSlashes($submitter);
-    $town          = $myts->addSlashes($town);
-    $country       = $myts->addSlashes($country);
-    $contactby     = $myts->addSlashes($contactby);
-    $premium       = $myts->addSlashes($premium);
 
-    $xoopsDB->query(
-        'UPDATE '
-        . $xoopsDB->prefix('adslight_listing')
-        . " SET cid='${cat}', title='${title}', status='${status}',  expire='${expire}', type='${type}', desctext='${desctext}', tel='${tel}', price='${price}', typeprice='${typeprice}', typecondition='${typecondition}', email='${email}', submitter='${submitter}', town='${town}', country='${country}', contactby='${contactby}', premium='${premium}', valid='${valid}' WHERE lid=${lid}"
-    );
+    $sql = 'UPDATE '
+           . $xoopsDB->prefix('adslight_listing')
+           . " SET cid='${cat}', title='${title}', status='${status}',  expire='${expire}', type='${type}', desctext='${desctext}', tel='${tel}', price='${price}', typeprice='${typeprice}', typecondition='${typecondition}', email='${email}', submitter='${submitter}', town='${town}', country='${country}', contactby='${contactby}', premium='${premium}', valid='${valid}' WHERE lid=${lid}";
+    $result = $xoopsDB->query($sql);
 
     $helper->redirect('index.php', 1, _ADSLIGHT_ANNMOD2);
 }
 
 ####################################################
-foreach ($_POST as $k => $v) {
-    ${$k} = $v;
-}
+//foreach ($_POST as $k => $v) {
+//    ${$k} = $v;
+//}
+
+$cid           = Request::getInt('cid', 0, 'POST');
+$contactby     = Request::getInt('contactby', 0, 'POST');
+$country       = Request::getString('country', '', 'POST');
+$date_created  = Request::getInt('date_created', time(), 'POST');
+$desctext      = Request::getText('Description', '', 'POST');
+$email         = Request::getString('email', '', 'POST');
+$expire        = Request::getInt('expire', 14, 'POST');
+$lid           = Request::getInt('lid', 0, 'POST');
+$op            = Request::getCmd('op', '', 'POST');
+$premium       = Request::getInt('premium', 0, 'POST');
+$price         = Request::getFloat('price', 0.00, 'POST');
+$status        = Request::getInt('status', 0, 'POST');
+$submitter     = Request::getInt('submitter', 0, 'POST');
+$tel           = Request::getString('tel', '', 'POST');
+$title         = Request::getString('title', '', 'POST');
+$town          = Request::getString('town', '', 'POST');
+$type          = Request::getInt('type', 0, 'POST');
+$typecondition = Request::getInt('typecondition', 0, 'POST');
+$typeprice     = Request::getInt('typeprice', 0, 'POST');
+$valid         = Request::getString('valid', '', 'POST');
+
 $ok = Request::getString('ok', '', 'GET');
 
 if (!Request::hasVar('lid', 'POST') && Request::hasVar('lid', 'GET')) {
@@ -475,16 +482,16 @@ if (!Request::hasVar('r_lid', 'POST') && Request::hasVar('r_lid', 'GET')) {
     $r_lid = Request::getInt('r_lid', '', 'GET');
 }
 if (!Request::hasVar('op', 'POST') && Request::hasVar('op', 'GET')) {
-    $op = Request::getString('op', '', 'GET');
+    $op = Request::getCmd('op', '', 'GET');
 }
 switch ($op) {
-    case 'ModAd':
+    case 'modad':
         require_once XOOPS_ROOT_PATH . '/header.php';
-        modAd($lid);
+        modifyAd($lid);
         require_once XOOPS_ROOT_PATH . '/footer.php';
         break;
-    case 'ModAdS':
-        modAdS(
+    case 'modads':
+        modifyAds(
             $lid,
             $cid,
             $title,

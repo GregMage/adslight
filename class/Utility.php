@@ -226,7 +226,7 @@ class Utility extends Common\SysUtility
         $categories = self::getMyItemIds('adslight_view');
         $count      = 0;
         $arr        = [];
-        if (\in_array($sel_id, $categories, true)) {
+        if (\in_array((int)$sel_id, $categories, true)) {
             $query = 'SELECT SQL_CACHE count(*) FROM ' . $xoopsDB->prefix('adslight_listing') . ' WHERE cid=' . (int)$sel_id . " AND valid='Yes' AND status!='1'";
 
             $result = $xoopsDB->query($query);
@@ -234,7 +234,7 @@ class Utility extends Common\SysUtility
             $count = $thing;
             $arr   = $mytree->getAllChildId($sel_id);
             foreach ($arr as $iValue) {
-                if (\in_array($iValue, $categories, true)) {
+                if (\in_array((int)$iValue, $categories, true)) {
                     $query2 = 'SELECT SQL_CACHE count(*) FROM ' . $xoopsDB->prefix('adslight_listing') . ' WHERE cid=' . (int)$iValue . " AND valid='Yes' AND status!='1'";
 
                     $result2 = $xoopsDB->query($query2);
