@@ -35,6 +35,7 @@ use XoopsModules\Adslight\{
     Common\Configurator,
     Common\Migrate,
 };
+
 /** @var Admin $adminObject */
 /** @var Helper $helper */
 
@@ -56,9 +57,7 @@ echo <<<EOF
 EOF;
 //XoopsLoad::load('migrate', 'newbb');
 $configurator = new Configurator();
-$migrator     = new Migrate(
-    $configurator
-);
+$migrator     = new Migrate($configurator);
 $op           = Request::getCmd('op', 'default');
 $opShow       = Request::getCmd('show', null, 'POST');
 $opMigrate    = Request::getCmd('migrate', null, 'POST');

@@ -22,18 +22,27 @@ declare(strict_types=1);
  */
 
 use Xmf\Request;
+use XoopsModules\Adslight\{
+    Helper,
+    ListingHandler,
+    PicturesHandler
+};
 /** @var Admin $adminObject */
 /** @var Helper $helper */
+/** @var PicturesHandler $picturesHandler */
+/** @var ListingHandler $listingHandler */
 
 require __DIR__ . '/admin_header.php';
 xoops_cp_header();
 
-global $xoopsModule, $xoopsDB, $xoopsConfig, $xoTheme;
+global $xoTheme;
 
 //It recovered the value of argument op in URL$
 $op    = Request::getString('op', 'list');
 $order = Request::getString('order', 'desc');
 $sort  = Request::getString('sort', '');
+$helper = Helper::getInstance();
+$listingHandler = $helper->getHandler('Listing');
 
 $moduleDirName = \basename(\dirname(__DIR__));
 $GLOBALS['xoopsTpl']->assign('mod_url', XOOPS_URL . '/modules/' . $moduleDirName);
