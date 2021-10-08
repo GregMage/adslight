@@ -67,7 +67,7 @@ $mytree = new Tree($xoopsDB->prefix('adslight_categories'), 'cid', 'pid');
  */
 function viewAds($lid = 0): void
 {
-    global $xoopsDB, $xoopsConfig, $xoopsModuleConfig, $xoopsModule, $xoopsTpl, $myts, $meta, $prem_perm, $xoopsUser;
+    global $xoopsDB, $xoopsConfig, $xoopsModule, $xoopsTpl, $myts, $meta, $prem_perm, $xoopsUser;
 
     $helper = Helper::getInstance();
 

@@ -122,7 +122,7 @@ function adsNewCat($cid): void
 function adsModCat($cid): void
 {
     global $xoopsDB, $myts;
-
+    $helper = Helper::getInstance();
     $mytree = new Tree($xoopsDB->prefix('adslight_categories'), 'cid', 'pid');
 
     //    require_once __DIR__ . '/admin_header.php';

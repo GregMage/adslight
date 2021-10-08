@@ -337,7 +337,7 @@ if (Request::hasVar('submit', 'POST')) {
         $form->addElement($contactby_form, true);
         $form->addElement(new \XoopsFormRadioYN(_ADSLIGHT_ADD_PHOTO_NOW, 'addphotonow', _YES));
 
-        //if ($GLOBALS['xoopsModuleConfig']["adslight_use_captcha"] == '1') {
+        //if ($helper->getConfig("adslight_use_captcha") == '1') {
         //  $form->addElement(new \XoopsFormCaptcha(_ADSLIGHT_CAPTCHA, "xoopscaptcha", false), true);
         //}
         if (0 !== (int)$premium) {

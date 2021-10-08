@@ -54,7 +54,7 @@ $lid   = Request::getInt('lid', 0, 'POST');
  * Getting parameters defined in admin side
  */
 
-$pathUpload   = $helper->getConfig('adslight_path_upload');
+$pathUpload   = $helper->getConfig('adslight_path_upload', '');
 $pictwidth     = $helper->getConfig('adslight_resized_width');
 $pictheight    = $helper->getConfig('adslight_resized_height');
 $thumbwidth    = $helper->getConfig('adslight_thumb_width');

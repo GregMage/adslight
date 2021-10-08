@@ -341,7 +341,7 @@ function index(): void
  */
 function categorynewgraphic($cid)
 {
-    global $xoopsDB, $xoopsModuleConfig;
+    global $xoopsDB;
 }
 
 ######################################################

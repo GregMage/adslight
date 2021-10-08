@@ -48,7 +48,7 @@ function index(): void
     //    loadModuleAdminMenu(0, '');
 
     // photo dir setting checker
-    $photo_dir         = $helper->getConfig('adslight_path_upload');
+    $photo_dir         = $helper->getConfig('adslight_path_upload', '');
     $photo_thumb_dir   = $helper->getConfig('adslight_path_upload') . '/thumbs';
     $photo_resized_dir = $helper->getConfig('adslight_path_upload') . '/midsize';
     if (!is_dir($photo_dir) && (!mkdir($photo_dir) && !is_dir($photo_dir))) {

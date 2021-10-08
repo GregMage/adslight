@@ -40,7 +40,7 @@ function adslight_b2_show($options)
 
     $helper = Helper::getInstance();
 
-    global $xoopsDB, $xoopsModuleConfig, $block_lang;
+    global $xoopsDB, $block_lang;
     $block          = [];
     $myts           = \MyTextSanitizer::getInstance();
     $moduleDirName  = \basename(\dirname(__DIR__));
@@ -110,11 +110,11 @@ function adslight_b2_show($options)
         }
 
         if ('' !== $myrow['photo']) {
-            //            $updir = $xoopsModuleConfig["{$moduleDirName}_link_upload"];
+            //            $updir = $helper->getConfig($moduleDirName . '_link_upload', '');
             $sql = 'SELECT cod_img, lid, uid_owner, url FROM ' . $xoopsDB->prefix("{$moduleDirName}_pictures") . ' WHERE uid_owner=' . (int)$usid . " AND lid={$a_item['id']} ORDER BY date_created ASC LIMIT 1";
 
             //            if ('' != $myrow['photo']) {
-            //                //  $updir = $GLOBALS['xoopsModuleConfig']["".$moduleDirName."_link_upload"];
+            //                //  $updir = $helper->getConfig($moduleDirName . '_link_upload', '');
             //                $sql = 'SELECT cod_img, lid, uid_owner, url FROM '
             //                       . $xoopsDB->prefix('' . $moduleDirName . '_pictures')
             //                       . ' WHERE  uid_owner=' . $xoopsDB->escape($usid)

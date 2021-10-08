@@ -29,7 +29,6 @@ use XoopsModules\Adslight;
 require_once dirname(__DIR__, 2) . '/include/common.php';
 
 $moduleDirName = \basename(\dirname(__DIR__, 2));
-//$helper = Adslight\Helper::getInstance();
 $permHelper = new \Xmf\Module\Helper\Permission();
 
 \xoops_load('XoopsFormLoader');

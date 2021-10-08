@@ -47,7 +47,7 @@ function index(): void
     xoops_cp_header();
     //    loadModuleAdminMenu(0, "");
     // photo dir setting checker
-    $photo_dir         = $helper->getConfig('adslight_path_upload');
+    $photo_dir         = $helper->getConfig('adslight_path_upload', '');
     $photo_thumb_dir   = $helper->getConfig('adslight_path_upload') . '/thumbs';
     $photo_resized_dir = $helper->getConfig('adslight_path_upload') . '/midsize';
     if (!is_dir($photo_dir) && (!mkdir($photo_dir) && !is_dir($photo_dir))) {
@@ -220,6 +220,7 @@ function index(): void
 function indexView($lid): void
 {
     global $xoopsDB, $xoopsModule, $myts, $desctext, $admin_lang;
+    $helper = Helper::getInstance();
     $mytree = new Tree($xoopsDB->prefix('adslight_categories'), 'cid', 'pid');
     //    require_once __DIR__ . '/admin_header.php';
     xoops_cp_header();
@@ -736,14 +737,14 @@ function listingValid(
         $tags['THANKS']     = _ADSLIGHT_THANKS;
         $tags['TEAMOF']     = _AM_ADSLIGHT_TEAMOF;
         $tags['META_TITLE'] = $meta['title'];
-        $tags['LINK_URL']   = XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . "/viewads.php?lid={$lid}";
+        $tags['LINK_URL']   = $helper->path("/viewads.php?lid={$lid}");
         $tags['YOUR_AD']    = _AM_ADSLIGHT_YOUR_AD;
         $tags['WEBMASTER']  = _AM_ADSLIGHT_WEBMASTER;
         $tags['YOUR_AD_ON'] = _AM_ADSLIGHT_YOUR_AD_ON;
         $tags['APPROVED']   = _AM_ADSLIGHT_APPROVED;
         $subject            = '' . _AM_ADSLIGHT_ANNACCEPT . '';
         $mail               = getMailer();
-        $mail->setTemplateDir(XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->getVar('dirname') . "/language/{$xoopsConfig['language']}/mail_template/");
+        $mail->setTemplateDir($helper->path( "/language/{$xoopsConfig['language']}/mail_template/"));
         $mail->setTemplate('listing_approve.tpl');
         $mail->useMail();
         $mail->multimailer->isHTML(true);

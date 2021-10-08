@@ -65,7 +65,7 @@ $image_name    = $objects_array[0]->getVar('url');
  * Try to delete
  */
 if ($albumFactory->deleteAll($criteria)) {
-    $pathUpload = $helper->getConfig('adslight_path_upload');
+    $pathUpload = $helper->getConfig('adslight_path_upload', '');
     unlink("{$pathUpload}/{$image_name}");
     unlink("{$pathUpload}/thumbs/thumb_{$image_name}");
     unlink("{$pathUpload}/midsize/resized_{$image_name}");

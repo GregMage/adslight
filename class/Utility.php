@@ -679,7 +679,7 @@ class Utility extends Common\SysUtility
      ***********************************************************************/
     public static function load_lib_js(): void
     {
-        global $xoTheme, $xoopsModuleConfig;
+        global $xoTheme;
         $helper = Helper::getInstance();
         $fld = XOOPS_URL . '/modules/adslight/' . 'assets/';
 
