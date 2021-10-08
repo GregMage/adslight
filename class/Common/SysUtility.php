@@ -77,7 +77,7 @@ class SysUtility
         $helper        = Helper::getInstance();
 
         //$pathModIcon16 = XOOPS_URL . '/modules/' . $moduleDirName . '/' . $helper->getConfig('modicons16');
-        $pathModIcon16 = $helper->url($helper->getModule()->getInfo('modicons16'));
+        $pathModIcon16 = $helper->getModule()->getInfo('modicons16');
 
         $select_view = '<form name="form_switch" id="form_switch" action="' . Request::getString('REQUEST_URI', '', 'SERVER') . '" method="post"><span style="font-weight: bold;">' . $text . '</span>';
         //$sorts =  $sort ==  'asc' ? 'desc' : 'asc';

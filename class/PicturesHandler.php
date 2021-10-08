@@ -198,7 +198,7 @@ class PicturesHandler extends \XoopsPersistableObjectHandler
      * @param bool                                 $id_as_key use the UID as key for the array?
      * @return array  array of {@link Pictures} objects
      */
-    public function &getObjects(\CriteriaElement $criteria = null, $id_as_key = false, $as_object = true) //&getObjects(?\CriteriaElement $criteria = null, $id_as_key = false): array
+    public function &getObjects($criteria = null, $id_as_key = false, $as_object = true) //&getObjects(?\CriteriaElement $criteria = null, $id_as_key = false): array
     {
         $ret   = [];
         $limit = $start = 0;

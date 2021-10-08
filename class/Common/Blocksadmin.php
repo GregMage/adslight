@@ -37,6 +37,9 @@ class Blocksadmin
      */
     public function __construct($db, $modHelper)
     {
+        if (null === $db){
+            $db = \XoopsDatabaseFactory::getDatabaseConnection();
+        }
         $this->db                 = $db;
         $this->modHelper          = $modHelper;
         $this->moduleDirName      = \basename(\dirname(__DIR__, 2));
@@ -324,8 +327,10 @@ class Blocksadmin
         $sql     = 'SELECT module_id FROM ' . $this->db->prefix('block_module_link') . ' WHERE block_id=' . (int)$bid;
         $result  = $this->db->query($sql);
         $modules = [];
-        while (false !== ($row = $this->db->fetchArray($result))) {
-            $modules[] = (int)$row['module_id'];
+        if ($result instanceof \mysqli_result) {
+            while (false !== ($row = $this->db->fetchArray($result))) {
+                $modules[] = (int)$row['module_id'];
+            }
         }
         $isCustom = \in_array($myblock->getVar('block_type'), ['C', 'E']);
         $block    = [
@@ -463,8 +468,10 @@ class Blocksadmin
         $sql     = 'SELECT module_id FROM ' . $this->db->prefix('block_module_link') . ' WHERE block_id=' . (int)$bid;
         $result  = $this->db->query($sql);
         $modules = [];
-        while (false !== ($row = $this->db->fetchArray($result))) {
-            $modules[] = (int)$row['module_id'];
+        if ($result instanceof \mysqli_result) {
+            while (false !== ($row = $this->db->fetchArray($result))) {
+                $modules[] = (int)$row['module_id'];
+            }
         }
         $isCustom = \in_array($myblock->getVar('block_type'), ['C', 'E']);
         $block    = [
@@ -514,7 +521,7 @@ class Blocksadmin
         $myblock->setVar('side', $bside);
         $myblock->setVar('bcachetime', $bcachetime);
         //update block options
-        if (isset($options)) {
+        if (isset($options) && is_array($options)) {
             $optionsCount = \count($options);
             if ($optionsCount > 0) {
                 //Convert array values to comma-separated
@@ -611,7 +618,7 @@ class Blocksadmin
     }
 
     /**
-     * @param null $block
+     * @param null|\array $block
      */
     public function render($block = null)
     {

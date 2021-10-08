@@ -29,7 +29,7 @@ use XoopsModules\Adslight\Tree;
 /**
  * @return array|false
  */
-function b_adslight_add(): array
+function b_adslight_add()
 {
     if (!class_exists(Helper::class)) {
         return false;

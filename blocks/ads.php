@@ -29,9 +29,9 @@ use XoopsModules\Adslight\Utility;
 /**
  * @param $options
  *
- * @return array
+ * @return array|false
  */
-function adslight_show($options): array
+function adslight_show($options)
 {
     if (!class_exists(Helper::class)) {
         return false;

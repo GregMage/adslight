@@ -27,9 +27,6 @@ namespace XoopsModules\Adslight;
  */
 
 use Xmf\Module\Helper\Permission;
-use XoopsModules\Adslight\{
-    Helper
-};
 
 $moduleDirName = \basename(\dirname(__DIR__));
 $permHelper    = new Permission();

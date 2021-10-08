@@ -25,21 +25,24 @@ use Xmf\Module\Admin;
 use Xmf\Request;
 use XoopsModules\Adslight\{
     Categories,
+    CategoriesHandler,
     Helper,
     Utility
 };
-/** @var \XoopsModules\Adslight\Categories $categoriesObject */
+/** @var Helper $helper */
+/** @var Utility $utility */
+/** @var Categories $categoriesObject */
+/** @var CategoriesHandler $categoriesHandler */
+/** @var Admin $adminObject */
 
 global $xoopsModule, $xoopsDB, $xoopsConfig, $xoTheme;
 
 require __DIR__ . '/admin_header.php';
 xoops_cp_header();
 //It recovered the value of argument op in URL$
-/** @var XoopsModules\Adslight\Helper $helper */
+
 $helper      = Helper::getInstance();
-/** @var \XoopsModules\Adslight\Utility $utility */
 $utility = new Utility();
-/** @var Xmf\Module\Admin $adminObject */
 $adminObject = Admin::getInstance();
 $op          = Request::getString('op', 'list');
 $order       = Request::getString('order', 'desc');
@@ -53,7 +56,6 @@ $adminObject->displayNavigation(basename(__FILE__));
 $permHelper = new \Xmf\Module\Helper\Permission();
 $uploadDir  = XOOPS_UPLOAD_PATH . "/$moduleDirName/categories/";
 $uploadUrl  = XOOPS_UPLOAD_URL . "/$moduleDirName/categories/";
-/** @var \XoopsModules\Adslight\CategoriesHandler $categoriesHandler */
 $categoriesHandler = $helper->getHandler('Categories');
 
 switch ($op) {
@@ -61,7 +63,7 @@ switch ($op) {
         $adminObject->addItemButton(AM_ADSLIGHT_CATEGORIES_LIST, 'categories.php', 'list');
         $adminObject->displayButton('left');
 
-         $categoriesObject = $categoriesHandler->create();
+        $categoriesObject = $categoriesHandler->create();
         $form             = $categoriesObject->getForm();
         $form->display();
         break;

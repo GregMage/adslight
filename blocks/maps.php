@@ -30,9 +30,9 @@ use XoopsModules\Adslight\Helper;
 /**
  * @param array $options
  *
- * @return array
+ * @return array|false
  */
-function adslight_maps_show($options): array
+function adslight_maps_show($options)
 {
     if (!class_exists(Helper::class)) {
         return false;

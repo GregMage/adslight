@@ -63,7 +63,7 @@ function adslight_b2_show($options)
         //        $status    = \htmlspecialchars($myrow['status']);
         $status    = (int)$myrow['status'];
         $type      = \htmlspecialchars($myrow['type'], ENT_QUOTES | ENT_HTML5);
-        $price     = \htmlspecialchars($myrow['price'], ENT_QUOTES | ENT_HTML5);
+        $price     = (float)$myrow['price'];
         $typeprice = \htmlspecialchars($myrow['typeprice'], ENT_QUOTES | ENT_HTML5);
         $town      = \htmlspecialchars($myrow['town'], ENT_QUOTES | ENT_HTML5);
         $country   = \htmlspecialchars($myrow['country'], ENT_QUOTES | ENT_HTML5);

@@ -24,12 +24,25 @@ use XoopsModules\Adslight\{
     Common\Configurator,
     Common\DirectoryChecker,
     Common\TestdataButtons,
-    Forms,
+    ListingHandler,
+    CategoriesHandler,
+    PriceHandler,
+    Form,
     Utility
 };
 
 /** @var Admin $adminObject */
 /** @var Helper $helper */
+/** @var ListingHandler $listingHandler */
+/** @var CategoriesHandler $categoriesHandler */
+/** @var PriceHandler $priceHandler */
+/** @var TypeHandler $typeHandler */
+/** @var ConditionHandler $conditionHandler */
+/** @var IplogHandler $iplogHandler */
+/** @var ItemvotedataHandler $itemvotesHandler */
+/** @var UservotesHandler $uservotesHandler */
+/** @var PictureHandler $picturesHandler */
+/** @var RepliesHandler $repliesHandler */
 
 require_once __DIR__ . '/admin_header.php';
 // Display Admin header
@@ -43,7 +56,7 @@ $totalListing = $listingHandler->getCount();
 //count "total Categories"
 $totalCategories = $categoriesHandler->getCount();
 //count "total Type"
-/** @var \XoopsPersistableObjectHandler $typeHandler */
+
 $totalType = $typeHandler->getCount();
 //count "total Price"
 $totalPrice = $priceHandler->getCount();
@@ -54,7 +67,6 @@ $totalIplog = $iplogHandler->getCount();
 //count "total Itemvotes"
 $totalItemvotes = $itemvotesHandler->getCount();
 //count "total Uservotes"
-/** @var \XoopsPersistableObjectHandler $uservotesHandler */
 $totalUservotes = $uservotesHandler->getCount();
 //count "total Pictures"
 $totalPictures = $picturesHandler->getCount();

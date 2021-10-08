@@ -356,7 +356,7 @@ foreach ($_POST as $k => $v) {
     ${$k} = $v;
 }
 
-$ok  = Request::getString('ok', '', 'GET');
+$ok  = Request::getInt('ok', 0, 'GET');
 $cid = Request::getInt('cid', 0);
 $op  = Request::getString('op', '');
 

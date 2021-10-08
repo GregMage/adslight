@@ -25,7 +25,7 @@ namespace XoopsModules\Adslight;
  */
 class Currency
 {
-    protected $decimalsCount;
+    protected $decimalsCount =0;
     protected $thousandsSep;
     protected $decimalSep;
     protected $moneyFull;

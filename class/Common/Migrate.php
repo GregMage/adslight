@@ -14,9 +14,6 @@ namespace XoopsModules\Adslight\Common;
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
-use XoopsModules\Adslight\{
-    Common\Configurator
-};
 use Xmf\Database\Tables;
 
 /**

@@ -23,8 +23,10 @@ declare(strict_types=1);
  */
 
 use Xmf\Request;
-use XoopsModules\Adslight\Helper;
-use XoopsModules\Adslight\PicturesHandler;
+use XoopsModules\Adslight\{
+    Helper,
+    PicturesHandler
+};
 
 /** @var Helper $helper */
 
@@ -33,6 +35,8 @@ require_once __DIR__ . '/header.php';
  * Xoops Header
  */
 require_once XOOPS_ROOT_PATH . '/header.php';
+
+$helper = Helper::getInstance();
 
 /**
  * Include modules classes
@@ -54,8 +58,8 @@ if (1 === $marker) {
      */
     $title = Request::getString('caption', '', 'POST');
 
-    $picture_factory = new PicturesHandler($xoopsDB);
-    $picture         = $picture_factory->create(false);
+    $pictureHandler = $helper->getHandler('Pictures');
+    $picture         = $pictureHandler->create(false);
     $picture->load($cod_img);
     $picture->setVar('title', $title);
 
@@ -65,7 +69,7 @@ if (1 === $marker) {
     $uid = $GLOBALS['xoopsUser']->getVar('uid');
     $lid = $picture->getVar('lid');
     if ($uid === $picture->getVar('uid_owner')) {
-        if ($picture_factory->insert($picture)) {
+        if ($pictureHandler->insert($picture)) {
             $helper->redirect("view_photos.php?lid={$lid}&uid={$uid}", 2, _ADSLIGHT_DESC_EDITED);
         } else {
             $helper->redirect("view_photos.php?lid={$lid}&uid={$uid}", 2, _ADSLIGHT_NOCACHACA);
@@ -77,7 +81,7 @@ if (1 === $marker) {
  * Creating the factory  and the criteria to edit the desc of the picture
  * The user must be the owner
  */
-$albumFactory = new PicturesHandler($xoopsDB);
+$albumHandler = $helper->getHandler('Pictures');
 $criteria_img  = new \Criteria('cod_img', $cod_img);
 $uid           = $GLOBALS['xoopsUser']->getVar('uid');
 $criteria_uid  = new \Criteria('uid_owner', $uid);
@@ -88,13 +92,13 @@ $criteria->add($criteria_uid);
  * Let's fetch the info of the pictures to be able to render the form
  * The user must be the owner
  */
-$array_pict = $albumFactory->getObjects($criteria);
+$array_pict = $albumHandler->getObjects($criteria);
 if ($array_pict) {
     $caption = $array_pict[0]->getVar('title');
     $url     = $array_pict[0]->getVar('url');
 }
 $url = "{$helper->getConfig('adslight_link_upload')}/thumbs/thumb_{$url}";
-$albumFactory->renderFormEdit($caption, $cod_img, $url);
+$albumHandler->renderFormEdit($caption, $cod_img, $url);
 
 /**
  * Close page

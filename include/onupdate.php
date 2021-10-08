@@ -71,7 +71,7 @@ function xoops_module_pre_update_adslight(\XoopsModule $module): bool
 /**
  * Performs tasks required during update of the module
  * @param XoopsModule $module {@link XoopsModule}
- * @param null        $previousVersion
+ * @param null|string|int $previousVersion
  *
  * @return bool true if update successful, false if not
  */

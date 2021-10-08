@@ -479,7 +479,7 @@ if (!Request::hasVar('lid', 'POST') && Request::hasVar('lid', 'GET')) {
     $lid = Request::getInt('lid', 0, 'GET');
 }
 if (!Request::hasVar('r_lid', 'POST') && Request::hasVar('r_lid', 'GET')) {
-    $r_lid = Request::getInt('r_lid', '', 'GET');
+    $r_lid = Request::getInt('r_lid', 0, 'GET');
 }
 if (!Request::hasVar('op', 'POST') && Request::hasVar('op', 'GET')) {
     $op = Request::getCmd('op', '', 'GET');
