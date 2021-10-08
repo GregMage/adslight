@@ -32,6 +32,11 @@ $permHelper = new \Xmf\Module\Helper\Permission();
  */
 class PriceHandler extends \XoopsPersistableObjectHandler
 {
+    private const TABLE = 'adslight_price';
+    private const ENTITY = Price::class;
+    private const ENTITYNAME = 'Price';
+    private const KEYNAME = 'id_price';
+    private const IDENTIFIER = 'nom_price';
     /**
      * @var Helper
      */
@@ -47,7 +52,8 @@ class PriceHandler extends \XoopsPersistableObjectHandler
     {
         /** @var \XoopsModules\Adslight\Helper $this- >helper */
         $this->helper = $helper;
-        parent::__construct($db, 'adslight_price', Price::class, 'id_price', 'nom_price');
+        $this->db = $db;
+        parent::__construct($db, static::TABLE, static::ENTITY, static::KEYNAME, static::IDENTIFIER);
     }
 
     /**

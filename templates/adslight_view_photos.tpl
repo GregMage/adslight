@@ -77,7 +77,7 @@
 <{$form_picture.elements.XOOPS_TOKEN_REQUEST.body}>
 <{*<{/if }>*}>
 
-<{*    <{securityToken}>//mb*}>
+<{*    <{securityToken}>*}><{*//mb*}>
 
     <p><strong><{$form_picture.elements.1.caption}></strong></p>
     <p><strong><{$form_picture.elements.sel_photo.caption}></strong>

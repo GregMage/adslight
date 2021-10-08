@@ -33,6 +33,11 @@ $permHelper = new \Xmf\Module\Helper\Permission();
  */
 class IplogHandler extends \XoopsPersistableObjectHandler
 {
+    private const TABLE = 'adslight_iplog';
+    private const ENTITY = Iplog::class;
+    private const ENTITYNAME = 'Iplog';
+    private const KEYNAME = 'ip_id';
+    private const IDENTIFIER = 'ip_id';
     /**
      * @var Helper
      */
@@ -48,7 +53,8 @@ class IplogHandler extends \XoopsPersistableObjectHandler
     {
         /** @var \XoopsModules\Adslight\Helper $this- >helper */
         $this->helper = $helper;
-        parent::__construct($db, 'adslight_iplog', Iplog::class, 'ip_id', 'ip_id');
+        $this->db = $db;
+        parent::__construct($db, static::TABLE, static::ENTITY, static::KEYNAME, static::IDENTIFIER);
     }
 
     /**

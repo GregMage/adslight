@@ -36,12 +36,18 @@ $permHelper    = new Permission();
  */
 class ItemvotedataHandler extends \XoopsPersistableObjectHandler
 {
+    private const TABLE = 'adslight_item_votedata';
+    private const ENTITY = Itemvotedata::class;
+    private const ENTITYNAME = 'Itemvotedata';
+    private const KEYNAME = 'ratingid';
+    private const IDENTIFIER = 'ratingid';
     /**
      * Constructor
      * @param \XoopsDatabase|null $xoopsDatabase
      */
     public function __construct(?\XoopsDatabase $xoopsDatabase = null)
     {
-        parent::__construct($xoopsDatabase, 'adslight_item_votedata', Itemvotedata::class, 'ratingid', 'ratingid');
+        $this->db = $xoopsDatabase;
+        parent::__construct($xoopsDatabase, static::TABLE, static::ENTITY, static::KEYNAME, static::IDENTIFIER);
     }
 }

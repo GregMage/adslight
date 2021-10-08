@@ -32,6 +32,11 @@ $permHelper = new \Xmf\Module\Helper\Permission();
  */
 class RepliesHandler extends \XoopsPersistableObjectHandler
 {
+    private const TABLE = 'adslight_replies';
+    private const ENTITY = Replies::class;
+    private const ENTITYNAME = 'Replies';
+    private const KEYNAME = 'r_lid';
+    private const IDENTIFIER = 'title';
     /**
      * @var Helper
      */
@@ -47,7 +52,8 @@ class RepliesHandler extends \XoopsPersistableObjectHandler
     {
         /** @var \XoopsModules\Adslight\Helper $this- >helper */
         $this->helper = $helper;
-        parent::__construct($db, 'adslight_replies', Replies::class, 'r_lid', 'title');
+        $this->db = $db;
+        parent::__construct($db, static::TABLE, static::ENTITY, static::KEYNAME, static::IDENTIFIER);
     }
 
     /**

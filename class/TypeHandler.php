@@ -36,11 +36,17 @@ $permHelper    = new Permission();
  */
 class TypeHandler extends \XoopsPersistableObjectHandler
 {
+    private const TABLE = 'adslight_type';
+    private const ENTITY = Type::class;
+    private const ENTITYNAME = 'Type';
+    private const KEYNAME = 'id_type';
+    private const IDENTIFIER = 'nom_type';
     /**
      * Constructor
      */
     public function __construct(?\XoopsDatabase $xoopsDatabase = null)
     {
-        parent::__construct($xoopsDatabase, 'adslight_type', Type::class, 'id_type', 'nom_type');
+        $this->db = $xoopsDatabase;
+        parent::__construct($xoopsDatabase, static::TABLE, static::ENTITY, static::KEYNAME, static::IDENTIFIER);
     }
 }

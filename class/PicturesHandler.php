@@ -52,13 +52,19 @@ require_once XOOPS_ROOT_PATH . '/kernel/object.php';
  */
 class PicturesHandler extends \XoopsPersistableObjectHandler
 {
+    private const TABLE = 'adslight_pictures';
+    private const ENTITY = Pictures::class;
+    private const ENTITYNAME = 'Pictures';
+    private const KEYNAME = 'cod_img';
+    private const IDENTIFIER = 'title';
     /**
      * Class constructor
      * @param \XoopsDatabase|null $db
      */
     public function __construct(\XoopsDatabase $db)
     {
-        parent::__construct($db, 'adslight_pictures', Pictures::class, 'cod_img', 'title');
+        $this->db = $db;
+        parent::__construct($db, static::TABLE, static::ENTITY, static::KEYNAME, static::IDENTIFIER);
     }
 
     /**

@@ -32,6 +32,11 @@ $permHelper = new \Xmf\Module\Helper\Permission();
  */
 class ConditionHandler extends \XoopsPersistableObjectHandler
 {
+    private const TABLE = 'adslight_condition';
+    private const ENTITY = Condition::class;
+    private const ENTITYNAME = 'Condition';
+    private const KEYNAME = 'id_condition';
+    private const IDENTIFIER = 'nom_condition';
     /**
      * @var Helper
      */
@@ -47,7 +52,8 @@ class ConditionHandler extends \XoopsPersistableObjectHandler
     {
         /** @var \XoopsModules\Adslight\Helper $this- >helper */
         $this->helper = $helper;
-        parent::__construct($db, 'adslight_condition', Condition::class, 'id_condition', 'nom_condition');
+        $this->db = $db;
+        parent::__construct($db, static::TABLE, static::ENTITY, static::KEYNAME, static::IDENTIFIER);
     }
 
     /**

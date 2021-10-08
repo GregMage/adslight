@@ -30,6 +30,11 @@ namespace XoopsModules\Adslight;
  */
 class CategoriesHandler extends \XoopsPersistableObjectHandler
 {
+    private const TABLE = 'adslight_categories';
+    private const ENTITY = Categories::class;
+    private const ENTITYNAME = 'Categories';
+    private const KEYNAME = 'cid';
+    private const IDENTIFIER = 'title';
     /**
      * @var Helper
      */
@@ -45,7 +50,8 @@ class CategoriesHandler extends \XoopsPersistableObjectHandler
     {
         /** @var Helper $this- >helper */
         $this->helper = $helper;
-        parent::__construct($db, 'adslight_categories', Categories::class, 'cid', 'title');
+        $this->db = $db;
+        parent::__construct($db, static::TABLE, static::ENTITY, static::KEYNAME, static::IDENTIFIER);
     }
 
     /**
