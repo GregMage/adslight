@@ -23,6 +23,7 @@ declare(strict_types=1);
  */
 
 use XoopsModules\Adslight\{
+    Helper,
     Utility
 };
 
@@ -44,6 +45,7 @@ function adslight_search(
     $visible = (bool)mb_strpos($_SERVER['REQUEST_URI'], '/modules/adslight/search.php');
 
     global $xoopsDB;
+    $helper = Helper::getInstance();
 
     $sql = 'SELECT lid,title,type,desctext,tel,price,typeprice,date_created,submitter,usid,town,country FROM ' . $xoopsDB->prefix('adslight_listing') . " WHERE valid='Yes' AND status!='1' AND date_created<=" . time() . ' ';
 
@@ -87,7 +89,7 @@ function adslight_search(
         $ret[$i]['time']      = $myrow['date_created'];
         $ret[$i]['uid']       = $myrow['usid'];
         if ($visible) {
-            $ret[$i]['sphoto'] = $GLOBALS['xoopsModuleConfig']['adslight_link_upload'] . "thumbs/thumb_{$url}";
+            $ret[$i]['sphoto'] = $helper->getConfig('adslight_link_upload') . "thumbs/thumb_{$url}";
         }
         ++$i;
     }

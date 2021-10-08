@@ -45,7 +45,7 @@ $prem_perm = $grouppermHandler->checkRight('adslight_premium', $perm_itemid, $gr
 function tips_writing(): void
 {
     global $xoopsDB, $xoopsConfig, $xoopsModule, $xoopsTpl, $myts, $mytree, $meta, $mid, $prem_perm;
-
+    $helper = Helper::getInstance();
     $GLOBALS['xoopsOption']['template_main'] = 'adslight_tips_writing_ad.tpl';
     require_once XOOPS_ROOT_PATH . '/header.php';
 
@@ -57,16 +57,16 @@ function tips_writing(): void
     $GLOBALS['xoopsTpl']->assign('only_pix', _ADSLIGHT_ONLYPIX);
     $GLOBALS['xoopsTpl']->assign('adslight_logolink', _ADSLIGHT_LOGOLINK);
     $GLOBALS['xoopsTpl']->assign('bullinfotext', _ADSLIGHT_TIPSWRITE);
-    $GLOBALS['xoopsTpl']->assign('adslight_writetexte', $GLOBALS['xoopsModuleConfig']['adslight_tips_writetxt']);
-    $GLOBALS['xoopsTpl']->assign('adslight_writetitle', $GLOBALS['xoopsModuleConfig']['adslight_tips_writetitle']);
-    $GLOBALS['xoopsTpl']->assign('ads_use_tipswrite', $GLOBALS['xoopsModuleConfig']['adslight_use_tipswrite']);
+    $GLOBALS['xoopsTpl']->assign('adslight_writetexte', $helper->getConfig('adslight_tips_writetxt'));
+    $GLOBALS['xoopsTpl']->assign('adslight_writetitle', $helper->getConfig('adslight_tips_writetitle'));
+    $GLOBALS['xoopsTpl']->assign('ads_use_tipswrite', $helper->getConfig('adslight_use_tipswrite'));
 
     $GLOBALS['xoopsTpl']->assign('xoops_module_header', '<link rel="stylesheet" href="' . XOOPS_URL . '/modules/adslight/assets/css/adslight.css" type="text/css" media="all" >');
     $GLOBALS['xoTheme']->addMeta('meta', 'robots', 'noindex, nofollow');
 
     // adslight 2
-    $GLOBALS['xoopsTpl']->assign('adslight_active_menu', $GLOBALS['xoopsModuleConfig']['adslight_active_menu']);
-    $GLOBALS['xoopsTpl']->assign('adslight_active_rss', $GLOBALS['xoopsModuleConfig']['adslight_active_rss']);
+    $GLOBALS['xoopsTpl']->assign('adslight_active_menu', $helper->getConfig('adslight_active_menu'));
+    $GLOBALS['xoopsTpl']->assign('adslight_active_rss', $helper->getConfig('adslight_active_rss'));
 
     if ($GLOBALS['xoopsUser']) {
         $member_usid = $GLOBALS['xoopsUser']->getVar('uid');

@@ -40,7 +40,7 @@ $moduleDirName = \basename(__DIR__);
 require_once \dirname(__DIR__, 2) . '/mainfile.php';
 
 $helper = Helper::getInstance();
-if ($GLOBALS['xoopsModuleConfig']['active_rewriteurl'] > 0) {
+if ($helper->getConfig('active_rewriteurl') > 0) {
     require_once __DIR__ . '/seo_url.php';
 }
 

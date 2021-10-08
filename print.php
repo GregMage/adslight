@@ -24,6 +24,7 @@ declare(strict_types=1);
 
 use Xmf\Request;
 use XoopsModules\Adslight\{
+    Helper,
     Utility
 };
 
@@ -38,7 +39,7 @@ require_once __DIR__ . '/header.php';
 function PrintAd($lid): void
 {
     global $xoopsConfig, $xoopsDB, $useroffset, $myts;
-
+    $helper = Helper::getInstance();
     $currenttheme = $xoopsConfig['theme_set'];
     $lid          = (int)$lid;
 
@@ -91,7 +92,7 @@ function PrintAd($lid): void
 
     echo " <strong>${type} :</strong> <i>${title}</i><br>";
     if ($price > 0) {
-        echo '<strong>' . _ADSLIGHT_PRICE2 . "</strong> ${price} " . $GLOBALS['xoopsModuleConfig']['adslight_currency_symbol'] . "  - ${typeprice}<br>";
+        echo '<strong>' . _ADSLIGHT_PRICE2 . "</strong> ${price} " . $helper->getConfig('adslight_currency_symbol') . "  - ${typeprice}<br>";
     }
     if ($photo) {
         echo "<tr><td><div style='text-align:left'><img class=\"thumb\" src=\"" . XOOPS_URL . "/uploads/adslight/${url}\" width=\"130px\" border=0 ></div>";

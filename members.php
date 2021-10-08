@@ -82,8 +82,8 @@ $GLOBALS['xoopsTpl']->assign('nav_main', '<a href="index.php">' . _ADSLIGHT_MAIN
 $GLOBALS['xoopsTpl']->assign('mydirname', $moduleDirName);
 $GLOBALS['xoopsTpl']->assign('xoops_module_header', '<link rel="stylesheet" href="' . XOOPS_URL . '/modules/adslight/assets/css/adslight.css" type="text/css" media="all" >');
 
-$GLOBALS['xoopsTpl']->assign('adslight_active_menu', $GLOBALS['xoopsModuleConfig']['adslight_active_menu']);
-$GLOBALS['xoopsTpl']->assign('adslight_active_rss', $GLOBALS['xoopsModuleConfig']['adslight_active_rss']);
+$GLOBALS['xoopsTpl']->assign('adslight_active_menu', $helper->getConfig('adslight_active_menu'));
+$GLOBALS['xoopsTpl']->assign('adslight_active_rss', $helper->getConfig('adslight_active_rss'));
 $GLOBALS['xoTheme']->addMeta('meta', 'robots', 'noindex, nofollow');
 
 $show = 4;
@@ -92,7 +92,7 @@ if (!isset($max)) {
     $max = $min + $show;
 }
 $orderby = 'date_created ASC';
-$rate    = '1' === $GLOBALS['xoopsModuleConfig']['adslight_rate_user'] ? '1' : '0';
+$rate    = '1' === $helper->getConfig('adslight_rate_user') ? '1' : '0';
 $GLOBALS['xoopsTpl']->assign('rate', $rate);
 
 if ($GLOBALS['xoopsUser']) {
@@ -153,7 +153,7 @@ if ($trows > '0') {
             $result
         )) {
         $newitem   = '';
-        $newcount  = $GLOBALS['xoopsModuleConfig']['adslight_countday'];
+        $newcount  = $helper->getConfig('adslight_countday');
         $startdate = time() - (86400 * $newcount);
         if ($startdate < $date_created) {
             //@todo move "New" alt text to language file
@@ -221,7 +221,7 @@ if ($trows > '0') {
         //  For other countries uncomment the below line and comment out the above line
         //      $priceFormatted = $tempXoopsLocal->number_format($price);
 
-        //        $GLOBALS['xoopsTpl']->assign('price', '<strong>' . _ADSLIGHT_PRICE . "</strong>$price" . $GLOBALS['xoopsModuleConfig']['adslight_currency_symbol'] . " - $typeprice");
+        //        $GLOBALS['xoopsTpl']->assign('price', '<strong>' . _ADSLIGHT_PRICE . "</strong>$price" . $helper->getConfig('adslight_currency_symbol') . " - $typeprice");
 
         //        $currencyCode                 = $helper->getConfig('adslight_currency_code');
         //        $currencySymbol               = $helper->getConfig('adslight_currency_symbol');
@@ -232,13 +232,13 @@ if ($trows > '0') {
         //        $GLOBALS['xoopsTpl']->assign('price', $priceHtml);
 
         $GLOBALS['xoopsTpl']->assign('price_head', _ADSLIGHT_PRICE);
-        $GLOBALS['xoopsTpl']->assign('money_sign', '' . $GLOBALS['xoopsModuleConfig']['adslight_currency_symbol']);
+        $GLOBALS['xoopsTpl']->assign('money_sign', '' . $helper->getConfig('adslight_currency_symbol'));
         $GLOBALS['xoopsTpl']->assign('price_typeprice', $typeprice);
 
         $GLOBALS['xoopsTpl']->assign('type', htmlspecialchars($nom_type, ENT_QUOTES | ENT_HTML5));
 
         $priceTypeprice = \htmlspecialchars($nom_price, ENT_QUOTES | ENT_HTML5);
-        $priceCurrency  = $GLOBALS['xoopsModuleConfig']['adslight_currency_code'];
+        $priceCurrency  = $helper->getConfig('adslight_currency_code');
 
         $currencyCode                 = $helper->getConfig('adslight_currency_code');
         $currencySymbol               = $helper->getConfig('adslight_currency_symbol');
@@ -279,7 +279,7 @@ if ($trows > '0') {
         }
 
         $GLOBALS['xoopsTpl']->assign('xoops_pagetitle', '' . _ADSLIGHT_ALL_USER_LISTINGS . ' ' . $submitter);
-        $updir   = $GLOBALS['xoopsModuleConfig']['adslight_link_upload'];
+        $updir   = $helper->getConfig('adslight_link_upload');
         $sql     = 'SELECT cod_img, lid, uid_owner, url FROM ' . $xoopsDB->prefix('adslight_pictures') . ' WHERE  uid_owner=' . $xoopsDB->escape($usid) . ' AND lid=' . $xoopsDB->escape($lid) . ' ORDER BY date_created ASC LIMIT 1';
         $resultp = $xoopsDB->query($sql);
         while ([$cod_img, $pic_lid, $uid_owner, $url] = $xoopsDB->fetchRow($resultp)) {

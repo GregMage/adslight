@@ -218,7 +218,7 @@ function modifyAd($lid): void
             echo '<table><tr class="head" border="2">
     <td class="head">' . _ADSLIGHT_NUMANNN . " </td><td class=\"head\" border=\"1\">${lid} " . _ADSLIGHT_DU . " ${dates}</td>
     </tr><tr>";
-            if ('1' === $GLOBALS['xoopsModuleConfig']['adslight_diff_name']) {
+            if ('1' === $helper->getConfig('adslight_diff_name')) {
                 echo '<td class="head">' . _ADSLIGHT_SENDBY . " </td><td class=\"head\"><input type=\"text\" name=\"submitter\" size=\"50\" value=\"${submitter}\" ></td>";
             } else {
                 echo '<td class="head">' . _ADSLIGHT_SENDBY . " </td><td class=\"head\"><input type=\"hidden\" name=\"submitter\" value=\"${submitter}\">${submitter}</td>";
@@ -243,7 +243,7 @@ function modifyAd($lid): void
     <option value="2">' . _ADSLIGHT_CONTACT_BY_PM . '</option>
     <option value="3">' . _ADSLIGHT_CONTACT_BY_BOTH . '</option>
     <option value="4">' . _ADSLIGHT_CONTACT_BY_PHONE . '</option></select></td></tr>';
-            if ('1' === $GLOBALS['xoopsModuleConfig']['adslight_diff_email']) {
+            if ('1' === $helper->getConfig('adslight_diff_email')) {
                 echo '<tr><td class="head">' . _ADSLIGHT_EMAIL . " </td><td class=\"head\"><input type=\"text\" name=\"email\" size=\"50\" value=\"${email}\" ></td>";
             } else {
                 echo '<tr><td class="head">' . _ADSLIGHT_EMAIL . " </td><td class=\"head\">${email}<input type=\"hidden\" name=\"email\" value=\"${email}\" ></td>";
@@ -254,7 +254,7 @@ function modifyAd($lid): void
             echo '<tr>
     <td class="head">' . _ADSLIGHT_TOWN . " </td><td class=\"head\"><input type=\"text\" name=\"town\" size=\"50\" value=\"${town}\" ></td>
     </tr>";
-            if ('1' === $GLOBALS['xoopsModuleConfig']['adslight_use_country']) {
+            if ('1' === $helper->getConfig('adslight_use_country')) {
                 echo '<tr>
     <td class="head">' . _ADSLIGHT_COUNTRY . " </td><td class=\"head\"><input type=\"text\" name=\"country\" size=\"50\" value=\"${country}\" ></td>
     </tr>";
@@ -278,7 +278,7 @@ function modifyAd($lid): void
             echo '<tr>
     <td class="head">' . _ADSLIGHT_TITLE2 . " </td><td class=\"head\"><input type=\"text\" name=\"title\" size=\"50\" value=\"${title}\" ></td>
     </tr>";
-            echo '<tr><td class="head">' . _ADSLIGHT_PRICE2 . " </td><td class=\"head\"><input type=\"text\" name=\"price\" size=\"20\" value=\"${price}\" > " . $GLOBALS['xoopsModuleConfig']['adslight_currency_symbol'];
+            echo '<tr><td class="head">' . _ADSLIGHT_PRICE2 . " </td><td class=\"head\"><input type=\"text\" name=\"price\" size=\"20\" value=\"${price}\" > " . $helper->getConfig('adslight_currency_symbol');
 
             $sql     = 'SELECT nom_price, id_price FROM ' . $xoopsDB->prefix('adslight_price') . ' ORDER BY id_price';
             $result3 = $xoopsDB->query($sql);
@@ -376,7 +376,7 @@ function modifyAd($lid): void
             //If no access
             if ($grouppermHandler->checkRight('adslight_premium', $perm_itemid, $groups, $moduleId)) {
                 echo '<input type="hidden" name="valid" value="Yes" >';
-            } elseif ('1' === $GLOBALS['xoopsModuleConfig']['adslight_moderated']) {
+            } elseif ('1' === $helper->getConfig('adslight_moderated')) {
                 echo '<input type="hidden" name="valid" value="No" >';
                 echo '<br>' . _ADSLIGHT_MODIFBEFORE . '<br>';
             } else {

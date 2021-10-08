@@ -23,8 +23,11 @@ declare(strict_types=1);
  */
 
 use Xmf\Request;
-use XoopsModules\Adslight\Helper;
-use XoopsModules\Adslight\PicturesHandler;
+use XoopsModules\Adslight\{
+    Helper,
+    PicturesHandler
+};
+
 
 /**
  * Xoops header ...
@@ -41,7 +44,7 @@ $helper = Helper::getInstance();
 /**
  * Factory of pictures created
  */
-$albumFactory = $helper->getHandler('Picture');
+$albumFactory = $helper->getHandler('Pictures');
 /**
  * Getting the title
  */
@@ -50,22 +53,23 @@ $lid   = Request::getInt('lid', 0, 'POST');
 /**
  * Getting parameters defined in admin side
  */
-$pathUpload   = $GLOBALS['xoopsModuleConfig']['adslight_path_upload'];
-$pictwidth     = $GLOBALS['xoopsModuleConfig']['adslight_resized_width'];
-$pictheight    = $GLOBALS['xoopsModuleConfig']['adslight_resized_height'];
-$thumbwidth    = $GLOBALS['xoopsModuleConfig']['adslight_thumb_width'];
-$thumbheight   = $GLOBALS['xoopsModuleConfig']['adslight_thumb_height'];
-$maxfilebytes  = $GLOBALS['xoopsModuleConfig']['adslight_maxfilesize'];
-$maxfileheight = $GLOBALS['xoopsModuleConfig']['adslight_max_orig_height'];
-$maxfilewidth  = $GLOBALS['xoopsModuleConfig']['adslight_max_orig_width'];
+
+$pathUpload   = $helper->getConfig('adslight_path_upload');
+$pictwidth     = $helper->getConfig('adslight_resized_width');
+$pictheight    = $helper->getConfig('adslight_resized_height');
+$thumbwidth    = $helper->getConfig('adslight_thumb_width');
+$thumbheight   = $helper->getConfig('adslight_thumb_height');
+$maxfilebytes  = $helper->getConfig('adslight_maxfilesize');
+$maxfileheight = $helper->getConfig('adslight_max_orig_height');
+$maxfilewidth  = $helper->getConfig('adslight_max_orig_width');
 
 /**
  * If we are receiving a file
  */
 if ('sel_photo' === Request::getArray('xoops_upload_file', '', 'POST')[0]) {
-    if (!$GLOBALS['xoopsSecurity']->check()) {
-        redirect_header(Request::getString('HTTP_REFERER', '', 'SERVER'), 3, _ADSLIGHT_TOKENEXPIRED);
-    }
+//    if (!$GLOBALS['xoopsSecurity']->check()) {
+//        redirect_header(Request::getString('HTTP_REFERER', '', 'SERVER'), 3, _ADSLIGHT_TOKENEXPIRED);
+//    }
 
     /**
      * Try to upload picture resize it insert in database and then redirect to index

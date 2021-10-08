@@ -72,7 +72,7 @@ if ($trows < '1') {
 
 if ($trows > '0') {
     $GLOBALS['xoopsTpl']->assign('has_replies', true);
-    $GLOBALS['xoopsTpl']->assign('last_head', _ADSLIGHT_THE . ' ' . $GLOBALS['xoopsModuleConfig']['adslight_newcount'] . ' ' . _ADSLIGHT_LASTADD);
+    $GLOBALS['xoopsTpl']->assign('last_head', _ADSLIGHT_THE . ' ' . $helper->getConfig('adslight_newcount') . ' ' . _ADSLIGHT_LASTADD);
     $GLOBALS['xoopsTpl']->assign('last_head_title', _ADSLIGHT_TITLE);
     $GLOBALS['xoopsTpl']->assign('last_head_price', _ADSLIGHT_PRICE);
     $GLOBALS['xoopsTpl']->assign('last_head_date', _ADSLIGHT_DATE);

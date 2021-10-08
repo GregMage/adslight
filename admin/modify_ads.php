@@ -39,6 +39,7 @@ $op = Request::getString('op', 'list');
 function index(): void
 {
     global $xoopsDB, $xoopsModuleConfig;
+    $helper = Helper::getInstance();
 
     //    $mytree = new Tree($xoopsDB->prefix('adslight_categories'), 'cid', 'pid');
 
@@ -47,9 +48,9 @@ function index(): void
     //    loadModuleAdminMenu(0, "");
 
     // photo dir setting checker
-    $photo_dir         = $GLOBALS['xoopsModuleConfig']['adslight_path_upload'];
-    $photo_thumb_dir   = $GLOBALS['xoopsModuleConfig']['adslight_path_upload'] . '/thumbs';
-    $photo_resized_dir = $GLOBALS['xoopsModuleConfig']['adslight_path_upload'] . '/midsize';
+    $photo_dir         = $helper->getConfig('adslight_path_upload');
+    $photo_thumb_dir   = $helper->getConfig('adslight_path_upload') . '/thumbs';
+    $photo_resized_dir = $helper->getConfig('adslight_path_upload') . '/midsize';
     if (!is_dir($photo_dir) && (!mkdir($photo_dir) && !is_dir($photo_dir))) {
         throw new \RuntimeException(sprintf('Directory "%s" was not created', $photo_dir));
     }
@@ -104,7 +105,7 @@ function index(): void
              . '</b><br><br>'
              . _AM_ADSLIGHT_NUMANN
              . ' <input type="text" name="lid" size="12" maxlength="11">&nbsp;&nbsp;'
-             . '<input type="hidden" name="op" value="modifyAds">'
+             . '<input type="hidden" name="op" value="modifyAd">'
              . '<input type="submit" value="'
              . _AM_ADSLIGHT_MODIF
              . '">'
@@ -119,12 +120,12 @@ function index(): void
     xoops_cp_footer();
 }
 
-#  function modifyAds
+#  function modifyAd
 #####################################################
 /**
  * @param $lid
  */
-function modifyAds($lid): void
+function modifyAd($lid): void
 {
     global $xoopsDB, $xoopsModule, $xoopsConfig, $myts, $desctext;
 
@@ -260,7 +261,7 @@ function modifyAds($lid): void
         echo '</select></td></tr>';
 
         /////// Price
-        echo "<tr class='head' border='1'><td>" . _AM_ADSLIGHT_PRICE2 . " </td><td><input type=\"text\" name=\"price\" size=\"20\" value=\"${price}\"> " . $GLOBALS['xoopsModuleConfig']['adslight_currency_symbol'] . '';
+        echo "<tr class='head' border='1'><td>" . _AM_ADSLIGHT_PRICE2 . " </td><td><input type=\"text\" name=\"price\" size=\"20\" value=\"${price}\"> " . $helper->getConfig('adslight_currency_symbol') . '';
 
         //////// Price type
         $sql     = 'SELECT nom_price, id_price FROM ' . $xoopsDB->prefix('adslight_price') . ' ORDER BY nom_price';
@@ -304,7 +305,7 @@ function modifyAds($lid): void
         $time = time();
         echo "</tr><tr class='head' border='1'>
             <td>&nbsp;</td><td><select name=\"op\">
-            <option value=\"modifyAdsS\"> " . _AM_ADSLIGHT_MODIF . '
+            <option value=\"modifyAds\"> " . _AM_ADSLIGHT_MODIF . '
             <option value="ListingDel"> ' . _AM_ADSLIGHT_DEL . '
             </select><input type="submit" value="' . _AM_ADSLIGHT_GO . '"></td>
             </tr></table>';
@@ -318,7 +319,7 @@ function modifyAds($lid): void
     }
 }
 
-#  function modifyAdsS
+#  function modifyAds
 #####################################################
 /**
  * @param $lid
@@ -342,7 +343,7 @@ function modifyAds($lid): void
  * @param $valid
  * @param $photo
  */
-function modifyAdsS(
+function modifyAds(
     $lid,
     $cat,
     $title,
@@ -366,28 +367,6 @@ function modifyAdsS(
 ): void {
     global $xoopsDB, $myts;
     $helper = Helper::getInstance();
-    $lid    = (int)$lid;
-    $cat    = (int)$cat;
-    $title  = \htmlspecialchars($title, ENT_QUOTES | ENT_HTML5);
-    //    $status    = \htmlspecialchars($status);
-    $status        = (int)$status;
-    $expire        = \htmlspecialchars($expire, ENT_QUOTES | ENT_HTML5);
-    $type          = \htmlspecialchars($type, ENT_QUOTES | ENT_HTML5);
-    $desctext      = $myts->displayTarea($desctext, 1, 1, 1);
-    $tel           = \htmlspecialchars($tel, ENT_QUOTES | ENT_HTML5);
-    $price         = str_replace([' '], '', $price);
-    $typeprice     = \htmlspecialchars($typeprice, ENT_QUOTES | ENT_HTML5);
-    $typecondition = \htmlspecialchars($typecondition, ENT_QUOTES | ENT_HTML5);
-    //    $date2 = formatTimestamp($date, 's');
-    $date_created = (int)$date_created;
-    $email        = \htmlspecialchars($email, ENT_QUOTES | ENT_HTML5);
-    $submitter    = \htmlspecialchars($submitter, ENT_QUOTES | ENT_HTML5);
-    $town         = \htmlspecialchars($town, ENT_QUOTES | ENT_HTML5);
-    $country      = \htmlspecialchars($country, ENT_QUOTES | ENT_HTML5);
-    $contactby    = \htmlspecialchars($contactby, ENT_QUOTES | ENT_HTML5);
-    $premium      = \htmlspecialchars($premium, ENT_QUOTES | ENT_HTML5);
-    $valid        = \htmlspecialchars($valid, ENT_QUOTES | ENT_HTML5);
-    $photo        = \htmlspecialchars($photo, ENT_QUOTES | ENT_HTML5);
 
     $sql = 'UPDATE '
            . $xoopsDB->prefix('adslight_listing')
@@ -441,6 +420,31 @@ function listingDel($lid, $photo): void
 foreach ($_POST as $k => $v) {
     ${$k} = $v;
 }
+
+
+$cid           = Request::getInt('cid', 0, 'POST');
+$contactby     = Request::getInt('contactby', 0, 'POST');
+$country       = Request::getString('country', '', 'POST');
+$date_created  = Request::getInt('date_created', time(), 'POST');
+$desctext      = Request::getText('Description', '', 'POST');
+$email         = Request::getString('email', '', 'POST');
+$expire        = Request::getInt('expire', 14, 'POST');
+$lid           = Request::getInt('lid', 0, 'POST');
+$op            = Request::getCmd('op', '', 'POST');
+$photo         = Request::getString('photo', '', 'POST');
+$premium       = Request::getInt('premium', 0, 'POST');
+$price         = Request::getFloat('price', 0.00, 'POST');
+$status        = Request::getInt('status', 0, 'POST');
+$submitter     = Request::getInt('submitter', 0, 'POST');
+$tel           = Request::getString('tel', '', 'POST');
+$title         = Request::getString('title', '', 'POST');
+$town          = Request::getString('town', '', 'POST');
+$type          = Request::getInt('type', 0, 'POST');
+$typecondition = Request::getInt('typecondition', 0, 'POST');
+$typeprice     = Request::getInt('typeprice', 0, 'POST');
+$valid         = Request::getString('valid', '', 'POST');
+
+
 $pa  = Request::getString('pa', '', 'GET');
 $lid = Request::getInt('lid', 0);
 $op  = Request::getString('op', '');
@@ -451,11 +455,11 @@ switch ($op) {
     case 'ListingDel':
         listingDel($lid, $photo);
         break;
-    case 'modifyAds':
-        modifyAds($lid);
+    case 'modifyAd':
+       modifyAd($lid);
         break;
-    case 'modifyAdsS':
-        modifyAdsS(
+    case 'modifyAds':
+        modifyAds(
             $lid,
             $cid,
             $title,

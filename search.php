@@ -297,7 +297,7 @@ switch ($action) {
                 echo '' . htmlspecialchars($results[$i]['desctext'], ENT_QUOTES | ENT_HTML5) . '';
 
                 echo '</td><td width="20%">';
-                echo '' . $GLOBALS['xoopsModuleConfig']['adslight_currency_symbol'] . '
+                echo '' . $helper->getConfig('adslight_currency_symbol') . '
 ' . htmlspecialchars($results[$i]['price'], ENT_QUOTES | ENT_HTML5) . '</a>&nbsp;' . htmlspecialchars($results[$i]['typeprice'], ENT_QUOTES | ENT_HTML5) . '</a>';
 
                 echo '</td></tr><tr><td>';

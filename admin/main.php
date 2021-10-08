@@ -306,7 +306,7 @@ function index(): void
 function copyXml(): void
 {
     $helper        = Helper::getInstance();
-    $adslight_maps = $GLOBALS['xoopsModuleConfig']['adslight_maps_set'];
+    $adslight_maps = $helper->getConfig('adslight_maps_set');
 
     $indexFile = XOOPS_ROOT_PATH . "/modules/adslight/maps/{$adslight_maps}/datas.xml";
     copy($indexFile, XOOPS_ROOT_PATH . '/modules/adslight/datas.xml');

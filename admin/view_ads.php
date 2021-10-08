@@ -40,6 +40,7 @@ $op = Request::getString('op', 'list');
 function index(): void
 {
     global $xoopsDB, $myts, $desctext, $admin_lang;
+    $helper = Helper::getInstance();
 
     //    $mytree = new Tree($xoopsDB->prefix('adslight_categories'), 'cid', 'pid');
     $photo3 = $photo4 = '';
@@ -47,9 +48,9 @@ function index(): void
     //    loadModuleAdminMenu(0, '');
 
     // photo dir setting checker
-    $photo_dir         = $GLOBALS['xoopsModuleConfig']['adslight_path_upload'];
-    $photo_thumb_dir   = $GLOBALS['xoopsModuleConfig']['adslight_path_upload'] . '/thumbs';
-    $photo_resized_dir = $GLOBALS['xoopsModuleConfig']['adslight_path_upload'] . '/midsize';
+    $photo_dir         = $helper->getConfig('adslight_path_upload');
+    $photo_thumb_dir   = $helper->getConfig('adslight_path_upload') . '/thumbs';
+    $photo_resized_dir = $helper->getConfig('adslight_path_upload') . '/midsize';
     if (!is_dir($photo_dir) && (!mkdir($photo_dir) && !is_dir($photo_dir))) {
         throw new \RuntimeException(sprintf('Directory "%s" was not created', $photo_dir));
     }
@@ -115,7 +116,7 @@ function index(): void
             $contactby     = \htmlspecialchars($contactby, ENT_QUOTES | ENT_HTML5);
             $premium       = \htmlspecialchars($premium, ENT_QUOTES | ENT_HTML5);
 
-            $updir   = $GLOBALS['xoopsModuleConfig']['adslight_link_upload'];
+            $updir   = $helper->getConfig('adslight_link_upload');
             $sql     = 'SELECT cod_img, lid, uid_owner, url FROM ' . $xoopsDB->prefix('adslight_pictures') . " WHERE  uid_owner={$usid} AND lid={$lid} ORDER BY date_created ASC LIMIT 1";
             $resultp = $xoopsDB->query($sql);
             while ([$cod_img, $pic_lid, $uid_owner, $url] = $xoopsDB->fetchRow($resultp)) {
@@ -143,7 +144,7 @@ function index(): void
 
             echo "<tr><td class='even width3'></td>";
             echo "<td class='odd width10' >{$photo3}</td>";
-            echo "<td class='even width20'><b>{$title}</b><br><br>{$nom_type}<br>{$price} " . $GLOBALS['xoopsModuleConfig']['adslight_currency_symbol'] . " ${nom_price}<br>";
+            echo "<td class='even width20'><b>{$title}</b><br><br>{$nom_type}<br>{$price} " . $helper->getConfig('adslight_currency_symbol') . " ${nom_price}<br>";
             echo "${town} - ${country}<br>";
             echo '<b>' . _AM_ADSLIGHT_SUBMITTER . ":</b> {$submitter}<br>";
             echo '<b>' . _AM_ADSLIGHT_DATE . ":</b> {$date2}</td>";
@@ -199,7 +200,7 @@ function index(): void
 function indexView($lid = null): void
 {
     global $xoopsDB, $myts, $desctext, $admin_lang;
-
+    $helper = Helper::getInstance();
     $mytree = new Tree($xoopsDB->prefix('adslight_categories'), 'cid', 'pid');
 
     require_once __DIR__ . '/admin_header.php';
@@ -302,7 +303,7 @@ function indexView($lid = null): void
         }
         echo '</select></td></tr>';
 
-        echo "<tr class='head' border='1'><td>" . _AM_ADSLIGHT_PRICE2 . " </td><td><input type=\"text\" name=\"price\" size=\"20\" value=\"${price}\"> " . $GLOBALS['xoopsModuleConfig']['adslight_currency_symbol'] . '';
+        echo "<tr class='head' border='1'><td>" . _AM_ADSLIGHT_PRICE2 . " </td><td><input type=\"text\" name=\"price\" size=\"20\" value=\"${price}\"> " . $helper->getConfig('adslight_currency_symbol') . '';
         $sql     = 'SELECT nom_price FROM ' . $xoopsDB->prefix('adslight_price') . ' ORDER BY id_price';
         $result3 = $xoopsDB->query($sql);
         echo " <select name=\"typeprice\"><option value=\"{$typeprice}\">{$typeprice}</option>";
@@ -348,7 +349,7 @@ function indexView($lid = null): void
 function modifyAds($lid): void
 {
     global $xoopsDB, $myts, $desctext, $admin_lang;
-
+    $helper = Helper::getInstance();
     $mytree = new Tree($xoopsDB->prefix('adslight_categories'), 'cid', 'pid');
 
     //    require_once __DIR__ . '/admin_header.php';
@@ -477,7 +478,7 @@ function modifyAds($lid): void
         echo '</select></td></tr>';
 
         /////// Price
-        echo "<tr class='head' border='1'><td>" . _AM_ADSLIGHT_PRICE2 . " </td><td><input type=\"text\" name=\"price\" size=\"20\" value=\"{$price}\"> {$GLOBALS['xoopsModuleConfig']['adslight_currency_symbol']}";
+        echo "<tr class='head' border='1'><td>" . _AM_ADSLIGHT_PRICE2 . " </td><td><input type=\"text\" name=\"price\" size=\"20\" value=\"{$price}\"> {$helper->getConfig('adslight_currency_symbol')}";
 
         // Price type
         $sql     = 'SELECT nom_price, id_price FROM ' . $xoopsDB->prefix('adslight_price') . ' ORDER BY nom_price';

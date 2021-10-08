@@ -48,6 +48,7 @@ function adslightMaps(): void
     global $xoopsDB, $xoopsConfig, $xoopsModule, $myts, $prem_perm;
 
     $GLOBALS['xoopsOption']['template_main'] = 'adslight_maps.tpl';
+    $helper = Helper::getInstance();
 
     require_once XOOPS_ROOT_PATH . '/header.php';
 
@@ -71,9 +72,9 @@ function adslightMaps(): void
 
     $GLOBALS['xoopsTpl']->assign('xoops_module_header', $header_cssadslight);
 
-    $maps_name   = $GLOBALS['xoopsModuleConfig']['adslight_maps_set'];
-    $maps_width  = $GLOBALS['xoopsModuleConfig']['adslight_maps_width'];
-    $maps_height = $GLOBALS['xoopsModuleConfig']['adslight_maps_height'];
+    $maps_name   = $helper->getConfig('adslight_maps_set');
+    $maps_width  = $helper->getConfig('adslight_maps_width');
+    $maps_height = $helper->getConfig('adslight_maps_height');
 
     $GLOBALS['xoopsTpl']->assign('maps_name', $maps_name);
     $GLOBALS['xoopsTpl']->assign('maps_width', $maps_width);
@@ -83,8 +84,8 @@ function adslightMaps(): void
     $GLOBALS['xoopsTpl']->assign('bullinfotext', _ADSLIGHT_MAPS_TEXT);
 
     // adslight 2
-    $GLOBALS['xoopsTpl']->assign('adslight_active_menu', $GLOBALS['xoopsModuleConfig']['adslight_active_menu']);
-    $GLOBALS['xoopsTpl']->assign('adslight_active_rss', $GLOBALS['xoopsModuleConfig']['adslight_active_rss']);
+    $GLOBALS['xoopsTpl']->assign('adslight_active_menu', $helper->getConfig('adslight_active_menu'));
+    $GLOBALS['xoopsTpl']->assign('adslight_active_rss', $helper->getConfig('adslight_active_rss'));
 
     if ($GLOBALS['xoopsUser']) {
         $member_usid = $GLOBALS['xoopsUser']->getVar('uid');

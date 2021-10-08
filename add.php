@@ -63,7 +63,7 @@ if (!$GLOBALS['xoopsUser'] instanceof \XoopsUser) {
 }
 
 if (Request::hasVar('submit', 'POST')) {
-    $howlong = $GLOBALS['xoopsModuleConfig']['adslight_howlong'];
+    $howlong = $helper->getConfig('adslight_howlong');
 
     if (!$GLOBALS['xoopsSecurity']->check()) {
         redirect_header(XOOPS_URL . '/', 3, $GLOBALS['xoopsSecurity']->getErrors());
@@ -221,7 +221,7 @@ if (Request::hasVar('submit', 'POST')) {
 
     $cid          = Request::getInt('cide', 0, 'GET');
     $cat_moderate = Request::getInt('cat_moderate', 0, 'POST');
-    $howlong      = $GLOBALS['xoopsModuleConfig']['adslight_howlong'];
+    $howlong      = $helper->getConfig('adslight_howlong');
     $member_usid  = $GLOBALS['xoopsUser']->getVar('uid', 'E');
     $member_email = $GLOBALS['xoopsUser']->getVar('email', 'E');
     $member_uname = $GLOBALS['xoopsUser']->getVar('uname', 'E');
@@ -250,20 +250,20 @@ if (Request::hasVar('submit', 'POST')) {
         echo '';
     }
 
-    if ('1' === $GLOBALS['xoopsModuleConfig']['adslight_diff_name']) {
+    if ('1' === $helper->getConfig('adslight_diff_name')) {
         $form->addElement(new \XoopsFormText(_ADSLIGHT_SUBMITTER, 'submitter', 50, 50, $member_uname), true);
     } else {
         $form->addElement(new \XoopsFormLabel(_ADSLIGHT_SUBMITTER, $member_uname));
         $form->addElement(new \XoopsFormHidden('submitter', $member_uname), true);
     }
-    if ('1' === $GLOBALS['xoopsModuleConfig']['adslight_diff_email']) {
+    if ('1' === $helper->getConfig('adslight_diff_email')) {
         $form->addElement(new \XoopsFormText(_ADSLIGHT_EMAIL, 'email', 50, 50, $member_email), true);
     } else {
         $form->addElement(new \XoopsFormLabel(_ADSLIGHT_EMAIL, $member_email));
         $form->addElement(new \XoopsFormHidden('email', $member_email), true);
     }
     $form->addElement(new \XoopsFormText(_ADSLIGHT_TOWN, 'town', 50, 50, ''), false);
-    if ('1' === $GLOBALS['xoopsModuleConfig']['adslight_use_country']) {
+    if ('1' === $helper->getConfig('adslight_use_country')) {
         $form->addElement(new \XoopsFormText(_ADSLIGHT_COUNTRY, 'country', 50, 50, ''), false);
     } else {
         $form->addElement(new \XoopsFormHidden('country', ''), false);
@@ -297,10 +297,10 @@ if (Request::hasVar('submit', 'POST')) {
             $form->addElement(new \XoopsFormHidden('status', '0'), true);
         }
         if (1 === $premium) {
-            $form->addElement(new \XoopsFormText(_ADSLIGHT_HOW_LONG, 'expire', 3, 3, $GLOBALS['xoopsModuleConfig']['adslight_howlong']), true);
+            $form->addElement(new \XoopsFormText(_ADSLIGHT_HOW_LONG, 'expire', 3, 3, $helper->getConfig('adslight_howlong')), true);
         } else {
-            $form->addElement(new \XoopsFormLabel(_ADSLIGHT_WILL_LAST, $GLOBALS['xoopsModuleConfig']['adslight_howlong']));
-            $form->addElement(new \XoopsFormHidden('expire', $GLOBALS['xoopsModuleConfig']['adslight_howlong']), false);
+            $form->addElement(new \XoopsFormLabel(_ADSLIGHT_WILL_LAST, $helper->getConfig('adslight_howlong')));
+            $form->addElement(new \XoopsFormHidden('expire', $helper->getConfig('adslight_howlong')), false);
         }
 
         // Type
@@ -322,7 +322,7 @@ if (Request::hasVar('submit', 'POST')) {
 
         $form->addElement(Utility::getEditor($helper), true);
 
-        //        $form->addElement(new \XoopsFormEditor(_ADSLIGHT_DESC, $GLOBALS['xoopsModuleConfig']['adslightEditorUser'], $options, $nohtml = FALSE, $onfailure = 'textarea'));
+        //        $form->addElement(new \XoopsFormEditor(_ADSLIGHT_DESC, $helper->getConfig('adslightEditorUser'), $options, $nohtml = FALSE, $onfailure = 'textarea'));
         //        $optionsTrayNote->addElement($bodynote);
 
         $form->addElement(new \XoopsFormText(_ADSLIGHT_PRICE2, 'price', 40, 50, ''), true);

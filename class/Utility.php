@@ -39,6 +39,7 @@ class Utility extends Common\SysUtility
     public static function expireAd(): void
     {
         global $xoopsDB, $xoopsConfig, $xoopsModule, $myts, $meta;
+        $helper = Helper::getInstance();
 
         $datenow = \time();
         $message = '';
@@ -54,7 +55,7 @@ class Utility extends Common\SysUtility
             $submitter = \htmlspecialchars($submitter, \ENT_QUOTES | \ENT_HTML5);
             $remind    = \htmlspecialchars($remind, \ENT_QUOTES | \ENT_HTML5);
             $supprdate = $dateann + ($expire * 86400);
-            $almost    = $GLOBALS['xoopsModuleConfig']['adslight_almost'];
+            $almost    = $helper->getConfig('adslight_almost');
 
             // give warning that add is about to expire
 
@@ -679,10 +680,10 @@ class Utility extends Common\SysUtility
     public static function load_lib_js(): void
     {
         global $xoTheme, $xoopsModuleConfig;
-
+        $helper = Helper::getInstance();
         $fld = XOOPS_URL . '/modules/adslight/' . 'assets/';
 
-        if (1 === $GLOBALS['xoopsModuleConfig']['adslight_lightbox']) {
+        if (1 === $helper->getConfig('adslight_lightbox')) {
             // $xoTheme->addScript(XOOPS_URL . '/browse.php?Frameworks/jquery/plugins/jquery.lightbox.js');
             // $xoTheme->addStyleSheet(XOOPS_URL . '/browse.php?Frameworks/jquery/plugins/jquery.lightbox.js');
 
@@ -692,7 +693,7 @@ class Utility extends Common\SysUtility
         //$xoTheme->addStyleSheet($fld . "/css/galery.css" type="text/css" media="screen");
 
         /*
-                    if (1 == $GLOBALS['xoopsModuleConfig']['adslight_lightbox']) {
+                    if (1 == $helper->getConfig('adslight_lightbox')) {
                         $header_lightbox = '<link rel="stylesheet" href="' . XOOPS_URL . '/modules/adslight/assets/css/adslight.css" type="text/css" media="all" >
         <script type="text/javascript" src="assets/lightbox/js/jquery-1.7.2.min.js"></script>
         <script type="text/javascript" src="assets/lightbox/js/jquery-ui-1.8.18.custom.min"></script>

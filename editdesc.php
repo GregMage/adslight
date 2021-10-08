@@ -93,7 +93,7 @@ if ($array_pict) {
     $caption = $array_pict[0]->getVar('title');
     $url     = $array_pict[0]->getVar('url');
 }
-$url = "{$GLOBALS['xoopsModuleConfig']['adslight_link_upload']}/thumbs/thumb_{$url}";
+$url = "{$helper->getConfig('adslight_link_upload')}/thumbs/thumb_{$url}";
 $albumFactory->renderFormEdit($caption, $cod_img, $url);
 
 /**

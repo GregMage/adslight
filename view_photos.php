@@ -24,6 +24,7 @@ declare(strict_types=1);
 
 use Xmf\Request;
 use XoopsModules\Adslight\{
+    Pictures,
     PicturesHandler,
     Utility
 };
@@ -130,8 +131,8 @@ if (0 === $pictures_number) {
  */
 if (!empty($GLOBALS['xoopsUser'])) {
     if ($isOwner
-        && $GLOBALS['xoopsModuleConfig']['adslight_nb_pict'] > $pictures_number) {
-        $maxfilebytes = $GLOBALS['xoopsModuleConfig']['adslight_maxfilesize'];
+        && $helper->getConfig('adslight_nb_pict') > $pictures_number) {
+        $maxfilebytes = $helper->getConfig('adslight_maxfilesize');
         $albumFactory->renderFormSubmit($uid, $lid, $maxfilebytes, $xoopsTpl);
     }
 }
@@ -146,7 +147,7 @@ $identifier = $owner::getUnameFromId($uid);
  * Adding to the module js and css of the lightbox and new ones
  */
 Utility::load_lib_js(); // JJDai
-// if (1 == $GLOBALS['xoopsModuleConfig']['adslight_lightbox']) {
+// if (1 == $helper->getConfig('adslight_lightbox')) {
 //     $header_lightbox = '<script type="text/javascript" src="lightbox/js/prototype.js"></script>
 // <script type="text/javascript" src="lightbox/js/scriptaculous.js?load=effects"></script>
 // <script type="text/javascript" src="lightbox/js/lightbox.js"></script>
@@ -166,18 +167,18 @@ while ([$title] = $xoopsDB->fetchRow($result)) {
     $GLOBALS['xoopsTpl']->assign('lang_showcase', _ADSLIGHT_SHOWCASE);
 }
 
-$GLOBALS['xoopsTpl']->assign('lang_not_premium', sprintf(_ADSLIGHT_BMCANHAVE, $GLOBALS['xoopsModuleConfig']['adslight_not_premium']));
+$GLOBALS['xoopsTpl']->assign('lang_not_premium', sprintf(_ADSLIGHT_BMCANHAVE, $helper->getConfig('adslight_not_premium')));
 $GLOBALS['xoopsTpl']->assign('lang_no_prem_nb', sprintf(_ADSLIGHT_PREMYOUHAVE, $pictures_number));
 
 $upgrade = '<a href="premium.php"><strong> ' . _ADSLIGHT_UPGRADE_NOW . '</strong></a>';
 $GLOBALS['xoopsTpl']->assign('lang_upgrade_now', $upgrade);
 
-$GLOBALS['xoopsTpl']->assign('lang_max_nb_pict', sprintf(_ADSLIGHT_YOUCANHAVE, $GLOBALS['xoopsModuleConfig']['adslight_nb_pict']));
+$GLOBALS['xoopsTpl']->assign('lang_max_nb_pict', sprintf(_ADSLIGHT_YOUCANHAVE, $helper->getConfig('adslight_nb_pict')));
 $GLOBALS['xoopsTpl']->assign('lang_nb_pict', sprintf(_ADSLIGHT_YOUHAVE, $pictures_number));
 
 $GLOBALS['xoopsTpl']->assign('lang_albumtitle', sprintf(_ADSLIGHT_ALBUMTITLE, '<a href=' . XOOPS_URL . '/userinfo.php?uid=' . addslashes((string)$uid) . '>' . $identifier . '</a>'));
 
-$GLOBALS['xoopsTpl']->assign('path_uploads', $GLOBALS['xoopsModuleConfig']['adslight_link_upload']);
+$GLOBALS['xoopsTpl']->assign('path_uploads', $helper->getConfig('adslight_link_upload'));
 
 $GLOBALS['xoopsTpl']->assign('xoops_pagetitle', $xoopsModule->getVar('name') . ' - ' . $identifier . "'s album");
 

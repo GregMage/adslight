@@ -37,6 +37,7 @@ require __DIR__ . '/header.php';
 function SendFriend($lid): void
 {
     global $xoopsDB, $xoopsTheme, $xoopsLogger;
+    $helper = Helper::getInstance();
     $idd = $idde = $iddee = '';
     require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
     require_once XOOPS_ROOT_PATH . '/header.php';
@@ -75,7 +76,7 @@ function SendFriend($lid): void
       <td class='even'><input class='textbox' type='text' name='fmail' ></td>
     </tr>";
 
-    if ('1' === $GLOBALS['xoopsModuleConfig']['adslight_use_captcha']) {
+    if ('1' === $helper->getConfig('adslight_use_captcha')) {
         echo "<tr><td class='head'>" . _ADSLIGHT_CAPTCHA . " </td><td class='even'>";
         $jlm_captcha = new \XoopsFormCaptcha(_ADSLIGHT_CAPTCHA, 'xoopscaptcha', false);
         echo $jlm_captcha->render();
@@ -100,7 +101,7 @@ function MailAd($lid, $yname, $ymail, $fname, $fmail): void
     global $xoopsConfig, $xoopsTpl, $xoopsDB, $xoopsModule, $myts;
     $helper = Helper::getInstance();
 
-    if ('1' === $GLOBALS['xoopsModuleConfig']['adslight_use_captcha']) {
+    if ('1' === $helper->getConfig('adslight_use_captcha')) {
         xoops_load('xoopscaptcha');
         $xoopsCaptcha = XoopsCaptcha::getInstance();
         $helper       = Helper::getInstance();

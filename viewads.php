@@ -83,7 +83,7 @@ function viewAds($lid = 0): void
     require_once XOOPS_ROOT_PATH . '/header.php';
     //    require_once XOOPS_ROOT_PATH . '/include/comment_view.php';
     $lid  = (int)$lid > 0 ? (int)$lid : 0;
-    $rate = '1' === $GLOBALS['xoopsModuleConfig']['adslight_rate_item'] ? '1' : '0';
+    $rate = '1' === $helper->getConfig('adslight_rate_item') ? '1' : '0';
     $GLOBALS['xoopsTpl']->assign('rate', $rate);
     $GLOBALS['xoopsTpl']->assign('xmid', $xoopsModule->getVar('mid'));
     $GLOBALS['xoopsTpl']->assign('adslight_logolink', _ADSLIGHT_LOGOLINK);
@@ -96,13 +96,13 @@ function viewAds($lid = 0): void
         $helper->redirect('404.php', 1);
     }
 
-    $GLOBALS['xoopsTpl']->assign('adslight_active_bookmark', $GLOBALS['xoopsModuleConfig']['adslight_active_bookmark']);
-    $GLOBALS['xoopsTpl']->assign('adslight_style_bookmark', $GLOBALS['xoopsModuleConfig']['adslight_style_bookmark']);
-    //    $GLOBALS['xoopsTpl']->assign('adslight_active_xpayement', $GLOBALS['xoopsModuleConfig']['adslight_active_xpayment']);
+    $GLOBALS['xoopsTpl']->assign('adslight_active_bookmark', $helper->getConfig('adslight_active_bookmark'));
+    $GLOBALS['xoopsTpl']->assign('adslight_style_bookmark', $helper->getConfig('adslight_style_bookmark'));
+    //    $GLOBALS['xoopsTpl']->assign('adslight_active_xpayement', $helper->getConfig('adslight_active_xpayment'));
 
     // adslight 2
-    $GLOBALS['xoopsTpl']->assign('adslight_active_menu', $GLOBALS['xoopsModuleConfig']['adslight_active_menu']);
-    $GLOBALS['xoopsTpl']->assign('adslight_active_rss', $GLOBALS['xoopsModuleConfig']['adslight_active_rss']);
+    $GLOBALS['xoopsTpl']->assign('adslight_active_menu', $helper->getConfig('adslight_active_menu'));
+    $GLOBALS['xoopsTpl']->assign('adslight_active_rss', $helper->getConfig('adslight_active_rss'));
 
     if ($GLOBALS['xoopsUser']) {
         $member_usid = $GLOBALS['xoopsUser']->getVar('uid');
@@ -189,14 +189,14 @@ function viewAds($lid = 0): void
             $url,
         ] = $xoopsDB->fetchRow($result);
 
-        $newcount  = $GLOBALS['xoopsModuleConfig']['adslight_countday'];
+        $newcount  = $helper->getConfig('adslight_countday');
         $startdate = time() - (86400 * $newcount);
         if ($startdate < $date_created) {
             $newitem = '<img src="' . XOOPS_URL . '/modules/adslight/assets/images/newred.gif" alt="new" >';
             $GLOBALS['xoopsTpl']->assign('new', $newitem);
         }
 
-        $updir = $GLOBALS['xoopsModuleConfig']['adslight_link_upload'];
+        $updir = $helper->getConfig('adslight_link_upload');
         $GLOBALS['xoopsTpl']->assign('add_from', _ADSLIGHT_ADDFROM . ' ' . $xoopsConfig['sitename']);
         $GLOBALS['xoopsTpl']->assign('add_from_title', _ADSLIGHT_ADDFROM);
         $GLOBALS['xoopsTpl']->assign('add_from_sitename', $xoopsConfig['sitename']);
@@ -366,16 +366,16 @@ function viewAds($lid = 0): void
         $formattedCurrencyUtilityTemp = Utility::formatCurrencyTemp($price, $currencyCode, $currencySymbol, $currencyPosition);
 
         if ($price > 0) {
-            $GLOBALS['xoopsTpl']->assign('price', '<strong>' . _ADSLIGHT_PRICE2 . '</strong>' . $price . ' ' . $GLOBALS['xoopsModuleConfig']['adslight_currency_symbol'] . ' - ' . $typeprice);
+            $GLOBALS['xoopsTpl']->assign('price', '<strong>' . _ADSLIGHT_PRICE2 . '</strong>' . $price . ' ' . $helper->getConfig('adslight_currency_symbol') . ' - ' . $typeprice);
             $GLOBALS['xoopsTpl']->assign('price_head', _ADSLIGHT_PRICE2);
             $GLOBALS['xoopsTpl']->assign('price_price', $formattedCurrencyUtilityTemp);
 
             $priceTypeprice = \htmlspecialchars($nom_price, ENT_QUOTES | ENT_HTML5);
             $GLOBALS['xoopsTpl']->assign('price_typeprice', $priceTypeprice);
-            $priceCurrency = $GLOBALS['xoopsModuleConfig']['adslight_currency_code'];
+            $priceCurrency = $helper->getConfig('adslight_currency_code');
             $GLOBALS['xoopsTpl']->assign('price_currency', $priceCurrency);
 
-            //            $priceHtml = '<strong>' . _ADSLIGHT_PRICE2 . '</strong>' . $price . ' ' . $GLOBALS['xoopsModuleConfig']['adslight_currency_symbol'] . ' - ' . $typeprice;
+            //            $priceHtml = '<strong>' . _ADSLIGHT_PRICE2 . '</strong>' . $price . ' ' . $helper->getConfig('adslight_currency_symbol') . ' - ' . $typeprice;
 
             $priceHtml = '<strong>' . _ADSLIGHT_PRICE2 . '</strong>' . $formattedCurrencyUtilityTemp . ' - ' . $priceTypeprice;
 
@@ -393,7 +393,7 @@ function viewAds($lid = 0): void
         if ($town) {
             $GLOBALS['xoopsTpl']->assign('local_town', $town);
         }
-        if (1 === $GLOBALS['xoopsModuleConfig']['adslight_use_country']) {
+        if (1 === $helper->getConfig('adslight_use_country')) {
             if ($country) {
                 $GLOBALS['xoopsTpl']->assign('local_country', $country);
                 $GLOBALS['xoopsTpl']->assign('country_head', '<img src="assets/images/world_go.png" border="0" alt="country" >&nbsp;&nbsp;' . _ADSLIGHT_COUNTRY);
@@ -460,7 +460,7 @@ function viewAds($lid = 0): void
 
             Utility::load_lib_js(); // JJDai
             /*
-                        if (1 === $GLOBALS['xoopsModuleConfig']['adslight_lightbox']) {
+                        if (1 === $helper->getConfig('adslight_lightbox')) {
 
                             $header_lightbox = '<link rel="stylesheet" href="' . XOOPS_URL . '/modules/adslight/assets/css/adslight.css" type="text/css" media="all" >
             <script type="text/javascript" src="assets/lightbox/js/jquery-1.7.2.min.js"></script>
@@ -475,10 +475,10 @@ function viewAds($lid = 0): void
                         }
             */
 
-            $GLOBALS['xoopsTpl']->assign('path_uploads', $GLOBALS['xoopsModuleConfig']['adslight_link_upload']);
+            $GLOBALS['xoopsTpl']->assign('path_uploads', $helper->getConfig('adslight_link_upload'));
 
             $GLOBALS['xoopsTpl']->assign('permit', $prem_perm);
-            if ($GLOBALS['xoopsModuleConfig']['active_rewriteurl'] > 0) {
+            if ($helper->getConfig('active_rewriteurl') > 0) {
                 /*  ici le meta Canonicale pour le Rewrite */
                 //$GLOBALS['xoopsTpl']->assign('xoops_module_header', $header_lightbox);
             }
@@ -520,6 +520,7 @@ function viewAds($lid = 0): void
 function categorynewgraphic($cid): string
 {
     global $xoopsDB;
+    $helper = Helper::getInstance();
 
     $cat_perms  = '';
     $categories = Utility::getMyItemIds('adslight_view');
@@ -531,7 +532,7 @@ function categorynewgraphic($cid): string
     $newresult = $xoopsDB->query($sql);
     [$date_created] = $xoopsDB->fetchRow($newresult);
 
-    $newcount  = $GLOBALS['xoopsModuleConfig']['adslight_countday'];
+    $newcount  = $helper->getConfig('adslight_countday');
     $startdate = time() - (86400 * $newcount);
     if ($startdate < $date_created) {
         return '<img src="' . XOOPS_URL . '/modules/adslight/assets/images/newred.gif" alt="new" >';

@@ -390,6 +390,7 @@ class Tree
     public function makeAdSelBox($title, $order = '', $preset_id = 0, $none = 0, $sel_name = '', $onchange = ''): void
     {
         global $myts, $xoopsDB;
+        $helper = Helper::getInstance();
         $pathIcon16 = Admin::iconUrl('', '16');
         //        require_once XOOPS_ROOT_PATH . '/modules/adslight/include/gtickets.php';
 
@@ -405,7 +406,7 @@ class Tree
         while (false !== [$catid, $name, $cat_order] = $xoopsDB->fetchRow($result)) {
             echo '<table class="width100 bnone outer"><tr>
                 <th class="left">';
-            if ('cat_order' === $GLOBALS['xoopsModuleConfig']['adslight_csortorder']) {
+            if ('cat_order' === $helper->getConfig('adslight_csortorder')) {
                 echo "({$cat_order})";
             }
             echo "&nbsp;&nbsp;{$name}&nbsp;&nbsp;</th>
@@ -422,7 +423,7 @@ class Tree
                 $option['prefix'] = \str_replace('.', ' &nbsp;&nbsp;-&nbsp;', $option['prefix']);
                 $catpath          = $option['prefix'] . '&nbsp;&nbsp;' . \htmlspecialchars($option[$title], \ENT_QUOTES | \ENT_HTML5);
                 $cat_orderS       = $option['cat_order'];
-                if ('cat_order' === $GLOBALS['xoopsModuleConfig']['adslight_csortorder']) {
+                if ('cat_order' === $helper->getConfig('adslight_csortorder')) {
                     echo "({$cat_orderS})";
                 }
                 echo '' . $catpath . '</a></td>

@@ -44,6 +44,7 @@ $op = Request::getString('op', 'list');
 function adsNewCat($cid): void
 {
     global $xoopsDB, $myts;
+    $helper = Helper::getInstance();
     $mytree = new Tree($xoopsDB->prefix('adslight_categories'), 'cid', 'pid');
     echo "<fieldset><legend style='font-weight: bold; color: #900;'>" . _AM_ADSLIGHT_ADDSUBCAT . '</legend>';
     Utility::showImage();
@@ -61,7 +62,7 @@ function adsNewCat($cid): void
     $cat_desc     = '';
     $cat_keywords = '';
 
-    if ('1' === $GLOBALS['xoopsModuleConfig']['adslight_cat_desc']) {
+    if ('1' === $helper->getConfig('adslight_cat_desc')) {
         echo '<tr><td class="even">'
              . _AM_ADSLIGHT_CAT_META_DESCRIPTION
              . " </td><td class=\"odd\" colspan=2>\n"
@@ -101,7 +102,7 @@ function adsNewCat($cid): void
 
     echo '<tr><td class="even">' . _AM_ADSLIGHT_MODERATE_SUBCATS . ' </td><td class="odd" colspan=2><input type="radio" name="moderate_subcat" value="1"checked>' . _YES . '&nbsp;&nbsp; <input type="radio" name="moderate_subcat" value="0">' . _NO . '</td></tr>';
 
-    if ('title' !== $GLOBALS['xoopsModuleConfig']['adslight_csortorder']) {
+    if ('title' !== $helper->getConfig('adslight_csortorder')) {
         echo '<tr><td>' . _AM_ADSLIGHT_ORDER . ' </td><td><input type="text" name="cat_order" size="4" value="0" ></td><td class="foot"><input type="submit" value="' . _AM_ADSLIGHT_ADD . '" ></td></tr>';
     } else {
         $cat_order = (int)$cat_order;
@@ -142,7 +143,7 @@ function adsModCat($cid): void
     <td class="even">' . _AM_ADSLIGHT_CATNAME . "   </td><td class=\"odd\"><input type=\"text\" name=\"title\" value=\"{$title}\" size=\"50\" maxlength=\"100\">&nbsp; " . _AM_ADSLIGHT_IN . ' &nbsp;';
     $mytree->makeMySelBox('title', 'title', $pid, 1);
     echo '</td></tr>';
-    if ('1' === $GLOBALS['xoopsModuleConfig']['adslight_cat_desc']) {
+    if ('1' === $helper->getConfig('adslight_cat_desc')) {
         echo '<tr><td class="even">' . _AM_ADSLIGHT_CAT_META_DESCRIPTION . ' </td><td class="odd" colspan=2>';
         echo "<input type=\"text\" name=\"cat_desc\" value=\"{$cat_desc}\" size=\"80\" maxlength=\"200\">";
         echo '</td></tr>';
@@ -205,7 +206,7 @@ function adsModCat($cid): void
     }
     echo '>' . _NO . '</td></tr>';
 
-    if ('title' !== $GLOBALS['xoopsModuleConfig']['adslight_csortorder']) {
+    if ('title' !== $helper->getConfig('adslight_csortorder')) {
         echo '<tr><td class="even">' . _AM_ADSLIGHT_ORDER . " </td><td class=\"odd\"><input type=\"text\" name=\"cat_order\" size=\"4\" value=\"${cat_order}\"></td></tr>";
     } else {
         $cat_order = (int)$cat_order;

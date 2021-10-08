@@ -41,7 +41,7 @@ xoops_cp_header();
 $adminObject->displayNavigation(basename(__FILE__));
 echo "<fieldset style='padding: 20px;'><legend style='font-weight: bold; color: #FF7300;'>" . _AM_ADSLIGHT_GESTCAT . ' </legend>';
 echo "<p class=\"left\"><button name=\"buttonName\" type=\"button\" onclick=\"document.location.href='category.php?op=AdsNewCat&amp;cid=0';\">" . _AM_ADSLIGHT_ADDCATPRINC . '</button></p>';
-$mytree->makeAdSelBox('title', $GLOBALS['xoopsModuleConfig']['adslight_csortorder']);
+$mytree->makeAdSelBox('title', $helper->getConfig('adslight_csortorder'));
 echo '<br>';
 echo '<br></fieldset><br>';
 xoops_cp_footer();
