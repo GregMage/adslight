@@ -59,8 +59,8 @@ $criteria_uid  = new \Criteria('uid_owner', $uid);
 $criteria = new \CriteriaCompo($criteria_img);
 $criteria->add($criteria_uid);
 
-$objects_array = $picturesHandler->getObjects($criteria);
-$image_name    = $objects_array[0]->getVar('url');
+$objectsArray = $picturesHandler->getObjects($criteria);
+$image_name    = $objectsArray[0]->getVar('url');
 /**
  * Try to delete
  */

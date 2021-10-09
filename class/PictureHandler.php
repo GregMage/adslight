@@ -59,9 +59,9 @@ class PictureHandler extends \XoopsPersistableObjectHandler
     /**
      * @param bool $isNew
      *
-     * @return \XoopsObject
+     * @return \XoopsModules\Adslight\Picture
      */
-    public function create($isNew = true)
+    public function create($isNew = true): Picture
     {
         $obj         = parent::create($isNew);
         $obj->helper = $this->helper;

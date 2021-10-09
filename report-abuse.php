@@ -36,7 +36,7 @@ require_once __DIR__ . '/header.php';
 /**
  * @param $lid
  */
-function ReportAbuse($lid): void
+function reportAbuse($lid): void
 {
     global $xoopsConfig, $xoopsDB, $xoopsTheme;
     $helper = Helper::getInstance();
@@ -99,7 +99,7 @@ function ReportAbuse($lid): void
  * @param $fname
  * @param $fmail
  */
-function MailAd($lid, $yname, $ymail, $fname, $fmail): void
+function mailAd($lid, $yname, $ymail, $fname, $fmail): void
 {
     global $xoopsConfig, $xoopsTpl, $xoopsDB, $xoopsModule, $myts;
     $helper = Helper::getInstance();
@@ -184,11 +184,11 @@ $op  = Request::getString('op', '');
 switch ($op) {
     case 'ReportAbuse':
         require_once XOOPS_ROOT_PATH . '/header.php';
-        ReportAbuse($lid);
+        reportAbuse($lid);
         require_once XOOPS_ROOT_PATH . '/footer.php';
         break;
     case 'MailAd':
-        MailAd($lid, $yname, $ymail, $fname, $fmail);
+        mailAd($lid, $yname, $ymail, $fname, $fmail);
         break;
     default:
         $helper->redirect('index.php', 1, _RETURNANN);

@@ -60,9 +60,9 @@ class IplogHandler extends \XoopsPersistableObjectHandler
     /**
      * @param bool $isNew
      *
-     * @return \XoopsObject
+     * @return \XoopsModules\Adslight\Iplog
      */
-    public function create($isNew = true)
+    public function create($isNew = true): Iplog
     {
         $obj         = parent::create($isNew);
         $obj->helper = $this->helper;

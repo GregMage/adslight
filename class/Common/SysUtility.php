@@ -290,7 +290,7 @@ class SysUtility
             $truncate = \mb_substr($text, 0, $length - \mb_strlen($ending));
         }
         // if the words shouldn't be cut in the middle...
-        if (!$exact) {
+        if (false !== $exact) {
             // ...search the last occurance of a space...
             $spacepos = \mb_strrpos($truncate, ' ');
             if (isset($spacepos)) {

@@ -34,7 +34,7 @@ require __DIR__ . '/header.php';
 /**
  * @param $lid
  */
-function SendFriend($lid): void
+function sendFriend($lid): void
 {
     global $xoopsDB, $xoopsTheme, $xoopsLogger;
     $helper = Helper::getInstance();
@@ -96,7 +96,7 @@ function SendFriend($lid): void
  * @param $fname
  * @param $fmail
  */
-function MailAd($lid, $yname, $ymail, $fname, $fmail): void
+function mailAd($lid, $yname, $ymail, $fname, $fmail): void
 {
     global $xoopsConfig, $xoopsTpl, $xoopsDB, $xoopsModule, $myts;
     $helper = Helper::getInstance();
@@ -176,11 +176,11 @@ $op  = Request::getString('op', '');
 switch ($op) {
     case 'SendFriend':
         require_once XOOPS_ROOT_PATH . '/header.php';
-        SendFriend($lid);
+        sendFriend($lid);
         require_once XOOPS_ROOT_PATH . '/footer.php';
         break;
     case 'MailAd':
-        MailAd($lid, $yname, $ymail, $fname, $fmail);
+        mailAd($lid, $yname, $ymail, $fname, $fmail);
         break;
     default:
         $helper->redirect('index.php', 1, ' ' . _RETURNANN . ' ');

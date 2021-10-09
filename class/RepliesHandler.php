@@ -59,9 +59,9 @@ class RepliesHandler extends \XoopsPersistableObjectHandler
     /**
      * @param bool $isNew
      *
-     * @return \XoopsObject
+     * @return \XoopsModules\Adslight\Replies
      */
-    public function create($isNew = true)
+    public function create($isNew = true): Replies
     {
         $obj         = parent::create($isNew);
         $obj->helper = $this->helper;

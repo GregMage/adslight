@@ -71,9 +71,10 @@ class PicturesHandler extends \XoopsPersistableObjectHandler
      * create a new light_pictures
      *
      * @param bool $isNew flag the new objects as "new"?
-     * @return \XoopsObject light_pictures
+     *
+     * @return \XoopsModules\Adslight\Pictures
      */
-    public function create($isNew = true)
+    public function create($isNew = true): Pictures
     {
         $adslightPictures = new Pictures();
         if ($isNew) {
@@ -203,7 +204,8 @@ class PicturesHandler extends \XoopsPersistableObjectHandler
         $ret   = [];
         $limit = $start = 0;
         $sql   = 'SELECT * FROM ' . $this->db->prefix('adslight_pictures');
-        if (isset($criteria) && $criteria instanceof \CriteriaElement) {
+//        if (isset($criteria) && $criteria instanceof \CriteriaElement) {
+        if (\is_object($criteria) && \is_subclass_of($criteria, \CriteriaElement::class)) {
             $sql .= ' ' . $criteria->renderWhere();
             if ('' !== $criteria->getSort()) {
                 $sql .= ' ORDER BY ' . $criteria->getSort() . ' ' . $criteria->getOrder();

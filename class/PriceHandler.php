@@ -59,9 +59,9 @@ class PriceHandler extends \XoopsPersistableObjectHandler
     /**
      * @param bool $isNew
      *
-     * @return \XoopsObject
+     * @return \Price
      */
-    public function create($isNew = true)
+    public function create($isNew = true): Price
     {
         $obj         = parent::create($isNew);
         $obj->helper = $this->helper;

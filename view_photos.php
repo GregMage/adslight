@@ -116,11 +116,11 @@ if (0 === $pictures_number) {
      */
     $i = 0;
     foreach ($pictures_object_array as $picture) {
-        $pictures_array[$i]['url']     = $picture->getVar('url', 's');
-        $pictures_array[$i]['desc']    = $picture->getVar('title', 's');
-        $pictures_array[$i]['cod_img'] = $picture->getVar('cod_img', 's');
-        $pictures_array[$i]['lid']     = $picture->getVar('lid', 's');
-        $GLOBALS['xoopsTpl']->assign('pics_array', $pictures_array);
+        $picturesArray[$i]['url']     = $picture->getVar('url', 's');
+        $picturesArray[$i]['desc']    = $picture->getVar('title', 's');
+        $picturesArray[$i]['cod_img'] = $picture->getVar('cod_img', 's');
+        $picturesArray[$i]['lid']     = $picture->getVar('lid', 's');
+        $GLOBALS['xoopsTpl']->assign('pics_array', $picturesArray);
 
         ++$i;
     }

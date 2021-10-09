@@ -50,14 +50,14 @@ function seo_urls($s)
         //    '/<(a|meta)([^>]*)(href|url)=([\'\"]{0,1})'.$XPS_URL.'\/modules\/'.$module_name.'\/()([^>\'\"]*)([\'\"]{1})([^>]*)>/i',
     ];
 
-    return preg_replace_callback($search, 'replace_links', $s);
+    return preg_replace_callback($search, 'replaceLinks', $s);
 }
 
 /**
  * @param $matches
  * @return string
  */
-function replace_links($matches): string
+function replaceLinks($matches): string
 {
     $req_string = [];
     $add_to_url = '';

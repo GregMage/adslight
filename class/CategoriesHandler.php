@@ -57,9 +57,9 @@ class CategoriesHandler extends \XoopsPersistableObjectHandler
     /**
      * @param bool $isNew
      *
-     * @return \XoopsObject
+     * @return \XoopsModules\Adslight\Categories
      */
-    public function create($isNew = true): \XoopsObject
+    public function create($isNew = true): Categories
     {
         $obj         = parent::create($isNew);
         $obj->helper = $this->helper;
