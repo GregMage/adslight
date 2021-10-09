@@ -72,6 +72,7 @@ switch ($op) {
         if (!$GLOBALS['xoopsSecurity']->check()) {
             redirect_header('categories.php', 3, implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
         }
+        /** @var Categories $categoriesObject */
         if (0 !== Request::getInt('cid', 0)) {
             $categoriesObject = $categoriesHandler->get(Request::getInt('cid', 0));
         } else {
