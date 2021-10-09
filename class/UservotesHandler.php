@@ -59,9 +59,9 @@ class UservotesHandler extends \XoopsPersistableObjectHandler
     /**
      * @param bool $isNew
      *
-     * @return \XoopsModules\Adslight\Uservotes
+     * @return \XoopsObject
      */
-    public function create($isNew = true): Uservotes
+    public function create($isNew = true)
     {
         $obj         = parent::create($isNew);
         $obj->helper = $this->helper;

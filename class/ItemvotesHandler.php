@@ -59,9 +59,9 @@ class ItemvotesHandler extends \XoopsPersistableObjectHandler
     /**
      * @param bool $isNew
      *
-     * @return \XoopsModules\Adslight\Itemvotes
+     * @return \XoopsObject
      */
-    public function create($isNew = true): Itemvotes
+    public function create($isNew = true)
     {
         $obj         = parent::create($isNew);
         $obj->helper = $this->helper;

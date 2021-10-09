@@ -59,9 +59,9 @@ class ConditionHandler extends \XoopsPersistableObjectHandler
     /**
      * @param bool $isNew
      *
-     * @return \XoopsModules\Adslight\Condition
+     * @return \XoopsObject
      */
-    public function create($isNew = true): Condition
+    public function create($isNew = true)
     {
         $obj         = parent::create($isNew);
         $obj->helper = $this->helper;

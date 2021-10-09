@@ -72,9 +72,9 @@ class PicturesHandler extends \XoopsPersistableObjectHandler
      *
      * @param bool $isNew flag the new objects as "new"?
      *
-     * @return \XoopsModules\Adslight\Pictures
+     * @return \XoopsObject
      */
-    public function create($isNew = true): Pictures
+    public function create($isNew = true)
     {
         $adslightPictures = new Pictures();
         if ($isNew) {
@@ -89,14 +89,15 @@ class PicturesHandler extends \XoopsPersistableObjectHandler
     /**
      * retrieve a light_pictures
      *
-     * @param int $id of the light_pictures
-     * @param     $lid
+     * @param int      $id of the light_pictures
+     * @param int|null $lid
      *
      * @return false|\XoopsModules\Adslight\Pictures reference to the {@link light_pictures} object, FALSE if failed
      */
-    public function get($id = null, $fields = null)
+    public function get($id = null, $fields = null, $lid = null)
     {
-        $sql = 'SELECT * FROM ' . $this->db->prefix('adslight_pictures') . ' WHERE cod_img=' . $id . ' AND lid=' . $lid . ' ';
+//        $sql = 'SELECT * FROM ' . $this->db->prefix('adslight_pictures') . ' WHERE cod_img=' . $id . ' AND lid=' . $lid . ' ';
+        $sql = 'SELECT * FROM ' . $this->db->prefix('adslight_pictures') . ' WHERE cod_img=' . $id  . ' ';
         if (!$result = $this->db->query($sql)) {
             return false;
         }

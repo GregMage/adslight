@@ -21,7 +21,7 @@ declare(strict_types=1);
  * @author       jlm69 (www.jlmzone.com)
  * @author       mamba (www.xoops.org)
  */
-
+use Xmf\Request;
 use XoopsModules\Adslight\{
     Utility
 };
