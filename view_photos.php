@@ -97,14 +97,14 @@ $criteria_lid = new \Criteria('lid', $lid);
 $criteria_uid = new \Criteria('uid', $uid);
 
 // Creating a factory of pictures
-$albumFactory = new PicturesHandler($xoopsDB);
+$albumHandler = $helper->getHandler('Pictures');
 /**
  * Fetch pictures from the factory
  */
-$pictures_object_array = $albumFactory->getObjects($criteria_lid, $criteria_uid);
+$pictures_object_array = $albumHandler->getObjects($criteria_lid, $criteria_uid);
 
 // How many pictures are on the user album
-$pictures_number = $albumFactory->getCount($criteria_lid, $criteria_uid);
+$pictures_number = $albumHandler->getCount($criteria_lid, $criteria_uid);
 
 // Are there pictures in the album?
 if (0 === $pictures_number) {
@@ -133,7 +133,7 @@ if (!empty($GLOBALS['xoopsUser'])) {
     if ($isOwner
         && $helper->getConfig('adslight_nb_pict') > $pictures_number) {
         $maxfilebytes = $helper->getConfig('adslight_maxfilesize');
-        $albumFactory->renderFormSubmit($uid, $lid, $maxfilebytes, $xoopsTpl);
+        $albumHandler->renderFormSubmit($uid, $lid, $maxfilebytes, $xoopsTpl);
     }
 }
 

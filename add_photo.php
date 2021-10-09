@@ -44,7 +44,7 @@ $helper = Helper::getInstance();
 /**
  * Factory of pictures created
  */
-$albumFactory = $helper->getHandler('Pictures');
+$albumHandler = $helper->getHandler('Pictures');
 /**
  * Getting the title
  */
@@ -74,7 +74,7 @@ if ('sel_photo' === Request::getArray('xoops_upload_file', '', 'POST')[0]) {
     /**
      * Try to upload picture resize it insert in database and then redirect to index
      */
-    if ($albumFactory->receivePicture(
+    if ($albumHandler->receivePicture(
         $title,
         $pathUpload,
         $thumbwidth,

@@ -51,7 +51,7 @@ $cod_img = Request::getString('cod_img', '', 'POST');
  * Creating the factory  and the criteria to delete the picture
  * The user must be the owner
  */
-$albumFactory = $helper->getHandler('Picture');
+$albumHandler = $helper->getHandler('Pictures');
 $criteria_img  = new \Criteria('cod_img', $cod_img);
 $uid           = $GLOBALS['xoopsUser']->getVar('uid');
 $criteria_uid  = new \Criteria('uid_owner', $uid);
@@ -59,12 +59,12 @@ $criteria_uid  = new \Criteria('uid_owner', $uid);
 $criteria = new \CriteriaCompo($criteria_img);
 $criteria->add($criteria_uid);
 
-$objects_array = $albumFactory->getObjects($criteria);
+$objects_array = $albumHandler->getObjects($criteria);
 $image_name    = $objects_array[0]->getVar('url');
 /**
  * Try to delete
  */
-if ($albumFactory->deleteAll($criteria)) {
+if ($albumHandler->deleteAll($criteria)) {
     $pathUpload = $helper->getConfig('adslight_path_upload', '');
     unlink("{$pathUpload}/{$image_name}");
     unlink("{$pathUpload}/thumbs/thumb_{$image_name}");

@@ -34,7 +34,7 @@ use XoopsModules\Adslight\{
  */
 class Picture extends \XoopsObject
 {
-        public $helper;
+    public $helper;
     public $permHelper;
 
     /**
