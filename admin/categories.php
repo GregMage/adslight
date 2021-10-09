@@ -62,7 +62,7 @@ switch ($op) {
     case 'new':
         $adminObject->addItemButton(AM_ADSLIGHT_CATEGORIES_LIST, 'categories.php', 'list');
         $adminObject->displayButton('left');
-
+        /** @var Categories $categoriesObject */
         $categoriesObject = $categoriesHandler->create();
         $form             = $categoriesObject->getForm();
         $form->display();
