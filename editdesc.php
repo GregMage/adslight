@@ -58,8 +58,8 @@ if (1 === $marker) {
      */
     $title = Request::getString('caption', '', 'POST');
 
-    $pictureHandler = $helper->getHandler('Pictures');
-    $picture         = $pictureHandler->create(false);
+    $picturesHandler = $helper->getHandler('Pictures');
+    $picture         = $picturesHandler->create(false);
     $picture->load($cod_img);
     $picture->setVar('title', $title);
 
@@ -69,7 +69,7 @@ if (1 === $marker) {
     $uid = $GLOBALS['xoopsUser']->getVar('uid');
     $lid = $picture->getVar('lid');
     if ($uid === $picture->getVar('uid_owner')) {
-        if ($pictureHandler->insert($picture)) {
+        if ($picturesHandler->insert($picture)) {
             $helper->redirect("view_photos.php?lid={$lid}&uid={$uid}", 2, _ADSLIGHT_DESC_EDITED);
         } else {
             $helper->redirect("view_photos.php?lid={$lid}&uid={$uid}", 2, _ADSLIGHT_NOCACHACA);
@@ -81,7 +81,7 @@ if (1 === $marker) {
  * Creating the factory  and the criteria to edit the desc of the picture
  * The user must be the owner
  */
-$albumHandler = $helper->getHandler('Pictures');
+$picturesHandler = $helper->getHandler('Pictures');
 $criteria_img  = new \Criteria('cod_img', $cod_img);
 $uid           = $GLOBALS['xoopsUser']->getVar('uid');
 $criteria_uid  = new \Criteria('uid_owner', $uid);
@@ -92,13 +92,13 @@ $criteria->add($criteria_uid);
  * Let's fetch the info of the pictures to be able to render the form
  * The user must be the owner
  */
-$array_pict = $albumHandler->getObjects($criteria);
+$array_pict = $picturesHandler->getObjects($criteria);
 if ($array_pict) {
     $caption = $array_pict[0]->getVar('title');
     $url     = $array_pict[0]->getVar('url');
 }
 $url = "{$helper->getConfig('adslight_link_upload')}/thumbs/thumb_{$url}";
-$albumHandler->renderFormEdit($caption, $cod_img, $url);
+$picturesHandler->renderFormEdit($caption, $cod_img, $url);
 
 /**
  * Close page

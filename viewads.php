@@ -434,9 +434,9 @@ function viewAds($lid = 0): void
         if ('' !== $photo) {
             $criteria_lid          = new \Criteria('lid', $lid);
             $criteria_uid          = new \Criteria('uid', $usid);
-            $albumHandler         = $helper->getHandler('Pictures');
-            $pictures_object_array = $albumHandler->getObjects($criteria_lid, $criteria_uid);
-            $pictures_number       = $albumHandler->getCount($criteria_lid, $criteria_uid);
+            $picturesHandler         = $helper->getHandler('Pictures');
+            $pictures_object_array = $picturesHandler->getObjects($criteria_lid, $criteria_uid);
+            $pictures_number       = $picturesHandler->getCount($criteria_lid, $criteria_uid);
             if (0 === $pictures_number) {
                 $nopicturesyet = _ADSLIGHT_NOTHINGYET;
                 $GLOBALS['xoopsTpl']->assign('lang_nopicyet', $nopicturesyet);
