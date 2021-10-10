@@ -36,7 +36,7 @@ require_once __DIR__ . '/header.php';
 /**
  * @param $lid
  */
-function printAd$lid): void
+function printAd($lid): void
 {
     global $xoopsConfig, $xoopsDB, $useroffset, $myts;
     $helper = Helper::getInstance();
@@ -132,7 +132,7 @@ $op  = Request::getString('op', '');
 
 switch ($op) {
     case 'PrintAd':
-        printAd$lid);
+        printAd($lid);
         break;
     default:
         $helper->redirect('index.php', 3, ' ' . _RETURNANN . ' ');
