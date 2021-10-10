@@ -25,6 +25,7 @@ declare(strict_types=1);
 use Xmf\Request;
 use XoopsModules\Adslight\{
     Helper,
+    Pictures,
     PicturesHandler
 };
 
@@ -59,7 +60,8 @@ if (1 === $marker) {
     $title = Request::getString('caption', '', 'POST');
 
     $picturesHandler = $helper->getHandler('Pictures');
-    $picture         = $picturesHandler->create(false);
+    /** @var Pictures $picture */
+    $picture = $picturesHandler->create(false);
     $picture->load($cod_img);
     $picture->setVar('title', $title);
 

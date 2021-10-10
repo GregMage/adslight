@@ -67,8 +67,9 @@ switch ($op) {
         if (!$GLOBALS['xoopsSecurity']->check()) {
             redirect_header('pictures.php', 3, implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
         }
-        if (0 !== Request::getInt('cod_img', 0)) {
-            $picturesObject = $picturesHandler->get(Request::getInt('cod_img', 0));
+        $imageId = Request::getInt('cod_img', 0);
+        if (0 !== $imageId) {
+            $picturesObject = $picturesHandler->get($imageId);
         } else {
             $picturesObject = $picturesHandler->create();
         }

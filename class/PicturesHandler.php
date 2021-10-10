@@ -94,7 +94,7 @@ class PicturesHandler extends \XoopsPersistableObjectHandler
      *
      * @return false|\XoopsModules\Adslight\Pictures reference to the {@link light_pictures} object, FALSE if failed
      */
-    public function get($id = null, $fields = null, $lid = null)
+    public function get($id = null, $fields = null)
     {
 //        $sql = 'SELECT * FROM ' . $this->db->prefix('adslight_pictures') . ' WHERE cod_img=' . $id . ' AND lid=' . $lid . ' ';
         $sql = 'SELECT * FROM ' . $this->db->prefix('adslight_pictures') . ' WHERE cod_img=' . $id  . ' ';
