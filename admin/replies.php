@@ -84,7 +84,7 @@ switch ($op) {
         break;
 
     case 'edit':
-        $adminObject->addItemButton(AM_ADSLIGHT_ADD_REPLIES, 'replies.php?op=new', 'add');
+//        $adminObject->addItemButton(AM_ADSLIGHT_ADD_REPLIES, 'replies.php?op=new', 'add');
         $adminObject->addItemButton(AM_ADSLIGHT_REPLIES_LIST, 'replies.php', 'list');
         $adminObject->displayButton('left');
         $repliesObject = $repliesHandler->get(Request::getString('r_lid', ''));
@@ -121,7 +121,7 @@ switch ($op) {
         break;
     case 'list':
     default:
-        $adminObject->addItemButton(AM_ADSLIGHT_ADD_REPLIES, 'replies.php?op=new', 'add');
+//        $adminObject->addItemButton(AM_ADSLIGHT_ADD_REPLIES, 'replies.php?op=new', 'add');
         $adminObject->displayButton('left');
         $start                  = Request::getInt('start', 0);
         $repliesPaginationLimit = $helper->getConfig('userpager');

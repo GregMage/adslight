@@ -84,7 +84,7 @@ switch ($op) {
         break;
 
     case 'edit':
-        $adminObject->addItemButton(AM_ADSLIGHT_ADD_USERVOTES, 'uservotes.php?op=new', 'add');
+//        $adminObject->addItemButton(AM_ADSLIGHT_ADD_USERVOTES, 'uservotes.php?op=new', 'add');
         $adminObject->addItemButton(AM_ADSLIGHT_USERVOTES_LIST, 'uservotes.php', 'list');
         $adminObject->displayButton('left');
         $uservotesObject = $uservotesHandler->get(Request::getString('ratingid', ''));
@@ -120,7 +120,7 @@ switch ($op) {
         break;
     case 'list':
     default:
-        $adminObject->addItemButton(AM_ADSLIGHT_ADD_USERVOTES, 'uservotes.php?op=new', 'add');
+//        $adminObject->addItemButton(AM_ADSLIGHT_ADD_USERVOTES, 'uservotes.php?op=new', 'add');
         $adminObject->displayButton('left');
         $start                    = Request::getInt('start', 0);
         $uservotesPaginationLimit = $helper->getConfig('userpager');
