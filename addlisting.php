@@ -320,7 +320,16 @@ if (Request::hasVar('submit', 'POST')) {
         $form->addElement($condition_form, true);
 
         $form->addElement(new \XoopsFormText(_ADSLIGHT_TITLE2, 'title', 40, 50, ''), true);
-        $form->addElement(Utility::getEditor(_ADSLIGHT_DESC, 'desctext'), true);
+
+        $options           = [];
+        $options['name']   = _ADSLIGHT_DESC;
+        $options['value']  = $desctext;
+        $options['rows']   = 10;
+        $options['cols']   = '100%';
+        $options['width']  = '100%';
+        $options['height'] = '400px';
+        $form->addElement(Utility::getEditor($helper, $options), true);
+
         $form->addElement(new \XoopsFormText(_ADSLIGHT_PRICE2, 'price', 40, 50, ''), true);
         // Show price type
         $sel_form = new \XoopsFormSelect(_ADSLIGHT_PRICETYPE, 'typeprice', '', 1);
