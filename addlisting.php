@@ -323,7 +323,7 @@ if (Request::hasVar('submit', 'POST')) {
 
         $options           = [];
         $options['name']   = _ADSLIGHT_DESC;
-        $options['value']  = $desctext;
+        $options['value']  = '';
         $options['rows']   = 10;
         $options['cols']   = '100%';
         $options['width']  = '100%';
