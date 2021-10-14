@@ -51,7 +51,7 @@ class Pictures extends \XoopsObject
     // constructor
 
     /**
-     * @param null       $id
+     * @param null|int   $id
      * @param array|null $lid
      */
     public function __construct(
@@ -79,7 +79,7 @@ class Pictures extends \XoopsObject
     }
 
     /**
-     * @param $id
+     * @param int $id
      */
     public function load($id): void
     {
