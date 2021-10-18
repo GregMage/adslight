@@ -254,7 +254,7 @@ function index(): void
                     $a_item['new'] = $newitem;
                 }
 
-                $useroffset = '';
+                $useroffset = 0;
                 if ($GLOBALS['xoopsUser'] instanceof \XoopsUser) {
                     $timezone   = $GLOBALS['xoopsUser']->timezone();
                     $useroffset = !empty($timezone) ? $GLOBALS['xoopsUser']->timezone() : $xoopsConfig['default_TZ'];
