@@ -163,7 +163,7 @@ function rssDisplay(
 
         $title       = $article['title'];
         $link        = $article['link'];
-        $page        .= "<tr class=\"even\"><td width=\"300\"><img src=\"../assets/images/admin/info_button.png\" border=\"0\"> <a href=\"{$link}\">{$title}</a><br>";
+        $page        .= "<tr class=\"even\"><td width=\"300\"><img src=\"/assets/images/admin/info_button.png\" border=\"0\"> <a href=\"{$link}\">{$title}</a><br>";
         $description = $article['description'];
         if (false !== $description) {
             $page .= "{$description}<br><br></td></tr>";

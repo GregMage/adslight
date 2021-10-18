@@ -29,17 +29,17 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Install Nix
-        uses: cachix/install-nix-action@v12
-
-      - name: Set up Nix cache
-        uses: cachix/cachix-action@v8
-        with:
+#      - name: Install Nix
+#        uses: cachix/install-nix-action@v12
+#
+#      - name: Set up Nix cache
+#        uses: cachix/cachix-action@v8
+#        with:
           # Use cache from https://github.com/fossar/nix-phps
-          name: fossar
-
-      - name: Update flake.nix to match the current CI job from matrix
-        run: sed -i 's/matrix.phpPackage = "php";/matrix.phpPackage = builtins.replaceStrings ["."] [""] "php${{ matrix.php }}";/' flake.nix
+#          name: fossar
+#
+#      - name: Update flake.nix to match the current CI job from matrix
+#        run: sed -i 's/matrix.phpPackage = "php";/matrix.phpPackage = builtins.replaceStrings ["."] [""] "php${{ matrix.php }}";/' flake.nix
 
 #      - name: Get Composer Cache Directory
 #        id: composer-cache

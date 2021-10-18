@@ -50,7 +50,7 @@ class ConditionHandler extends \XoopsPersistableObjectHandler
 
     public function __construct(\XoopsDatabase $db = null, $helper = null)
     {
-        /** @var \XoopsModules\Adslight\Helper $this- >helper */
+        /** @var \XoopsModules\Adslight\Helper $this->helper */
         $this->helper = $helper;
         $this->db = $db;
         parent::__construct($db, static::TABLE, static::ENTITY, static::KEYNAME, static::IDENTIFIER);
