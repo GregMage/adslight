@@ -67,7 +67,7 @@ if (Request::hasVar('submit', 'POST')) {
     $howlong = $helper->getConfig('adslight_howlong');
 
     if (!$GLOBALS['xoopsSecurity']->check()) {
-        redirect_header(XOOPS_URL . '/', 3, $GLOBALS['xoopsSecurity']->getErrors());
+//mb TODO        redirect_header(XOOPS_URL . '/', 3, $GLOBALS['xoopsSecurity']->getErrors());
     }
 
     if ('' === Request::getString('title', '', 'POST')) {
@@ -108,7 +108,7 @@ if (Request::hasVar('submit', 'POST')) {
     $newid        = $xoopsDB->genId($xoopsDB->prefix('adslight_listing') . '_lid_seq');
 
     $sql = sprintf(
-        "INSERT INTO `%s` (lid, cid, title, STATUS, EXPIRE, type, desctext, tel, price, typeprice, typecondition, DATE, email, submitter, usid, town, country, contactby, premium, valid) VALUES (%u, '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')",
+        "INSERT INTO `%s` (cid, title, STATUS, EXPIRE, type, desctext, tel, price, typeprice, typecondition, DATE, email, submitter, usid, town, country, contactby, premium, valid) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')",
         $xoopsDB->prefix('adslight_listing'),
         $newid,
         $cid,
