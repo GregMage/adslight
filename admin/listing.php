@@ -279,8 +279,29 @@ switch ($op) {
                 $listingArray['valid'] = $listingTempArray[$i]->getVar('valid');
 
                 $GLOBALS['xoopsTpl']->assign('selectorphoto', AM_ADSLIGHT_LISTING_PHOTO);
-                $listingArray['photo'] = "<img src='" . $uploadUrl . $listingTempArray[$i]->getVar('photo') . "' name='" . 'name' . "' id=" . 'id' . " alt='' style='max-width:100px'>";
+//                $listingArray['photo'] = "<img src='" . $uploadUrl . $listingTempArray[$i]->getVar('photo') . "' name='" . 'name' . "' id=" . 'id' . " alt='' style='max-width:100px'>";
 
+
+                // pull the first picture
+                /** @var \XoopsPersistableObjectHandler $picturesHandler */
+                $picturesHandler = $helper->getHandler('Pictures');
+                $lid = $listingArray['lid'];
+                $uid = $listingArray['usid'];
+                $criteriaLid = new \Criteria('lid', $lid);
+                $criteriaUid = new \Criteria('uid', $uid);
+                $picturesObjectsArray = $picturesHandler->getObjects($criteriaLid, $criteriaUid);
+                // How many pictures are on the user album
+                $picturesCount = $picturesHandler->getCount($criteriaLid, $criteriaUid);
+                if ($picturesCount > 0) {
+                    $photo1 = reset($picturesObjectsArray);
+                    $photoName = $photo1->getVar('url');
+                }
+                $photo = $photoName ?: 'blank.png';
+                $listingArray['photo'] = "<img src='" . $uploadUrl . $photo . "' name='" . 'name' . "' id=" . 'id' . " alt='' style='max-width:100px'>";
+
+
+                
+                
                 $GLOBALS['xoopsTpl']->assign('selectorhits', AM_ADSLIGHT_LISTING_HITS);
                 $listingArray['hits'] = $listingTempArray[$i]->getVar('hits');
 

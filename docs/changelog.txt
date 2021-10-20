@@ -6,7 +6,7 @@
 - fix upload picture (cesagonchu/mamba)
 - fix show picture upload form if the number is lower than max allowed (mamba)
 - PHP8 template defaults (mamba)
--
+- show first picture in listing (mamba)
 
 
 <h5>2.4.0 Alpha-2   [2021-08-30]</h5>  Dev: XOOPS 2.5.11, PHP 7.4.22, PHP 8.0.9, PHP 8.1.0 Beta 3

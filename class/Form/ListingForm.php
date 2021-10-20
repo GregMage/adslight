@@ -151,7 +151,24 @@ class ListingForm extends \XoopsThemeForm
         // Valid
         $this->addElement(new \XoopsFormText(\AM_ADSLIGHT_LISTING_VALID, 'valid', 50, 255, $this->targetObject->getVar('valid')), false);
         // Photo
-        $photo = $this->targetObject->getVar('photo') ?: 'blank.png';
+        //        $photo = $this->targetObject->getVar('photo') ?: 'blank.png';
+
+        // pull the first picture
+        /** @var \XoopsPersistableObjectHandler $picturesHandler */
+        $picturesHandler = $this->helper->getHandler('Pictures');
+        $lid = $this->targetObject->getVar('lid');
+        $uid = $this->targetObject->getVar('usid');
+        $criteriaLid = new \Criteria('lid', $lid);
+        $criteriaUid = new \Criteria('uid', $uid);
+        $picturesObjectsArray = $picturesHandler->getObjects($criteriaLid, $criteriaUid);
+        // How many pictures are on the user album
+        $picturesCount = $picturesHandler->getCount($criteriaLid, $criteriaUid);
+        if ($picturesCount > 0) {
+            $photo1 = reset($picturesObjectsArray);
+            $photoName = $photo1->getVar('url');
+            }
+        $photo = $photoName ?: 'blank.png';
+
 
         $uploadDir   = '/uploads/adslight/';
         $imgtray     = new \XoopsFormElementTray(\AM_ADSLIGHT_LISTING_PHOTO, '<br>');
