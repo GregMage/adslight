@@ -153,7 +153,7 @@ class ListingForm extends \XoopsThemeForm
         // Photo
         $photo = $this->targetObject->getVar('photo') ?: 'blank.png';
 
-        $uploadDir   = '/uploads/adslight/listing/';
+        $uploadDir   = '/uploads/adslight/';
         $imgtray     = new \XoopsFormElementTray(\AM_ADSLIGHT_LISTING_PHOTO, '<br>');
         $imgpath     = \sprintf(\AM_ADSLIGHT_FORMIMAGE_PATH, $uploadDir);
         $imageselect = new \XoopsFormSelect($imgpath, 'photo', $photo);
