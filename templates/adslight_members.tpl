@@ -43,7 +43,7 @@
                 </tr>
                 <{foreach item=item from=$items|default:null}>
                     <tr class=<{cycle values="odd,even"}>>
-                        <{if $isadmin}>
+                        <{if $isadmin|default:''}>
                             <td><{$item.adminlink}></td><{/if}>
                         <td width="105"
                             align="left"><{if $item.photo}><{$item.photo}><{else}><{$item.no_photo}><{/if}></td>

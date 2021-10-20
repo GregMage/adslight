@@ -47,7 +47,7 @@ global $xoopsModule, $xoopsDB, $xoopsConfig, $xoTheme;
 
 $lid = Request::getInt('lid', 0, 'GET');
 if (empty($lid)) {
-    $helper->redirect('index.php');
+//mb TODO    $helper->redirect('index.php');
 }
 
 // Is a member looking ?
@@ -167,6 +167,13 @@ while ([$title] = $xoopsDB->fetchRow($result)) {
     $GLOBALS['xoopsTpl']->assign('lang_showcase', _ADSLIGHT_SHOWCASE);
 }
 
+$maxPicturesNumber = $helper->getConfig('adslight_not_premium');
+if ($permit){
+    $maxPicturesNumber = $helper->getConfig('adslight_nb_pict');
+}
+$GLOBALS['xoopsTpl']->assign('current_nb_pict', $pictures_number);
+$GLOBALS['xoopsTpl']->assign('max_nb_pict', $maxPicturesNumber);
+
 $GLOBALS['xoopsTpl']->assign('lang_not_premium', sprintf(_ADSLIGHT_BMCANHAVE, $helper->getConfig('adslight_not_premium')));
 $GLOBALS['xoopsTpl']->assign('lang_no_prem_nb', sprintf(_ADSLIGHT_PREMYOUHAVE, $pictures_number));
 
@@ -175,6 +182,8 @@ $GLOBALS['xoopsTpl']->assign('lang_upgrade_now', $upgrade);
 
 $GLOBALS['xoopsTpl']->assign('lang_max_nb_pict', sprintf(_ADSLIGHT_YOUCANHAVE, $helper->getConfig('adslight_nb_pict')));
 $GLOBALS['xoopsTpl']->assign('lang_nb_pict', sprintf(_ADSLIGHT_YOUHAVE, $pictures_number));
+
+
 
 $GLOBALS['xoopsTpl']->assign('lang_albumtitle', sprintf(_ADSLIGHT_ALBUMTITLE, '<a href=' . XOOPS_URL . '/userinfo.php?uid=' . addslashes((string)$uid) . '>' . $identifier . '</a>'));
 

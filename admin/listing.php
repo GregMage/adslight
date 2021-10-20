@@ -44,8 +44,8 @@ $xoTheme->addStylesheet($helper->url('assets/js/tablesorter/css/theme.blue.css')
 
 $adminObject->displayNavigation(basename(__FILE__));
 $permHelper = new \Xmf\Module\Helper\Permission();
-$uploadDir  = XOOPS_UPLOAD_PATH . "/$moduleDirName/listing/";
-$uploadUrl  = XOOPS_UPLOAD_URL . "/$moduleDirName/listing/";
+$uploadDir  = XOOPS_UPLOAD_PATH . "/$moduleDirName/";
+$uploadUrl  = XOOPS_UPLOAD_URL . "/$moduleDirName/";
 
 switch ($op) {
     case 'new':
@@ -91,7 +91,7 @@ switch ($op) {
         $listingObject->setVar('valid', Request::getVar('valid', ''));
 
         require_once XOOPS_ROOT_PATH . '/class/uploader.php';
-        $uploadDir = XOOPS_UPLOAD_PATH . '/adslight/listing/';
+        $uploadDir = XOOPS_UPLOAD_PATH . "/$moduleDirName/";
         $uploader  = new \XoopsMediaUploader(
             $uploadDir, $helper->getConfig('mimetypes'), $helper->getConfig('maxsize'), null, null
         );

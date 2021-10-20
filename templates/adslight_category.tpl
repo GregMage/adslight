@@ -88,7 +88,7 @@
             <{/if}>
             <div align="center"><{$nav_page|default:false}><br></div>
             <{if $use_extra_code == 1}>
-                <{foreach from=$items item=item name=items}>
+                <{foreach from=$items|default:null item=item name=items}>
                     <{if $smarty.foreach.items.iteration eq $index_code_place}>
                         <{if $adslight_use_banner == 1}>
                             <table>

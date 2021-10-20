@@ -2,7 +2,7 @@
 <div id="head"><{$lang_albumtitle}></div>
 <hr>
 <div id="Titulo">
-    <h2><{$lang_gtitle}></h2>
+    <h2><{$lang_gtitle|default:''}></h2>
 </div>
 
 <{if $isOwner}>
@@ -14,7 +14,8 @@
         <br>
         <{$lang_not_premium}>
         <br>
-        <{$lang_upgrade_now}>
+<{*        TODO "Upgrade to a Premium Member" is not working now*}>
+<{*        <{$lang_upgrade_now}>*}>
     <{/if}>
     <h2><{$lang_nopicyet|default:''}></h2>
     <ul id="album_photos">
@@ -67,30 +68,31 @@
             </td>
         </tr>
     </table>
-<form name="<{$form_picture.name}>" action="<{$form_picture.action}>"
-      method="<{$form_picture.method}>" <{$form_picture.extra}> id="submitpicture">
+<{if $max_nb_pict > $current_nb_pict}>
+    <form name="<{$form_picture.name}>" action="<{$form_picture.action}>"
+          method="<{$form_picture.method}>" <{$form_picture.extra}> id="submitpicture">
 
 
-<{*<{if $xcube}>*}>
-<{*<{$form_picture.elements.XOOPS_G_TICKET.body}>*}>
-<{*<{else}>*}>
-<{$form_picture.elements.XOOPS_TOKEN_REQUEST.body}>
-<{*<{/if }>*}>
+        <{*<{if $xcube}>*}>
+        <{*<{$form_picture.elements.XOOPS_G_TICKET.body}>*}>
+        <{*<{else}>*}>
+        <{$form_picture.elements.XOOPS_TOKEN_REQUEST.body}>
+        <{*<{/if }>*}>
 
-<{*    <{securityToken}>*}><{*//mb*}>
+        <{*    <{securityToken}>*}><{*//mb*}>
 
-    <p><strong><{$form_picture.elements.1.caption}></strong></p>
-    <p><strong><{$form_picture.elements.sel_photo.caption}></strong>
-        <{$form_picture.elements.sel_photo.body}></p>
-    <p><strong><{$form_picture.elements.caption.caption}></strong>
-        <{$form_picture.elements.caption.body}></p>
-    <{$form_picture.elements.lid.body}>
-    <{$form_picture.elements.submit_button.body}>
+        <p><strong><{$form_picture.elements.1.caption}></strong></p>
+        <p><strong><{$form_picture.elements.sel_photo.caption}></strong>
+            <{$form_picture.elements.sel_photo.body}></p>
+        <p><strong><{$form_picture.elements.caption.caption}></strong>
+            <{$form_picture.elements.caption.body}></p>
+        <{$form_picture.elements.lid.body}>
+        <{$form_picture.elements.submit_button.body}>
     </form>
-
+<{/if}>
     <{$form_picture.javascript}>
 
-    <{/if}>
+<{/if}>
 
 
 <div style="text-align: center; padding: 3px; margin: 3px;">

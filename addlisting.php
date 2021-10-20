@@ -108,9 +108,8 @@ if (Request::hasVar('submit', 'POST')) {
     $newid        = $xoopsDB->genId($xoopsDB->prefix('adslight_listing') . '_lid_seq');
 
     $sql = sprintf(
-        "INSERT INTO `%s` (cid, title, STATUS, EXPIRE, type, desctext, tel, price, typeprice, typecondition, DATE, email, submitter, usid, town, country, contactby, premium, valid) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')",
+        "INSERT INTO `%s` (cid, title, STATUS, EXPIRE, type, desctext, tel, price, typeprice, typecondition, date_created, email, submitter, usid, town, country, contactby, premium, valid) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')",
         $xoopsDB->prefix('adslight_listing'),
-        $newid,
         $cid,
         $title,
         $status,
