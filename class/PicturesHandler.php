@@ -415,7 +415,7 @@ class PicturesHandler extends \XoopsPersistableObjectHandler
             $picture->setVar('url', $url);
             $picture->setVar('title', $title);
             $uid = $GLOBALS['xoopsUser']->getVar('uid');
-            $lid = $lid;
+//            $lid = $lid;
             $picture->setVar('lid', $lid);
             $picture->setVar('uid_owner', $uid);
             $this->insert($picture);

@@ -43,7 +43,7 @@ class FileChecker
      * @param string      $redirectFile
      * @return bool|string
      */
-    public static function getFileStatus($file_path, $original_file_path = null, $redirectFile)
+    public static function getFileStatus($file_path, $original_file_path = null, $redirectFile = null)
     {
         global $pathIcon16;
         $moduleDirName      = \basename(\dirname(__DIR__, 2));

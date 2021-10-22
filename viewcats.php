@@ -211,7 +211,7 @@ function adsView($cid, $min, $orderby, $show = 0): void
         $GLOBALS['xoopsTpl']->assign('bullinfotext', $add_listing);
     }
 
-    $arr = [];
+//    $arr = [];
     $arr = $mytree->getFirstChild($cid, 'title');
 
     if (count($arr) > 0) {
@@ -449,7 +449,7 @@ function adsView($cid, $min, $orderby, $show = 0): void
 /**
  * @param $cid
  */
-function categorynewgraphic($cid): void
+function categorynewgraphic($cid)
 {
     //global $xoopsDB;
 }

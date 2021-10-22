@@ -53,7 +53,6 @@ if (!empty($seoOp) && !empty($seoMap[$seoOp])) {
     // $newUrl = '/yourfile/modules/adslight/' . $seoMap[$seoOp];
     $_ENV['SCRIPT_NAME']    = $newUrl;
     $_SERVER['SCRIPT_NAME'] = $newUrl;
-    $_SERVER['SCRIPT_NAME'] = $newUrl;
     switch ($seoOp) {
         case 'c':
             $_SERVER['REQUEST_URI'] = $newUrl . '?cid=' . $seoArg;

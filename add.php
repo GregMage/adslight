@@ -336,10 +336,10 @@ if (Request::hasVar('submit', 'POST')) {
         $form->addElement($sel_form);
 
         $contactby_form = new \XoopsFormSelect(_ADSLIGHT_CONTACTBY, 'contactby', '', 1);
-        $contactby_form->addOption(1, _ADSLIGHT_CONTACT_BY_EMAIL);
-        $contactby_form->addOption(2, _ADSLIGHT_CONTACT_BY_PM);
-        $contactby_form->addOption(3, _ADSLIGHT_CONTACT_BY_BOTH);
-        $contactby_form->addOption(4, _ADSLIGHT_CONTACT_BY_PHONE);
+        $contactby_form->addOption('1', _ADSLIGHT_CONTACT_BY_EMAIL);
+        $contactby_form->addOption('2', _ADSLIGHT_CONTACT_BY_PM);
+        $contactby_form->addOption('3', _ADSLIGHT_CONTACT_BY_BOTH);
+        $contactby_form->addOption('4', _ADSLIGHT_CONTACT_BY_PHONE);
         $form->addElement($contactby_form, true);
         $form->addElement(new \XoopsFormRadioYN(_ADSLIGHT_ADD_PHOTO_NOW, 'addphotonow', _YES));
         /*

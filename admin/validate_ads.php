@@ -329,12 +329,7 @@ function indexView($lid): void
             </tr>";
         echo "<tr class='head' border='1'><td>" . _AM_ADSLIGHT_DESC . '</td><td>';
         $wysiwyg_text_area = Utility::getEditor(
-            _AM_ADSLIGHT_DESC,
-            'desctext',
-            $desctext,
-            '100%',
-            '200px',
-            'small'
+            _AM_ADSLIGHT_DESC
         );
         echo $wysiwyg_text_area->render();
         echo '</td></tr>';
