@@ -217,7 +217,7 @@ if ($trows > '0') {
         $GLOBALS['xoopsTpl']->assign('status_head', _ADSLIGHT_STATUS);
         $tempXoopsLocal = new \XoopsLocal();
         //  For US currency with 2 numbers after the decimal comment out if you don't want 2 numbers after decimal
-        $priceFormatted = $tempXoopsLocal->number_format($price, 2, ',', ' ');
+        $priceFormatted = $tempXoopsLocal->number_format($price);
         //  For other countries uncomment the below line and comment out the above line
         //      $priceFormatted = $tempXoopsLocal->number_format($price);
 

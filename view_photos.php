@@ -104,7 +104,7 @@ $picturesHandler = $helper->getHandler('Pictures');
 $pictures_object_array = $picturesHandler->getObjects($criteria_lid, $criteria_uid);
 
 // How many pictures are on the user album
-$pictures_number = $picturesHandler->getCount($criteria_lid, $criteria_uid);
+$pictures_number = $picturesHandler->getCount($criteria_lid);
 
 // Are there pictures in the album?
 if (0 === $pictures_number) {

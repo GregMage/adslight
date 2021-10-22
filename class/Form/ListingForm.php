@@ -162,7 +162,7 @@ class ListingForm extends \XoopsThemeForm
         $criteriaUid = new \Criteria('uid', $uid);
         $picturesObjectsArray = $picturesHandler->getObjects($criteriaLid, $criteriaUid);
         // How many pictures are on the user album
-        $picturesCount = $picturesHandler->getCount($criteriaLid, $criteriaUid);
+        $picturesCount = $picturesHandler->getCount($criteriaLid);
         if ($picturesCount > 0) {
             $photo1 = reset($picturesObjectsArray);
             $photoName = $photo1->getVar('url');

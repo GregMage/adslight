@@ -316,7 +316,7 @@ function viewAds($lid = 0): void
         }
         $GLOBALS['xoopsTpl']->assign('lid', $lid);
         $GLOBALS['xoopsTpl']->assign('read', "${hits} " . _ADSLIGHT_VIEW2);
-        $GLOBALS['xoopsTpl']->assign('rating', $tempXoopsLocal->number_format($item_rating, 2));
+        $GLOBALS['xoopsTpl']->assign('rating', $tempXoopsLocal->number_format($item_rating));
         $GLOBALS['xoopsTpl']->assign('votes', $votestring);
         $GLOBALS['xoopsTpl']->assign('lang_rating', _ADSLIGHT_RATINGC);
         $GLOBALS['xoopsTpl']->assign('lang_ratethisitem', _ADSLIGHT_RATETHISITEM);
@@ -436,7 +436,7 @@ function viewAds($lid = 0): void
             $criteria_uid          = new \Criteria('uid', $usid);
             $picturesHandler         = $helper->getHandler('Pictures');
             $pictures_object_array = $picturesHandler->getObjects($criteria_lid, $criteria_uid);
-            $pictures_number       = $picturesHandler->getCount($criteria_lid, $criteria_uid);
+            $pictures_number       = $picturesHandler->getCount($criteria_lid);
             if (0 === $pictures_number) {
                 $nopicturesyet = _ADSLIGHT_NOTHINGYET;
                 $GLOBALS['xoopsTpl']->assign('lang_nopicyet', $nopicturesyet);

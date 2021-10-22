@@ -110,7 +110,7 @@ function index(): void
             xoops_load('XoopsLocal');
             $tempXoopsLocal = new \XoopsLocal();
             //  For US currency with 2 numbers after the decimal comment out if you don't want 2 numbers after decimal
-            $price = $tempXoopsLocal->number_format($price, 2, ',', ' ');
+            $price = $tempXoopsLocal->number_format($price);
             //  For other countries uncomment the below line and comment out the above line
             //      $price = $tempXoopsLocal->number_format($price);
             $typeprice     = \htmlspecialchars($typeprice, ENT_QUOTES | ENT_HTML5);
@@ -243,7 +243,7 @@ function indexView($lid): void
         xoops_load('XoopsLocal');
         $tempXoopsLocal = new \XoopsLocal();
         //  For US currency with 2 numbers after the decimal comment out if you don't want 2 numbers after decimal
-        $price = $tempXoopsLocal->number_format($price, 2, ',', ' ');
+        $price = $tempXoopsLocal->number_format($price);
         //  For other countries uncomment the below line and comment out the above line
         //      $price = $tempXoopsLocal->number_format($price);
         $typeprice     = \htmlspecialchars($typeprice, ENT_QUOTES | ENT_HTML5);
@@ -392,7 +392,7 @@ function modifyAds($lid): void
         xoops_load('XoopsLocal');
         $tempXoopsLocal = new \XoopsLocal();
         //  For US currency with 2 numbers after the decimal comment out if you don't want 2 numbers after decimal
-        $price = $tempXoopsLocal->number_format($price, 2, ',', ' ');
+        $price = $tempXoopsLocal->number_format($price);
         //  For other countries uncomment the below line and comment out the above line
         //      $price = $tempXoopsLocal->number_format($price);
         $typeprice     = \htmlspecialchars($typeprice, ENT_QUOTES | ENT_HTML5);
