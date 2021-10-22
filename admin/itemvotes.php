@@ -147,7 +147,7 @@ switch ($op) {
             $pagenav = new \XoopsPageNav(
                 $itemvotesTempRows, $itemvotesPaginationLimit, $start, 'start', 'op=list' . '&sort=' . $sort . '&order=' . $order . ''
             );
-            $GLOBALS['xoopsTpl']->assign('pagenav', null === $pagenav ? $pagenav->renderNav() : '');
+            $GLOBALS['xoopsTpl']->assign('pagenav', null !== $pagenav ? $pagenav->renderNav() : '');
         }
 
         $GLOBALS['xoopsTpl']->assign('itemvotesRows', $itemvotesTempRows);

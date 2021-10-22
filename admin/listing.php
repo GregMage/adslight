@@ -192,7 +192,7 @@ switch ($op) {
             $pagenav = new \XoopsPageNav(
                 $listingTempRows, $listingPaginationLimit, $start, 'start', 'op=list' . '&sort=' . $sort . '&order=' . $order . ''
             );
-            $GLOBALS['xoopsTpl']->assign('pagenav', null === $pagenav ? $pagenav->renderNav() : '');
+            $GLOBALS['xoopsTpl']->assign('pagenav', null !== $pagenav ? $pagenav->renderNav() : '');
         }
 
         $GLOBALS['xoopsTpl']->assign('listingRows', $listingTempRows);
