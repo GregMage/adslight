@@ -118,25 +118,25 @@ class PicturesHandler extends \XoopsPersistableObjectHandler
      * @param bool $force
      * @return bool FALSE if failed, TRUE if already present and unchanged or successful
      */
-    public function insert(\XoopsObject $adslightPictures, $force = false): bool
+    public function insert(\XoopsObject $object, $force = false): bool
     {
         global $lid;
-        if (!$adslightPictures instanceof Pictures) {
+        if (!$object instanceof Pictures) {
             return false;
         }
-        if (!$adslightPictures->isDirty()) {
+        if (!$object->isDirty()) {
             return true;
         }
-        if (!$adslightPictures->cleanVars()) {
+        if (!$object->cleanVars()) {
             return false;
         }
-        foreach ($adslightPictures->cleanVars as $k => $v) {
+        foreach ($object->cleanVars as $k => $v) {
             ${$k} = $v;
         }
         $now = \time();
-        if ($adslightPictures->isNew()) {
+        if ($object->isNew()) {
             // add/modify of Pictures
-            $adslightPictures = new Pictures();
+            $object = new Pictures();
 
             $format = 'INSERT INTO `%s` (cod_img, title, date_created, date_updated, lid, uid_owner, url)';
             $format .= 'VALUES (%u, %s, %s, %s, %s, %s, %s)';
@@ -159,7 +159,7 @@ class PicturesHandler extends \XoopsPersistableObjectHandler
         if (empty($cod_img)) {
             $cod_img = $this->db->getInsertId();
         }
-        $adslightPictures->assignVars([
+        $object->assignVars([
                                           'cod_img' => $cod_img,
                                           'lid'     => $lid,
                                           'url'     => $url,
@@ -171,16 +171,16 @@ class PicturesHandler extends \XoopsPersistableObjectHandler
     /**
      * delete Pictures object from the database
      *
-     * @param \XoopsObject $adslightPictures reference to the Pictures to delete
+     * @param \XoopsObject $object reference to the Pictures to delete
      * @param bool         $force
      * @return bool        FALSE if failed.
      */
-    public function delete(\XoopsObject $adslightPictures, $force = false): bool
+    public function delete(\XoopsObject $object, $force = false): bool
     {
-        if (!$adslightPictures instanceof Pictures) {
+        if (!$object instanceof Pictures) {
             return false;
         }
-        $sql = \sprintf('DELETE FROM `%s` WHERE cod_img = %u', $this->db->prefix('adslight_pictures'), $adslightPictures->getVar('cod_img'));
+        $sql = \sprintf('DELETE FROM `%s` WHERE cod_img = %u', $this->db->prefix('adslight_pictures'), $object->getVar('cod_img'));
         if ($force) {
             $result = $this->db->queryF($sql);
         } else {
