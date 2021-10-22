@@ -89,9 +89,8 @@ class PicturesHandler extends \XoopsPersistableObjectHandler
     /**
      * retrieve a light_pictures
      *
-     * @param int      $id of the light_pictures
-     * @param int|null $lid
-     *
+     * @param int|null $id of the light_pictures
+     * @param array|null $fields
      * @return false|\XoopsModules\Adslight\Pictures reference to the {@link light_pictures} object, FALSE if failed
      */
     public function get($id = null, $fields = null)

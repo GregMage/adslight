@@ -114,7 +114,6 @@ switch ($op) {
         }
 
         echo $categoriesObject->getHtmlErrors();
-        /** @var Categories $categoriesObject */
         $form = $categoriesObject->getForm();
         $form->display();
         break;

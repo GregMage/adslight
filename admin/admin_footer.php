@@ -20,8 +20,6 @@ declare(strict_types=1);
 use Xmf\Module\Admin;
 use XoopsModules\Adslight\Helper;
 
-/** @var Helper $helper */
-
 $helper = Helper::getInstance();
 $pathIcon32 = Admin::iconUrl('', '32');
 
