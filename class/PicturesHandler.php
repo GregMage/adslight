@@ -205,7 +205,7 @@ class PicturesHandler extends \XoopsPersistableObjectHandler
         $limit = $start = 0;
         $sql   = 'SELECT * FROM ' . $this->db->prefix('adslight_pictures');
 //        if (isset($criteria) && $criteria instanceof \CriteriaElement) {
-        if (\is_object($criteria) && \is_subclass_of($criteria, \CriteriaElement::class)) {
+        if (($criteria instanceof \CriteriaCompo) || ($criteria instanceof \Criteria)) {
             $sql .= ' ' . $criteria->renderWhere();
             if ('' !== $criteria->getSort()) {
                 $sql .= ' ORDER BY ' . $criteria->getSort() . ' ' . $criteria->getOrder();
@@ -240,7 +240,7 @@ class PicturesHandler extends \XoopsPersistableObjectHandler
     public function getCount(?\CriteriaElement $criteria = null): int
     {
         $sql = 'SELECT COUNT(*) FROM ' . $this->db->prefix('adslight_pictures');
-        if (isset($criteria) && $criteria instanceof \CriteriaElement) {
+        if (($criteria instanceof \CriteriaCompo) || ($criteria instanceof \Criteria)) {
             $sql .= ' ' . $criteria->renderWhere();
         }
         $result = $this->db->query($sql);
@@ -262,7 +262,7 @@ class PicturesHandler extends \XoopsPersistableObjectHandler
     public function deleteAll(\CriteriaElement $criteria = null, $force = true, $asObject = false)
     {
         $sql = 'DELETE FROM ' . $this->db->prefix('adslight_pictures');
-        if (isset($criteria) && $criteria instanceof \CriteriaElement) {
+        if (($criteria instanceof \CriteriaCompo) || ($criteria instanceof \Criteria)) {
             $sql .= ' ' . $criteria->renderWhere();
         }
         if (!$result = $this->db->query($sql)) {
