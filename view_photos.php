@@ -146,7 +146,7 @@ $identifier = $owner::getUnameFromId($uid);
 /**
  * Adding to the module js and css of the lightbox and new ones
  */
-Utility::load_lib_js(); // JJDai
+Utility::loadLightbox(); // JJDai
 // if (1 == $helper->getConfig('adslight_lightbox')) {
 //     $header_lightbox = '<script type="text/javascript" src="lightbox/js/prototype.js"></script>
 // <script type="text/javascript" src="lightbox/js/scriptaculous.js?load=effects"></script>

@@ -458,7 +458,7 @@ function viewAds($lid = 0): void
             $owner      = new \XoopsUser();
             $identifier = $owner::getUnameFromId($usid);
 
-            Utility::load_lib_js(); // JJDai
+            Utility::loadLightbox(); // JJDai
             /*
                         if (1 === $helper->getConfig('adslight_lightbox')) {
 

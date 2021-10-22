@@ -677,7 +677,7 @@ class Utility extends Common\SysUtility
     /***********************************************************************
      * $fldVersion : dossier version de fancybox
      ***********************************************************************/
-    public static function load_lib_js(): void
+    public static function loadLightbox(): void
     {
         global $xoTheme;
         $helper = Helper::getInstance();
