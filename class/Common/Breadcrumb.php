@@ -28,13 +28,15 @@ namespace XoopsModules\Adslight\Common;
  * $breadcrumb->addLink( 'bread 3', 'index3.php' );
  * echo $breadcrumb->render();
  */
-\defined('XOOPS_ROOT_PATH') || exit('XOOPS Root Path not defined');
 
 /**
  * Class Breadcrumb
  */
 class Breadcrumb
 {
+    /**
+     * @var string
+     */
     public  $dirname;
     private $bread = [];
 
@@ -45,6 +47,7 @@ class Breadcrumb
 
     /**
      * Add link to breadcrumb
+     *
      */
     public function addLink(string $title = '', string $link = ''): void
     {

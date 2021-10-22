@@ -25,10 +25,8 @@ trait FilesManagement
      * Function responsible for checking if a directory exists, we can also write in and create an index.html file
      *
      * @param string $folder The full path of the directory to check
-     *
-     * @throws \RuntimeException
      */
-    public static function createFolder($folder): void
+    public static function createFolder(string $folder): void
     {
         try {
             if (!\is_dir($folder)) {
@@ -37,26 +35,17 @@ trait FilesManagement
                 }
                 file_put_contents($folder . '/index.html', '<script>history.go(-1);</script>');
             }
-        } catch (\Throwable $e) {
+        } catch (\Exception $e) {
             echo 'Caught exception: ', $e->getMessage(), "\n", '<br>';
         }
     }
 
-    /**
-     * @param $file
-     * @param $folder
-     * @return bool
-     */
-    public static function copyFile($file, $folder): bool
+    public static function copyFile(string $file, string $folder): bool
     {
         return \copy($file, $folder);
     }
 
-    /**
-     * @param $src
-     * @param $dst
-     */
-    public static function recurseCopy($src, $dst): void
+    public static function recurseCopy(string $src, string $dst): void
     {
         $dir = \opendir($src);
         //        @mkdir($dst);
@@ -129,7 +118,7 @@ trait FilesManagement
      *
      * @uses \Xmf\Module\Helper::getHelper()
      */
-    public static function deleteDirectory($src): bool
+    public static function deleteDirectory(string $src): bool
     {
         // Only continue if user is a 'global' Admin
         if (!($GLOBALS['xoopsUser'] instanceof \XoopsUser) || !$GLOBALS['xoopsUser']->isAdmin()) {
@@ -142,7 +131,7 @@ trait FilesManagement
         if ($dirInfo->isDir()) {
             $fileList = \array_diff(\scandir($src, \SCANDIR_SORT_NONE), ['..', '.']);
             foreach ($fileList as $k => $v) {
-                $fileInfo = new \SplFileInfo("${src}/${v}");
+                $fileInfo = new \SplFileInfo("{$src}/{$v}");
                 if ($fileInfo->isDir()) {
                     // recursively handle subdirectories
                     if (!$success = self::deleteDirectory($fileInfo->getRealPath())) {
@@ -172,7 +161,7 @@ trait FilesManagement
      *
      * @return bool true on success
      */
-    public static function rrmdir($src): bool
+    public static function rrmdir(string $src): bool
     {
         // Only continue if user is a 'global' Admin
         if (!($GLOBALS['xoopsUser'] instanceof \XoopsUser) || !$GLOBALS['xoopsUser']->isAdmin()) {
@@ -209,7 +198,7 @@ trait FilesManagement
      *
      * @return bool true on success
      */
-    public static function rmove($src, $dest): bool
+    public static function rmove(string $src, string $dest): bool
     {
         // Only continue if user is a 'global' Admin
         if (!($GLOBALS['xoopsUser'] instanceof \XoopsUser) || !$GLOBALS['xoopsUser']->isAdmin()) {
@@ -227,10 +216,10 @@ trait FilesManagement
         $iterator = new \DirectoryIterator($src);
         foreach ($iterator as $fObj) {
             if ($fObj->isFile()) {
-                \rename($fObj->getPathname(), "${dest}/" . $fObj->getFilename());
+                \rename($fObj->getPathname(), "{$dest}/" . $fObj->getFilename());
             } elseif (!$fObj->isDot() && $fObj->isDir()) {
                 // Try recursively on directory
-                self::rmove($fObj->getPathname(), "${dest}/" . $fObj->getFilename());
+                self::rmove($fObj->getPathname(), "{$dest}/" . $fObj->getFilename());
                 //                rmdir($fObj->getPath()); // now delete the directory
             }
         }
@@ -249,7 +238,7 @@ trait FilesManagement
      *
      * @uses \Xmf\Module\Helper::getHelper()
      */
-    public static function rcopy($src, $dest): bool
+    public static function rcopy(string $src, string $dest): bool
     {
         // Only continue if user is a 'global' Admin
         if (!($GLOBALS['xoopsUser'] instanceof \XoopsUser) || !$GLOBALS['xoopsUser']->isAdmin()) {
@@ -267,9 +256,9 @@ trait FilesManagement
         $iterator = new \DirectoryIterator($src);
         foreach ($iterator as $fObj) {
             if ($fObj->isFile()) {
-                \copy($fObj->getPathname(), "${dest}/" . $fObj->getFilename());
+                \copy($fObj->getPathname(), "{$dest}/" . $fObj->getFilename());
             } elseif (!$fObj->isDot() && $fObj->isDir()) {
-                self::rcopy($fObj->getPathname(), "${dest}/" . $fObj->getFilename());
+                self::rcopy($fObj->getPathname(), "{$dest}/" . $fObj->getFilename());
             }
         }
         return true;

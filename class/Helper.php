@@ -20,8 +20,6 @@ namespace XoopsModules\Adslight;
  * @author       XOOPS Development Team
  */
 
-\defined('XOOPS_ROOT_PATH') || exit('Restricted access');
-
 /**
  * Class Helper
  */
@@ -42,11 +40,7 @@ class Helper extends \Xmf\Module\Helper
         parent::__construct($this->dirname);
     }
 
-    /**
-     * @param bool $debug
-     * @return \XoopsModules\Adslight\Helper
-     */
-    public static function getInstance(bool $debug = false): self
+    public static function getInstance(bool $debug = false): Helper
     {
         static $instance;
         if (null === $instance) {
@@ -66,21 +60,21 @@ class Helper extends \Xmf\Module\Helper
      *
      * @param string $name name of handler to load
      *
-     * @return bool|\XoopsObjectHandler|\XoopsPersistableObjectHandler
+     * @return \XoopsPersistableObjectHandler
      */
-    public function getHandler($name)
+    public function getHandler($name): ?\XoopsPersistableObjectHandler
     {
-        $ret = false;
+        $ret = null;
 
         $class = __NAMESPACE__ . '\\' . \ucfirst($name) . 'Handler';
         if (!\class_exists($class)) {
-            throw new \RuntimeException("Class '${class}' not found");
+            throw new \RuntimeException("Class '$class' not found");
         }
         /** @var \XoopsMySQLDatabase $db */
         $db     = \XoopsDatabaseFactory::getDatabaseConnection();
         $helper = self::getInstance();
         $ret    = new $class($db, $helper);
-        $this->addLog("Getting handler '${name}'");
+        $this->addLog("Getting handler '$name'");
         return $ret;
     }
 }

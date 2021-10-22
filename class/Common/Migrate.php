@@ -22,7 +22,7 @@ use Xmf\Database\Tables;
  * @category  Migrate
  * @author    Richard Griffith <richard@geekwright.com>
  * @copyright 2016 XOOPS Project (https://xoops.org)
- * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
+ * @license   GNU GPL 2 or later (https://www.gnu.org/licenses/gpl-2.0.html)
  * @link      https://xoops.org
  */
 class Migrate extends \Xmf\Database\Migrate
@@ -40,7 +40,7 @@ class Migrate extends \Xmf\Database\Migrate
     {
         $class = __NAMESPACE__ . '\\' . 'Configurator';
         if (!\class_exists($class)) {
-            throw new \RuntimeException("Class '${class}' not found");
+            throw new \RuntimeException("Class '$class' not found");
         }
         $configurator        = new $class();
         $this->renameTables  = $configurator->renameTables;
@@ -50,24 +50,7 @@ class Migrate extends \Xmf\Database\Migrate
         parent::__construct($this->moduleDirName);
     }
 
-    /**
-     * Perform any upfront actions before synchronizing the schema
-     *
-     * Some typical uses include
-     *   table and column renames
-     *   data conversions
-     */
-    protected function preSyncActions(): void
-    {
-        // rename table
-        if ($this->renameTables && \is_array($this->renameTables)) {
-            $this->renameTable();
-        }
-        // rename column
-        if ($this->renameColumns && \is_array($this->renameColumns)) {
-            $this->renameColumns();
-        }
-    }
+
 
     /**
      * rename table if needed
@@ -107,6 +90,25 @@ class Migrate extends \Xmf\Database\Migrate
 
                 }
             }
+        }
+    }
+
+    /**
+     * Perform any upfront actions before synchronizing the schema
+     *
+     * Some typical uses include
+     *   table and column renames
+     *   data conversions
+     */
+    protected function preSyncActions(): void
+    {
+        // rename table
+        if ($this->renameTables && \is_array($this->renameTables)) {
+            $this->renameTable();
+        }
+        // rename column
+        if ($this->renameColumns && \is_array($this->renameColumns)) {
+            $this->renameColumns();
         }
     }
 }
