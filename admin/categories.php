@@ -147,7 +147,7 @@ switch ($op) {
 
         $id_field = Request::getString('cid', '');
 
-        if ($utility::cloneRecord('adslight_categories', 'cid', (int)$id_field)) {
+        if (null !== $utility::cloneRecord('adslight_categories', 'cid', (int)$id_field)) {
             redirect_header('categories.php', 3, AM_ADSLIGHT_CLONED_OK);
         } else {
             redirect_header('categories.php', 3, AM_ADSLIGHT_CLONED_FAILED);
