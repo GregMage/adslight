@@ -140,8 +140,8 @@ function adsView($cid, $min, $orderby, $show = 0): void
 
     $default_sort = $helper->getConfig('adslight_lsort_order');
 
-    $cid     = (int)$cid > 0 ? (int)$cid : 0;
-    $min     = (int)$min > 0 ? (int)$min : 0;
+    $cid     = max((int)$cid, 0);
+    $min     = max((int)$min, 0);
     $show    = (int)$show > 0 ? (int)$show : $helper->getConfig('adslight_perpage');
     $max     = $min + $show;
     $orderby = isset($orderby) ? Utility::convertOrderByIn($orderby) : $default_sort;
@@ -401,7 +401,7 @@ function adsView($cid, $min, $orderby, $show = 0): void
             $GLOBALS['xoopsTpl']->append('items', $a_item);
         }
 
-        $cid = (int)$cid > 0 ? (int)$cid : 0;
+        $cid = max((int)$cid, 0);
 
         $orderby   = Utility::convertOrderByOut($orderby);
         $linkpages = ceil($trows / $show);

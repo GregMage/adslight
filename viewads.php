@@ -82,7 +82,7 @@ function viewAds($lid = 0): void
     $GLOBALS['xoopsOption']['template_main'] = 'adslight_item.tpl';
     require_once XOOPS_ROOT_PATH . '/header.php';
     //    require_once XOOPS_ROOT_PATH . '/include/comment_view.php';
-    $lid  = (int)$lid > 0 ? (int)$lid : 0;
+    $lid  = max((int)$lid, 0);
     $rate = '1' === $helper->getConfig('adslight_rate_item') ? '1' : '0';
     $GLOBALS['xoopsTpl']->assign('rate', $rate);
     $GLOBALS['xoopsTpl']->assign('xmid', $xoopsModule->getVar('mid'));
