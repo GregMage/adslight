@@ -21,6 +21,9 @@ use Xmf\Request;
 
 //require __DIR__ . '/admin_header.php';
 
+/**
+ * class Blocksadmin
+ */
 class Blocksadmin
 {
     /**
