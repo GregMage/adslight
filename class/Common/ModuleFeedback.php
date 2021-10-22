@@ -4,11 +4,6 @@ declare(strict_types=1);
 
 namespace XoopsModules\Adslight\Common;
 
-use XoopsConfigHandler;
-use XoopsModuleHandler;
-use XoopsObject;
-use XoopsThemeForm;
-
 /*
  You may not change or alter any portion of this comment or credits
  of supporting developers from this source code or any supporting source code
@@ -32,7 +27,7 @@ use XoopsThemeForm;
 /**
  * Class Object ModuleFeedback
  */
-class ModuleFeedback extends XoopsObject
+class ModuleFeedback extends \XoopsObject
 {
     public $name    = '';
     public $email   = '';
@@ -67,7 +62,7 @@ class ModuleFeedback extends XoopsObject
      * provide form for sending a feedback to module author
      * @param bool $action
      */
-    public function getFormFeedback($action = false): XoopsThemeForm
+    public function getFormFeedback($action = false): \XoopsThemeForm
     {
         if (!$action) {
             $action = $_SERVER['REQUEST_URI'];
@@ -153,10 +148,10 @@ class ModuleFeedback extends XoopsObject
         $editorConfigs['cols']   = 40;
         $editorConfigs['width']  = '100%';
         $editorConfigs['height'] = '400px';
-        /** @var XoopsModuleHandler $moduleHandler */
+        /** @var \XoopsModuleHandler $moduleHandler */
         $moduleHandler = \xoops_getHandler('module');
         $module        = $moduleHandler->getByDirname('system');
-        /** @var XoopsConfigHandler $configHandler */
+        /** @var \XoopsConfigHandler $configHandler */
         $configHandler           = \xoops_getHandler('config');
         $config                  = $configHandler->getConfigsByCat(0, $module->getVar('mid'));
         $editorConfigs['editor'] = $config['general_editor'];
