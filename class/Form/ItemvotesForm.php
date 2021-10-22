@@ -26,7 +26,7 @@ namespace XoopsModules\Adslight\Form;
 use Xmf\Request;
 use XoopsModules\Adslight;
 
-require_once dirname(__DIR__, 2) . '/include/common.php';
+require_once \dirname(__DIR__, 2) . '/include/common.php';
 
 $moduleDirName = \basename(\dirname(__DIR__, 2));
 //$helper = Adslight\Helper::getInstance();

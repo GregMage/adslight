@@ -524,7 +524,7 @@ class Blocksadmin
         $myblock->setVar('side', $bside);
         $myblock->setVar('bcachetime', $bcachetime);
         //update block options
-        if (isset($options) && is_array($options)) {
+        if (isset($options) && \is_array($options)) {
             $optionsCount = \count($options);
             if ($optionsCount > 0) {
                 //Convert array values to comma-separated

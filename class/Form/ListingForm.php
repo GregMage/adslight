@@ -26,7 +26,7 @@ namespace XoopsModules\Adslight\Form;
 use Xmf\Request;
 use XoopsModules\Adslight;
 
-require_once dirname(__DIR__, 2) . '/include/common.php';
+require_once \dirname(__DIR__, 2) . '/include/common.php';
 
 $moduleDirName = \basename(\dirname(__DIR__, 2));
 $permHelper = new \Xmf\Module\Helper\Permission();
@@ -164,7 +164,7 @@ class ListingForm extends \XoopsThemeForm
         // How many pictures are on the user album
         $picturesCount = $picturesHandler->getCount($criteriaLid);
         if ($picturesCount > 0) {
-            $photo1 = reset($picturesObjectsArray);
+            $photo1 = \reset($picturesObjectsArray);
             $photoName = $photo1->getVar('url');
             }
         $photo = $photoName ?: 'blank.png';

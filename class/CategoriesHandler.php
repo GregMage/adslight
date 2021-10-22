@@ -88,7 +88,7 @@ class CategoriesHandler extends \XoopsPersistableObjectHandler
             $criteria->add(new \Criteria('pid', $pid));
             if (!$helper->isUserAdmin()) {
                 $categoriesGranted = $permHelper->getGrantedItems('category_read');
-                if (is_array($categoriesGranted) && \count($categoriesGranted) > 0) {
+                if (\is_array($categoriesGranted) && \count($categoriesGranted) > 0) {
                     $criteria->add(new \Criteria('cid', '(' . \implode(',', $categoriesGranted) . ')', 'IN'));
                 } else {
                     return 0;
