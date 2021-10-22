@@ -290,7 +290,7 @@ if (Request::hasVar('submit', 'POST')) {
         $form->addElement(new \XoopsFormLabel(_ADSLIGHT_CAT3, "<b>{$cat_title}</b>"));
         $form->addElement(new \XoopsFormHidden('cid', (string)$cid), true);
 
-        if (1 === (int)$premium) {
+        if (1 === $premium) {
             $radio        = new \XoopsFormRadio(_ADSLIGHT_STATUS, 'status', '');
             $options['0'] = _ADSLIGHT_ACTIVE;
             $options['1'] = _ADSLIGHT_INACTIVE;
@@ -348,7 +348,7 @@ if (Request::hasVar('submit', 'POST')) {
         //if ($helper->getConfig("adslight_use_captcha") == '1') {
         //  $form->addElement(new \XoopsFormCaptcha(_ADSLIGHT_CAPTCHA, "xoopscaptcha", false), true);
         //}
-        if (0 !== (int)$premium) {
+        if (0 !== $premium) {
             $form->addElement(new \XoopsFormHidden('premium', 'yes'), false);
         } else {
             $form->addElement(new \XoopsFormHidden('premium', 'no'), false);

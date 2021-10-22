@@ -105,7 +105,7 @@ function adslight_b2_show($options)
 
         $a_item['price'] = $priceHtml;
 
-        if (2 === (int)$status) {
+        if (2 === $status) {
             $a_item['sold'] = '<img src="assets/images/sold.gif" align="left" alt="">';
         }
 

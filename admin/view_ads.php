@@ -427,15 +427,15 @@ function modifyAds($lid): void
              . '</tr>';
 
         echo "<tr><td class='head'>" . _AM_ADSLIGHT_STATUS . "</td><td class='head'><input type=\"radio\" name=\"status\" value=\"0\"";
-        if (0 === (int)$status) {
+        if (0 === $status) {
             echo 'checked';
         }
         echo '>' . _AM_ADSLIGHT_ACTIVE . '&nbsp;&nbsp; <input type="radio" name="status" value="1"';
-        if (1 === (int)$status) {
+        if (1 === $status) {
             echo 'checked';
         }
         echo '>' . _AM_ADSLIGHT_INACTIVE . '&nbsp;&nbsp; <input type="radio" name="status" value="2"';
-        if (2 === (int)$status) {
+        if (2 === $status) {
             echo 'checked';
         }
         echo '>' . _AM_ADSLIGHT_SOLD . '</td></tr>';

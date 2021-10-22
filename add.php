@@ -274,7 +274,7 @@ if (Request::hasVar('submit', 'POST')) {
     $cid       = 0;
     $cat_perms = Utility::getMyItemIds('adslight_submit');
     if (is_array($cat_perms) && $cat_perms !== []) {
-        if (!\in_array((int)$cid, $cat_perms, true)) {
+        if (!\in_array($cid, $cat_perms, true)) {
             //mb            $helper->redirect('index.php', 3, _NOPERM);
         }
 

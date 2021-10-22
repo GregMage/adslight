@@ -157,7 +157,7 @@ switch ($action) {
         echo '<br>';
         foreach ($mids as $mid) {
             $mid = (int)$mid;
-            if (\in_array((int)$mid, $available_modules, true)) {
+            if (\in_array($mid, $available_modules, true)) {
                 $module  = $modules[$mid];
                 $results = $module->search($queries, $andor, 5, 0);
                 $count   = 0;
