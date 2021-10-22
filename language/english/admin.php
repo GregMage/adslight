@@ -367,7 +367,7 @@ define('AM_ADSLIGHT_LISTING_PHOTO', 'Photo');
 define('AM_ADSLIGHT_LISTING_HITS', 'Hits');
 define('AM_ADSLIGHT_LISTING_ITEM_RATING', 'ItemRating');
 define('AM_ADSLIGHT_LISTING_ITEM_VOTES', 'ItemVotes');
-define('AM_ADSLIGHT_LISTING_USER_RATING', 'USer Rating');
+define('AM_ADSLIGHT_LISTING_USER_RATING', 'User Rating');
 define('AM_ADSLIGHT_LISTING_USER_VOTES', 'UserVotes');
 define('AM_ADSLIGHT_LISTING_COMMENTS', 'Comments');
 define('AM_ADSLIGHT_LISTING_REMIND', 'Remind');
